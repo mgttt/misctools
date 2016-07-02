@@ -74,12 +74,16 @@ opcache.max_wasted_percentage=5
 opcache.memory_consumption=128
 opcache.consistency_checks=0
 
-#@ref 
+#for safety of php-fpm, @ref 
 #https://help.aliyun.com/knowledge_detail/5994617.html
 cgi.fix_pathinfo=0
 
 EOF
 ) > $HOME/opt/php7/lib/php.ini
 
-$HOME/opt/php7/bin/php -m
+alias php7='$HOME/opt/php7/bin/php'
+alias php7-fpm='$HOME/opt/php7/sbin/php-fpm'
+
+php7 -m
+php7-fpm -m
 
