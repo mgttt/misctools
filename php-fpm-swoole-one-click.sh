@@ -8,10 +8,14 @@ PHPDL="http://hk.php.net/distributions/"
 mkdir $HOME/php7/
 cd $HOME/php7/
 
-# TODO skip if file exists and checksum currect? (download checksume also...)
-wget http://hk1.php.net/distributions/php-$PHPVER.tar.gz -O php-${PHPVER}.tgz
+PHPTGZ=php-${PHPVER}.tgz
+if [ ! -f "$PHPTGZ" ]
+then
+wget http://hk1.php.net/distributions/php-$PHPVER.tar.gz -O $PHPTGZ
 ls -al php-${PHPVER}.tgz
 tar xzvf php-$PHPVER.tar.gz
+fi
+
 cd php-$PHPVER/
 
 # TODO more PHPCONF 
