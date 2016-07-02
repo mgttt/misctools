@@ -51,7 +51,34 @@ $HOME/opt/php7/bin/pear config-set temp_dir $HOME/php7/
 $HOME/opt/php7/bin/pecl uninstall swoole
 $HOME/opt/php7/bin/pecl install swoole
 
-echo "" > $HOME/opt/php7/lib/php.ini
-cp $HOME/php.ini $HOME/opt/php7/lib/php.ini
-echo "zend_extension=opcache.so" >> $HOME/opt/php7/lib/php.ini
+(cat <<EOF
+short_open_tag = On
+#max_executionn_time=600
+#memory_limit=512M
+#error_reporting=1
+#display_errors=0
+log_errors=1
+user_ini.filename=
+realpath_cache_size=2M
+cgi.check_shebang_line=0
+
+zend_extension=opcache.so
+opcache.enable_cli=1
+opcache.save_comments=0
+opcache.fast_shutdown=1
+opcache.validate_timestamps=1
+opcache.revalidate_freq=60
+opcache.use_cwd=1
+opcache.max_accelerated_files=100000
+opcache.max_wasted_percentage=5
+opcache.memory_consumption=128
+opcache.consistency_checks=0
+
+#@ref 
+#https://help.aliyun.com/knowledge_detail/5994617.html
+cgi.fix_pathinfo=0
+
 echo "extension=swoole.so" >> $HOME/opt/php7/lib/php.ini
+EOF
+) > $HOME/opt/php7/lib/php.ini
+
