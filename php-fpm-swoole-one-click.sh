@@ -51,5 +51,7 @@ $HOME/opt/php7/bin/pear config-set temp_dir $HOME/php7/
 $HOME/opt/php7/bin/pecl uninstall swoole
 $HOME/opt/php7/bin/pecl install swoole
 
+echo "" > $HOME/opt/php7/lib/php.ini
 cp $HOME/php.ini $HOME/opt/php7/lib/php.ini
+echo "zend_extension=opcache.so" >> $HOME/opt/php7/lib/php.ini
 echo "extension=swoole.so" >> $HOME/opt/php7/lib/php.ini
