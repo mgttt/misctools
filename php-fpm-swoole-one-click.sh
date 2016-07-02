@@ -78,7 +78,8 @@ opcache.consistency_checks=0
 #https://help.aliyun.com/knowledge_detail/5994617.html
 cgi.fix_pathinfo=0
 
-echo "extension=swoole.so" >> $HOME/opt/php7/lib/php.ini
 EOF
 ) > $HOME/opt/php7/lib/php.ini
+
+$HOME/opt/php7/bin/php -m
 
