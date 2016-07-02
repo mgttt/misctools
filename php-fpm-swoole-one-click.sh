@@ -48,4 +48,8 @@ make && make install
 $HOME/opt/php7/bin/pear config-set download_dir $HOME/php7/
 $HOME/opt/php7/bin/pear config-set temp_dir $HOME/php7/
 
+$HOME/opt/php7/bin/pecl uninstall swoole
 $HOME/opt/php7/bin/pecl install swoole
+
+cp $HOME/php.ini $HOME/opt/php7/lib/php.ini
+echo "extension=swoole.so" >> $HOME/opt/php7/lib/php.ini
