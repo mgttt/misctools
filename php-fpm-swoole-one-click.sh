@@ -1,16 +1,17 @@
 # php swoole dl compile link php-fpm install quick sh
+# php-fpm-swoole-one-click.sh
 
-echo PHPVER="7.0.8"
-echo PHPDL="http://hk.php.net/distributions/"
-echo mkdir $HOME/php7/
-echo cd $HOME/php7/
-echo wget http://hk1.php.net/distributions/php-$PHPVER.tar.gz -o php-${PHPVER}.tgz
-echo ls -al php-${PHPVER}.tgz
-echo tar xzvf php-$PHPVER.tar.gz
-echo cd php-$PHPVER/
+PHPVER="7.0.8"
+PHPDL="http://hk.php.net/distributions/"
+mkdir $HOME/php7/
+cd $HOME/php7/
+wget http://hk1.php.net/distributions/php-$PHPVER.tar.gz -o php-${PHPVER}.tgz
+ls -al php-${PHPVER}.tgz
+tar xzvf php-$PHPVER.tar.gz
+cd php-$PHPVER/
 
 
-echo ./configure \
+./configure \
 --prefix=$HOME/opt/php7 \
 --enable-opcache \
 --with-openssl \
