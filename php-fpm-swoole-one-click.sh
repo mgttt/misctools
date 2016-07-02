@@ -9,7 +9,7 @@ mkdir $HOME/php7/
 cd $HOME/php7/
 
 # TODO skip if file exists and checksum currect? (download checksume also...)
-wget http://hk1.php.net/distributions/php-$PHPVER.tar.gz -o php-${PHPVER}.tgz
+wget http://hk1.php.net/distributions/php-$PHPVER.tar.gz -O php-${PHPVER}.tgz
 ls -al php-${PHPVER}.tgz
 tar xzvf php-$PHPVER.tar.gz
 cd php-$PHPVER/
