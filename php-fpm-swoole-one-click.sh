@@ -12,8 +12,8 @@ PHPTGZ=php-${PHPVER}.tgz
 if [ ! -f "$PHPTGZ" ]
 then
 wget http://hk1.php.net/distributions/php-$PHPVER.tar.gz -o $PHPTGZ
-ls -al php-${PHPVER}.tgz
-tar xzvf php-$PHPVER.tar.gz
+ls -al $PHPTGZ
+tar xzvf $PHPTGZ
 fi
 
 cd php-$PHPVER/
