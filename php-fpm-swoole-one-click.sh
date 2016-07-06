@@ -2,6 +2,9 @@
 # Purpose: php swoole dl compile link php-fpm install quick sh
 # Usage: wget -q https://github.com/wanjochan/misctools/raw/master/php-fpm-swoole-one-click.sh -O - | sh
 
+echo WARNING: some dependence could be needed
+echo sudo apt-get install -y autoconf g++ make openssl libssl-dev libcurl4-openssl-dev libcurl4-openssl-dev pkg-config
+
 # TODO if args provided then use args --PHPVER, and also the PHPDL and target folder
 PHPVER="7.0.8"
 PHPDL="http://hk.php.net/distributions/"
