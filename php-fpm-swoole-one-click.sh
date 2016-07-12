@@ -1,6 +1,6 @@
 # Auth: Wanjo Chan
 # Purpose: php swoole dl compile link php-fpm install quick sh
-# Usage: wget -q https://github.com/wanjochan/misctools/raw/master/php-fpm-swoole-one-click.sh -O - | sh
+# Usage: wget --no-cache -q https://github.com/wanjochan/misctools/raw/master/php-fpm-swoole-one-click.sh -O - | sh
 
 echo WARNING: some dependence could be needed
 echo sudo apt-get install -y autoconf g++ make openssl libssl-dev libcurl4-openssl-dev libcurl4-openssl-dev pkg-config
