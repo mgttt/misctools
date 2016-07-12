@@ -11,10 +11,10 @@ PHPDL="http://hk.php.net/distributions/"
 mkdir $HOME/php7/
 cd $HOME/php7/
 
-PHPTGZ=php-${PHPVER}.tgz
+PHPTGZ=php-${PHPVER}.tar.gz
 if [ ! -f "$PHPTGZ" ]
 then
-wget http://hk1.php.net/distributions/php-$PHPVER.tar.gz -o $PHPTGZ
+wget http://hk1.php.net/distributions/$PHPTGZ
 ls -al $PHPTGZ
 tar xzvf $PHPTGZ
 fi
