@@ -1,0 +1,30 @@
+
+# Reverse
+<VirtualHost *:80>
+ProxyPreserveHost Off
+#ProxyPass / http://10.90.19.220/
+#ProxyPassReverse / http://10.90.19.220/
+#ProxyPass / http://hhvm.local/
+#ProxyPassReverse / http://hhvm.local/
+ProxyPass / http://$ip:$port/ retry=0
+ProxyPassReverse / http://$ip:$port/
+</VirtualHost>
+
+
+# RT (deprecated, for reference only)
+
+<VirtualHost *:888>
+ServerName rt.cashexpress.asia
+#<Directory "/opt/rt4/share/html">
+#    Order allow,deny
+#    Allow from all
+#</Directory>
+<Directory /opt/rt4/share/html>
+        Options Indexes FollowSymLinks
+        AllowOverride None
+        Require all granted
+</Directory>
+Include /opt/rt4/etc/apache2-modperl2.conf
+#Include /etc/request-tracker4/apache2-modperl2.conf
+RedirectMatch ^/$ /rt
+</VirtualHost>
