@@ -1,0 +1,176 @@
+
+# should change to $CPU_COUNTS
+worker_processes 4;
+
+# notice the multi_accept
+events {
+        worker_connections 1024;
+        multi_accept on;
+}
+
+        ##
+        # Basic Settings
+        ##
+
+        sendfile on;
+        tcp_nopush on;
+        tcp_nodelay on;
+        keepalive_timeout 65;
+        types_hash_max_size 2048;
+        # server_tokens off;
+
+        # server_names_hash_bucket_size 64;
+        # server_name_in_redirect off;
+
+        ##
+        # Gzip Settings
+        ##
+
+        gzip on;
+        gzip_disable "msie6";
+
+        # gzip_vary on;
+        # gzip_proxied any;
+        # gzip_comp_level 6;
+        # gzip_buffers 16 8k;
+        # gzip_http_version 1.1;
+        # gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+
+## 
+gzip_vary on;
+gzip_min_length 10240;
+
+# TODO:
+#gzip_proxied expired no-cache no-store private auth;
+
+# no need to gzip some file...seems not stable..?
+#gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml;
+
+# gzip the xml seems no problem...
+gzip_types application/xml;
+
+
+
+
+# .../site-default/default
+
+server {
+        listen 80 default_server;
+        listen 81 default_server;
+        #listen [::]:80 default_server ipv6only=on;
+
+        #root /usr/share/nginx/html;
+        root /home/htdocs;
+        index index.php index.html index.htm;
+
+        # Make site accessible from http://localhost/
+        #server_name localhost;
+        server_name defaulthost;
+error_page 404 /404b.php;
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        #
+        
+location /upload/ {
+    #proxy_pass http://$innerIp/upload/;
+    #proxy_pass http://10.160.41.68:81/upload/;
+}
+location ~* \.(jpg|jpeg|gif|png|css|js|ico|xml)$ {
+        access_log        off;
+        log_not_found     off;
+        expires           30d;
+}
+
+location ~ \.php$ {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+# NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+
+# With php5-cgi alone:
+#fastcgi_pass 127.0.0.1:9000;
+# With php5-fpm:
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_cache off;
+        fastcgi_cache_bypass 1;
+        fastcgi_no_cache 1;
+        fastcgi_buffer_size 128k;
+        fastcgi_buffers 256 16k;
+        fastcgi_busy_buffers_size 256k;
+        fastcgi_temp_file_write_size 256k;
+        include fastcgi_params;
+}
+
+#### CMP compliance
+location / {
+        if ($uri ~ ".*/_logs/.*$"){
+                set $rule_0 1$rule_0;
+        }
+        if ($rule_0 = "1"){
+                rewrite /.*/_logs/.*$   /404b.php;
+        }
+        if ($uri ~ ".*/_tmp/.*$"){
+                set $rule_1 1$rule_1;
+        }
+        if ($rule_1 = "1"){
+                rewrite /.*/_tmp/.*$    /404b.php;
+        }
+
+        if ($uri ~ "(.*)/([^/]*).shtml$"){
+                set $rule_2 1$rule_2;
+                set $bref_1 $1;
+        }
+        if ($rule_2 = "1"){
+                rewrite /([^/]*).shtml$ /$bref_1/shtml.php?_p=$1&$args;
+        }
+        if ($uri ~ "(.*)/([^/]*).json$"){
+                set $rule_3 1$rule_3;
+                set $bref_1 $1;
+        }
+        if ($rule_3 = "1"){
+                rewrite /([^/,]*),([^,]*),([^,]*),?([^,]*)(.*).json$ /$bref_1/index.php?_s=$1&_c=$2&_m=$3&_p=$4&_p2=$5&$args;
+        }
+        if ($uri ~ "(.*)/([^/]*).jsonp$"){
+                set $rule_4 1$rule_4;
+                set $bref_1 $1;
+        }
+        if ($rule_4 = "1"){
+                rewrite /([^/,]*),([^,]*),([^,]*),?([^,]*)(.*).jsonp$ /$bref_1/index.php?_s=$1&_c=$2&_m=$3&_p=$4&_p2=$5&$args;
+        }
+        if ($uri ~ "(.*)/([^/]*).web$"){
+                set $rule_5 1$rule_5;
+                set $bref_1 $1;
+        }
+        if ($rule_5 = "1"){
+                rewrite /([^/,]*),([^,]*),([^,]*),?(.*).web$ /$bref_1/index.php?_s=$1&_c=$2&_m=$3&_p=$4&$args;
+        }
+        if ($uri ~ "(.*)/([^/]*).api$"){
+                set $rule_6 1$rule_6;
+                set $bref_1 $1;
+        }
+        if ($rule_6 = "1"){
+                #rewrite /([^.]*).([^.]*).api$ /$bref_1/index.php?_c=$1&_m=$2&$args;
+                rewrite /([^\./]*)\.([^\.]*)\.api$ /$bref_1/index.php?_c=$1&_m=$2&$args;
+                rewrite /([^/]*)\.api$ /$bref_1/index.php?_c=&_m=$1&$args;
+        }
+        if ($uri ~ "(.*)/([^/]*).static$"){
+                set $rule_7 1$rule_7;
+                set $bref_1 $1;
+        }
+        if ($rule_7 = "1"){
+                #rewrite /([^/]*).static$ /$bref_1/static.php?_static=$1&$args;
+                rewrite /([^/]*)\.([^\.]*)\.static$ /$bref_1/static.php?_c=$1&_m=$2&$args;
+                rewrite /([^/]*)\.static$ /$bref_1/static.php?_c=&_m=$1&$args;
+        }
+        if ($uri ~ "(.*)/([^/]*).bpm$"){
+                set $rule_8 1$rule_8;
+                set $bref_8 $1;
+        }
+        if ($rule_8 = "1"){
+                rewrite /([^/]*)\.([^\.]*)\.bpm$ /$bref_8/bpm.php?bpmn_name=$1&activity_code=$2&$args;
+                rewrite /([^/]*)\.bpm$ /$bref_8/bpm.php?bpmn_name=$1&$args;
+        }
+}
+
+        location ~ /\.ht {
+                deny all;
+        }
+}
