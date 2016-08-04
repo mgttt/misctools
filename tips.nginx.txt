@@ -174,3 +174,93 @@ location / {
                 deny all;
         }
 }
+
+######### balancing (nginx.conf)
+http {
+upstream innerdockers{
+    server 127.0.0.1:8801;
+    server 127.0.0.1:8802;
+    server 127.0.0.1:8803;
+}
+upstream fpminnerdockers{
+    server 127.0.0.1:9901;
+    server 127.0.0.1:9902;
+    server 127.0.0.1:9903;
+}
+#########  balancing (to multi fpm)
+
+
+server {
+        listen       8899;
+        server_name  localhost;
+
+        location / {
+root /home/htdocs;
+                index  index.php index.html index.htm;
+        }
+
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+                root   html;
+        }
+        location ~ \.php$ {
+#fastcgi_pass   127.0.0.1:9000;
+                root           /htdocs;
+                fastcgi_pass   fpminnerdockers;
+#fastcgi_pass unix:/var/run/nginxphpfpm/php-fpm.sock;
+                fastcgi_index  index.php;
+                fastcgi_param  SCRIPT_FILENAME  /htdocs$fastcgi_script_name;
+                include        fastcgi_params;
+        }
+}
+
+
+###### balancing to multi web
+server {
+        listen 8800;
+        location / {
+                proxy_http_version 1.1;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_ignore_client_abort on;
+                proxy_connect_timeout 90;
+                proxy_send_timeout 90; proxy_read_timeout 90;
+                proxy_next_upstream error timeout invalid_header http_500 http_503 http_404;
+                proxy_set_header Accept-Encoding '';
+                proxy_set_header Host $host;
+                proxy_pass http://innerdockers;
+        }
+}
+
+
+### better reverse?
+
+location / {
+proxy_set_header Host $host;
+#proxy_set_header Host $host:$server_port;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_ignore_client_abort on;
+proxy_connect_timeout 600;
+proxy_read_timeout 600;
+proxy_send_timeout 600;
+send_timeout                300;
+#proxy_next_upstream error timeout invalid_header http_500 http_503 http_404;
+proxy_next_upstream error timeout invalid_header http_500;
+#proxy_next_upstream http_500;
+#proxy_set_header Accept-Encoding 'gzip';
+proxy_set_header Accept-Encoding '';
+proxy_buffer_size 64k;
+proxy_buffers   32 32k;
+proxy_busy_buffers_size 128k;
+proxy_temp_file_write_size 64k;
+
+proxy_pass http://127.0.0.1:80/;
+}
+
+### reverse (most simple)
+location /upload/ {
+proxy_pass http://10.160.41.68:81/upload/;
+}
+
+
