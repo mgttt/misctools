@@ -1,0 +1,45 @@
+Putty for Mac OS X – How to install and Use it on Mac
+February 22, 2016 | How-To	|	No Comments
+Putty is one of the Best open Source Terminal Emulator. It Supports different types of Network Protocols such as SSH, FTP, SCP, Telnet etc. In Windows it is used as SSH Client to connect to Your Linux server or for some other purpose But what will you do if you are on Mac? You might be thinking , Is there any Software like Putty for Mac Availaible?  The answer is Yes! With the help of some other Softwares we can Use putty on Mac although Putty is used widely on Windows Platform. Official Versions of Putty are availaible on Unix like Platforms, Also Unofficial Versions are also available for Windows and Mac.
+
+SSH is available by default in Mac and Linux or Unix. Although you can use terminal for SSH connections still there are some benefits using putty such as Other clients don’t keep connections alive whereas Putty does. Also it is cool to use Putty as your SSH client if you are doing some CISCO Stuffs, transferring files, managing files on a server or whatever.
+
+Follow the Steps Given Below to install putty on Mac :
+
+putty for mac
+
+1.Download Xcode
+
+You can Find Xcode in Apple Developer Connection Website or in the Mac App Store.
+
+2. Install CLI(Command Line Tools) for Xcode
+
+On Xcode :
+
+Preferences -> Downloads -> Components -> Install 'Command Line Tools'
+3. Accept Xcode TOS or EULA
+
+xcodebuild -license
+4. Download and Install Mac Ports
+
+http://bit.ly/21jsbsm
+5. Update Mac Ports
+
+sudo port -v selfupdate
+6. Install Putty
+
+
+
+sudo port install putty
+7. Download and Install X11
+
+http://xquartz.macosforge.org/landing/
+8. Run Putty from the terminal
+
+putty
+9. Copy the Putty Shortcut to Desktop
+
+cp /opt/local/bin/putty ~/Desktop/PuTTY
+10. Done!
+
+That's it! Sit Back and Relax! All work is Done. You can Use Putty for Mac Now :)
