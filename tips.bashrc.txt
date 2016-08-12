@@ -1,0 +1,12 @@
+
+
+export PS1='\u: \w\n$ '
+alias ll='ls -al'
+alias dk='docker'
+alias di='docker images'
+alias dp='docker ps'
+alias gitstatus='git status'
+alias gitcommit='git commit -a'
+alias gitpush='git push'
+
+export PATH=/usr/local/sbin:/usr/local/bin:$PATH
