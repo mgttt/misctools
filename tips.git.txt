@@ -1,0 +1,29 @@
+
+#for linux
+git config --global diff.tool bc4
+git config --global difftool.bc4.path "/Applications/Beyond\ Compare.app/Contents/MacOS/bcomp"
+git config --global merge.tool bc4
+git config --global mergetool.bc4.cmd '/Applications/Beyond\ Compare.app/Contents/MacOS/bcomp $BASE $LOCAL $REMOTE $MERGED'
+git config --global mergetool.bc4.trustExitCode true
+git config --global mergetool.keepBackup false
+
+#for win
+git config --global diff.tool bc4
+git config --global difftool.bc4.path "z:/green/BeyondCompare4.07.green/BComp.exe"
+git config --global merge.tool bc4
+git config --global mergetool.bc4.cmd "z:/green/BeyondCompare4.07.green/BComp.exe $BASE $LOCAL $REMOTE $MERGED"
+git config --global mergetool.bc4.trustExitCode true
+git config --global mergetool.keepBackup false
+
+#update remote => base
+git fetch
+
+#try auto merge with base => local
+git merge
+
+#try using GUI to do the rest merge
+git mergetool
+
+# TODO 上面好像是一次一个文件，要继续下一个好像是
+git rebase --continue
+
