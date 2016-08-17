@@ -7,6 +7,12 @@ git config --global mergetool.bc4.cmd '/Applications/Beyond\ Compare.app/Content
 git config --global mergetool.bc4.trustExitCode true
 git config --global mergetool.keepBackup false
 
+# 或者在BC的菜单里面选择 【Install Command Line Tool】 然后得到 /usr/local/bin/bcomp
+git config --global diff.tool bcomp
+git config --global difftool.bcomp trustExitCode true
+git config --global merge.tool bcomp
+git config --global mergetool.bcomp trustExitCode true
+
 #for win
 git config --global diff.tool bc4
 git config --global difftool.bc4.path "z:/green/BeyondCompare4.07.green/BComp.exe"
