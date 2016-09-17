@@ -1,0 +1,197 @@
+set number
+set ruler
+
+set nocompatible
+
+function MyDiff()
+  let opt = ''
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  silent execute '!' . $VIMRUNTIME .'\diff -a ' . opt . v:fname_in . ' ' . v:fname_new . ' > ' . v:fname_out
+endfunction
+set diffexpr=MyDiff()
+
+"function Update()
+"  let &backupext="." . strftime("%d%b%Y-%H%M%S")
+"  set fileformat=dos
+"  :update
+"	if &syntax== 'xml'
+"		silent! call <SNR>Tlist_Open_Window(expand('%:p'), &syntax)
+"		call <SNR>12_Tlist_Toggle_Window(expand('%:p'), &syntax)
+"		call <SNR>12_Tlist_Toggle_Window(expand('%:p'), &syntax)
+"	endif
+"endfunction
+
+"function RepeatStr(strToRepeat,repeatTimes)
+"	let ss=''
+"	let ii=a:repeatTimes
+"	while ii>0
+"		let ss = ss . a:strToRepeat
+"		let ii = ii - 1
+"	endwhile
+"	return ss
+"endfunction
+
+set shiftwidth=2
+set tabstop=2
+set softtabstop=2
+set foldcolumn=8
+set foldmethod=syntax
+"set foldmethod=marker
+" Edit and uncomment next line if you want non-default marker
+"set foldmarker="{{{,}}}"
+
+let perl_fold = 1
+
+set smarttab
+" set expandtab " I likes, but will change Tab into space, not good for dev
+set autoindent
+set number
+"set cursorcolumn
+set cursorline
+"set nowrap
+
+
+"temp files
+"set backupdir=$VIM\vimtmp\
+"set directory=C:\vim\vimtmp
+set backupdir=$TMPDIR
+set dir=$TMPDIR
+
+colo koehler "I like this scheme
+
+"command Save :call Update() 'patch for HCC Dev
+
+"fantasy tags show
+"let Flist_Auto_Refresh = 1
+"let Tlist_Auto_Refresh = 1
+"let Flist_Ctags_Cmd = 'c:\Vim\vim61\ctags.exe'
+"let Tlist_Ctags_Cmd = $VIMRUNTIME . '/ctags.exe'
+let Tlist_Ctags_Cmd = '/usr/local/bin/ctags -f - '
+"let Fmenu_ctags_path = 'c:\Vim\vim61\ctags.exe'
+"let Fmenu_sort_type="order"
+nnoremap <silent> <F8> :Tlist<CR>
+nnoremap <silent> <F7> :TlistUpdate<CR>
+""nnoremap <silent> <F6> :!c:\sae13\sae\bin\php-5.3.8\php.exe -l %<CR>
+nnoremap <silent> <F6> :!php -l %<CR>
+" let Fmenu_max_
+"source $VIMRUNTIME/../taglist.vim
+source ~/taglist.vim
+"source $VIMRUNTIME/funclist.vim
+"source $VIMRUNTIME/funcmenu.vim
+
+"set guifont=ÑźÚ:h9 "I like it
+"KO
+"set guifont="YaHei Consolas Hybrid":h9
+set guifont=Microsoft_YaHei_Mono:h9
+"set guifont=ÐÂËÎÌå:h9 "I like it
+"set fileformat=dos
+
+"option for diff see :help diffopt
+set diffopt=filler,iwhite
+
+"always show status line
+set laststatus=2
+
+"no toolbar
+set guioptions-=T
+"enable right-click
+"set mousemodel=popup
+
+" -- set pyw same as python
+"augroup filetypedetect
+"au BufNewFile,BufRead *.pyw setf python
+"augroup END
+
+" -- reduce it for nauseating tag based stuff
+"augroup filetypedetect
+"au BufNewFile,BufRead *.html,*.htm,*.xhtml,*.xml,*.dtml,*.pt,*.css,*.xsl
+"            \ set tabstop=2 shiftwidth=2
+"augroup END
+
+"search
+"set nowrapscan
+
+"augroup filetypedetect
+"au BufNewFile,BufRead *.html,*.htm,*.xhtml,*.xml,*.dtml,*.php
+"            \ *.pt,*.css,*.asp,*.vbs,*.xsl  set ignorecase
+"augroup END
+
+augroup filetypedetect
+au BufNewFile,BufRead *.as set filetype=actionscript
+augroup END
+
+augroup filetypedetect
+"au BufWritePre,BufWriteCmd,BufWrite * let &backupext="." . strftime("%d%b%Y-%H%M%S")
+au BufNewFile,BufRead *.*
+            \ set tabstop=2 shiftwidth=2 encoding=utf8
+au BufWritePre * let &backupext="." . strftime("%d%b%Y-%H%M%S")
+augroup END
+
+" taglist
+"let Tlist_Auto_Highlight_Tag = 1
+"let Tlist_Auto_Open = 1
+"let Tlist_Auto_Update = 1
+"let Tlist_Close_On_Select = 0
+"let Tlist_Compact_Format = 0
+"let Tlist_Display_Prototype = 0
+"let Tlist_File_Fold_Auto_Close = 0
+"let Tlist_GainFocus_On_ToggleOpen = 1
+"let Tlist_Hightlight_Tag_On_BufEnter = 1
+"let Tlist_Inc_Winwidth = 0
+"let Tlist_Max_Submenu_Items = 1
+"let Tlist_Max_Tag_Length = 25
+"let Tlist_Process_File_Always = 0
+"let Tlist_Show_Menu = 0
+"let Tlist_Show_One_File = 0
+"let Tlist_Sort_Type = "order"
+"let Tlist_Use_Horiz_Window = 0
+"let Tlist_Use_Right_Window = 1
+"let Tlist_WinWidth = 30
+
+"if a:ftype =~ 'xml' "and HCC?
+"	let s:tlist_xml_ctags_args = ' --langdef=xml --langmap=xml:.xml --regex-xml=/^("<"htmlState)\W*id=\W*(\w*)/\2/h,htmlState/ --regex-xml=/^("<"operation"|""<"com\..*)\W*id=\W{0,1}(\w*)/\2/o,operation/ --regex-xml=/^("<"type)\W*id=\W{0,1}((\w"|"\$)*)/\2/t,type/ --regex-xml=/^("<"\w*Descriptor)\W*id=\W{0,1}((typeDefault)"|"((\w"|"\$)*))/\4/c,context/ --regex-xml=/^("<"HccSegment"|""<"fmtDef"|""<"record"|""<"mapper"|""<"HccResponse"|""<"HccStimulus)\W*id=\W{0,1}(\w*)/\2/f,format/ --regex-xml=/^("<"context)\W*id=\W{0,1}(\w*)/\2/c,context/ --xml-types=htfco'
+"fi
+"let tlist_php_ctags_args=' -R --exclude=.svn --tag-relative=yes --php-kinds=+cf-v --regex-php=/abstract\s+class\s+([^ ]+)/\1/c/ --regex-php=/interface\s+([^ ]+)/\1/c/ --regex-php=/(public\s+|static\s+|abstract\s+|protected\s+|private\s+)function\s+\&?\s*([^ (]+)/\2/f/ '
+"let tlist_php_settings = 'php;c:class;i:interfaces;d:constant;fv:prv-func;fp:pub-func'
+let tlist_php_settings = 'php;k:class;t:interfaces;d:constant;p:pub-func;r:priv-func;u:document'
+"ctags.cnf
+"-R
+"--exclude=.svn
+"--tag-relative=yes
+"--php-kinds=+ktpr-vc
+"--regex-php=/^(\s+abstract\s+class\s+)([^ ]+)/\2/k/
+"--regex-php=/^\s*class\s+([^ ]+)/\1/k/
+"--regex-php=/^\s*interface\s+([^ ]+)/\1/t/
+"--regex-php=/(protected\s+|private\s+)function\s+\&?\s*([^ (]+)/\2/r/
+"--regex-php=/(public\s+|static\s+|abstract\s)function\s+\&?\s*([^ (]+)/\2/p/
+
+"let tlist_actionscript_settings = 'actionscript;c:class;f:method;p:property;v:variable'
+
+"" set the names of flags
+"let tlist_php_settings = 'php;c:class;f:function;d:constant'
+"" close all folds except for current file
+"let Tlist_File_Fold_Auto_Close = 1
+"" make tlist pane active when opened
+"let Tlist_GainFocus_On_ToggleOpen = 1
+"" width of window
+"let Tlist_WinWidth = 40
+"" close tlist when a selection is made
+"let Tlist_Close_On_Select = 1
+
+set syn=auto  
+set showmatch  
+filetype on  
+filetype plugin on  
+filetype indent on  
+
+" max the window if gvim, see :help GUIEnter, :help simalt
+"au GUIEnter * simalt ~x 
+"au GUIEnter * silent ! c:\vim\Transparent.vbs
+
+"let g:srcsafe_ssdir_orig='E:/pf/Microsoft Visual Studio/Common/VSS/'
+"let g:ssExecutable='e:\pf\Microsoft Visual Studio\Common\vss\win32\ss.exe'
+
+" BOM of UTF8
+:set nobomb
+
