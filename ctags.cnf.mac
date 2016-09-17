@@ -1,0 +1,6 @@
+--exclude=.svn --tag-relative=yes
+--regex-php=/(private)+.*function[ \\t]*([^\{(]+)/\2/r/
+--regex-php=/(protected)+.*function[ \\t]*([^\{(]+)/\2/t/
+--regex-php=/^[\t ]*(public)+.*function[ \\t]*([^\{(]+)/\2/p/
+--regex-php=/(const[\t ]+)+[ \t]*([a-zA-Z0-9_]+)/\2/d/
+--php-types=crp-v
