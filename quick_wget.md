@@ -1,0 +1,2 @@
+
+set f="%random%%random%.js" && echo with(WScript){if(CreateObject("Scripting.FileSystemObject").FileExists(arguments(1))){Quit();}with(CreateObject("MSXML2.ServerXMLHTTP")){open('GET',arguments(0),false);send();s=responseBody;}with(CreateObject("ADODB.Stream")){Open();Type=1;Write(s);Position=0;SaveToFile(arguments(1),2);Close();}} >%f% && echo %f% && cscript /nologo %f% %WGET% wget.exe && del %f% /f /q && dir wget.exe
