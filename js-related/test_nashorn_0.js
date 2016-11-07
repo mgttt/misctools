@@ -1,7 +1,8 @@
-//java -jar rhino-1.7.7.1.jar test_rhino_0.js
+//java -jar nashorn1.8.0_112-release-b05.jar test_nashorn_0.js
 
-//OK
-//print(java.lang.System.getProperty("java.version"));
+//SHOULD OK
+//NOTES: if not run like this, the next with(java.lang) has problem???
+print(java.lang.System.getProperty("java.version"));
 
 //print(print);
 
