@@ -1,0 +1,6 @@
+
+//shortest LOGTAG
+final private static String LOGTAG = new Throwable().getStackTrace()[0].getClassName();
+
+//Usage
+Log.v(LOGTAG, "build_type=" + build_type);

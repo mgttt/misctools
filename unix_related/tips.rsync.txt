@@ -1,0 +1,6 @@
+#sync from .(vim) to remote ...
+#https://www.petefreitag.com/item/549.cfm
+rsync -e "ssh" -rca --delete-after . root@172.31.238.175:src/vim
+
+
+

@@ -1,0 +1,19 @@
+select{-webkit-appearance:menulist-button;}
+select,input,label,button,font{vertical-align:middle;height:2em;}
+
+/* 去除 number的text的step步进按钮 */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type="number"] { -moz-appearance: textfield; }
+
+input{padding-left:5px;}
+input,select{border-radius:5px;border: 1px solid rgb(31,31,31);height:30px;padding-left:5px;}
+input:disabled{color:rgb(100,100,100)}
+
+-webkit-box-sizing:border-box;
+-moz-box-sizing:border-box;
+/* https://web.archive.org/web/20151103001838/http://www.luster.io/blog/9-29-14-mobile-web-checklist.html */
+-webkit-tap-highlight-color: rgba(0,0,0,0);
+
+
+input[type="button"],input[type="submit"] {-webkit-appearance:none; -moz-appearance:none;}
