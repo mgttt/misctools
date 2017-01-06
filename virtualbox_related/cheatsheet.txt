@@ -1,0 +1,103 @@
+# server windows
+powershell in administators
+rem Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V –All
+
+rem dism.exe /Online /Enable-Feature:Microsoft-Hyper-V /All
+dism.exe /Online /Disable-Feature:Microsoft-Hyper-V /All
+要重启...
+
+# 查询虚拟机名称，默认启动的虚拟机名为boot2docker-vm
+VBoxManage list vms
+
+# 取 $vbox 当前的IP
+VBoxManage guestproperty get $vbox "/VirtualBox/GuestInfo/Net/0/V4/IP
+VBoxManage guestproperty get "u" "/VirtualBox/GuestInfo/Net/0/V4/IP
+
+# 枚举属性
+VBoxManage guestproperty enumerate "u"
+
+# 端口映射
+VBoxManage modifyvm "u" --natpf1 "ssh,tcp,,22,,22"
+VBoxManage modifyvm "Linux虚拟机名称" --natpf1 "规则名称,协议,主机IP,主机端口,子系统IP,子系统端口"
+
+# root
+ssh-user:docker/tcuser(在github 官网上有纪录)
+root 用户貌似没有密码，可以在docker 下使用sudo su ...
+
+# startvm
+VBoxManage startvm子命令可以开启一台状态为关闭或者保存的虚拟机。该命令的语法为:
+
+VBoxManage startvm "uu" --type headless
+
+VBoxManage list runningvms # 列出运行中的虚拟机
+VBoxManage controlvm "u" acpipowerbutton # 关闭虚拟机，等价于点击系统关闭按钮，正常关机
+VBoxManage controlvm "u" poweroff # 关闭虚拟机，等价于直接关闭电源，非正常关机
+VBoxManage controlvm "u" pause # 暂停虚拟机的运行
+VBoxManage controlvm "u" resume # 恢复暂停的虚拟机
+VBoxManage controlvm "u" savestate # 保存当前虚拟机的运行状态
+
+VBoxManage startvm  uuid>|name... [--type gui|sdl|headless]
+可以通过虚拟机的uuid或者name来指定某台虚拟机，可以通过另外一个子命令list列出系统已有的虚拟机：
+
+
+查询boot2docker-vm虚拟机的网络状态
+VBoxManage showvminfo "boot2docker-vm" | grep NIC
+
+关闭运行中的虚拟机
+
+由于Boot2Docker会自动运行VirtualBox中的虚拟机，所以在设置网络映射时必须先关闭运行中的虚拟机。否则，将出现The machine 'boot2docker' is already locked for a session (or being unlocked)的错误提示
+$ VBoxManage controlvm "boot2docker-vm" poweroff
+
+修改虚拟机与Mac系统的网络映射
+
+根据实际需要进行网络映射，其中
+rulename: 自定义规则名称
+hostip: Mac访问地址，可不填
+hostport: Mac映射端口
+guestip: 虚拟机访问地址，可不填
+guestport: 虚拟机映射端口
+$ VBoxManage modifyvm "boot2docker-vm" --natpf1 "<Rule Name>,<tcp|udp>,<Host IP>,<Host Port>,<Guest IP>,<Guest Port>"
+
+启动虚拟机
+
+设置完成后重新启动虚拟机 $ VBoxManage startvm "boot2docker-vm"
+
+运行镜像
+
+以wwj718提供的edX docker为例，运行其镜像
+$ docker run -itd -p 8000:80 -p 8010:18010 --name edX wwj718/edx_cypress_docker:1.05
+
+查看容器运行状态
+
+$ docker ps
+
+其他 - 删除映射端口，也需要关闭虚拟机，删除命令如下
+
+$ VBoxManage modifyvm "boot2docker-vm" --natpf1 delete
+
+
+# vnc
+The first step is to globally enable the VNC extension pack like this:
+
+vboxmanage setproperty vrdeextpack VNC
+Then set a password to use from the VNC client (I had to do this, not setting a password prevented me from connecting even when trying what was referred to as the "default" VNC password):
+
+vboxmanage modifyvm vmNameGoesHere --vrdeproperty VNCPassword=mysecretpw
+Then turn vrde on for that same vm:
+
+vboxmanage modifyvm vmNameGoesHere --vrde on
+Then you can start the vm like this:
+
+vboxmanage startvm vmNameGoesHere --type headless
+This will start the vm and return you to the prompt, but with the vm starting up in the background (and it will output a message telling you the vm successfully started - NOTE that it means that is started booting successfully, NOT that it started up all the way successfully). This will leave a VNC server running on the "default" port, which I think was 5900, you can check with netstat -ltdaun | grep LISTEN to see what port(s) are listening for connections. I always set a specific/unique port for each vm so none are stepping on each other's toes with this command before starting up the vm:
+
+vboxmanage modifyvm vmNameGoesHere --vrdeport 5906
+Use whatever tcp port you want beyond 5903 or so, and when you connect from a VNC client remember to use the VirtualBox host's IP to connect to, not the vm's IP, especially since when it first starts booting it doesn't have an IP yet. This means you can tunnel your VNC traffic through an SSH tunnel like this too: ssh -L 3300:localhost:5906 192.168.1.105 assuming your vm host is 105, then tell the VNC client to connect to localhost:3300 instead of the IP of the vm host.
+
+I start at about 5906 to give room to other vms as well as the vm host to run VNC servers if necessary, and so that a new vm won't accidentally step on a running vm's toes if someone forgets to change the vnc server port from the default.
+
+I also noticed with netstat output that this starts something listening on tcp port 3389 as well as whatever tcp port specified in the command above (like 5906) and it seems it is a vnc server as well (not an rdp server which you might think based on the port being 3389).
+
+I also found that this works in the virtualbox package you can install in Ubuntu 14.04 LTS with sudo apt-get install virtualbox but older version of VirtualBox like from Ubuntu 10.04 don't seem to have this VNC vrde extension pack available.
+
+

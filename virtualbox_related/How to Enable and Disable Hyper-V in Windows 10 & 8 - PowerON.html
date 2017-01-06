@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<!-- saved from url=(0068)http://www.poweronplatforms.com/enable-disable-hyper-v-windows-10-8/ -->
+<html lang="en-GB" prefix="og: http://ogp.me/ns#" class="has-cookie-bar cookie-bar-bottom-bar cookie-bar-bar"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://www.poweronplatforms.com/xmlrpc.php">
+<title>How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="Total WordPress Theme 3.4.0">
+
+<!-- This site is optimized with the Yoast SEO plugin v3.7.1 - https://yoast.com/wordpress/plugins/seo/ -->
+<link rel="canonical" href="http://www.poweronplatforms.com/enable-disable-hyper-v-windows-10-8/">
+<meta property="og:locale" content="en_GB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON">
+<meta property="og:description" content="How to Enable and Disable Hyper-V in Windows 10 &amp; 8 I’m currently spending a lot of time with our customers helping them move towards Windows 10 from their current Windows 7 environment.  Due to there being no inbuilt type two hypervisor…">
+<meta property="og:url" content="http://www.poweronplatforms.com/enable-disable-hyper-v-windows-10-8/">
+<meta property="og:site_name" content="PowerON">
+<meta property="article:tag" content="Desktop">
+<meta property="article:tag" content="Hyper-V">
+<meta property="article:tag" content="HyperV">
+<meta property="article:tag" content="Laptop">
+<meta property="article:tag" content="Microsoft">
+<meta property="article:tag" content="Virtualisation">
+<meta property="article:tag" content="Windows 10">
+<meta property="article:section" content="Blog">
+<meta property="article:published_time" content="2016-02-24T13:21:19+00:00">
+<meta property="article:modified_time" content="2016-11-15T14:41:27+00:00">
+<meta property="og:updated_time" content="2016-11-15T14:41:27+00:00">
+<meta property="og:image" content="http://www.poweronplatforms.com/wp-content/uploads/2016/02/poweron-hyper-v-300x198.png">
+<meta property="og:image" content="http://www.eightforums.com/attachment.php?attachmentid=38914&amp;stc=1">
+<meta property="og:image" content="http://www.eightforums.com/attachment.php?attachmentid=38918&amp;stc=1">
+<meta property="og:image" content="http://www.eightforums.com/attachment.php?attachmentid=38915&amp;stc=1">
+<meta property="og:image" content="http://www.eightforums.com/attachment.php?attachmentid=38921&amp;stc=1">
+<meta property="og:image" content="http://www.eightforums.com/attachment.php?attachmentid=38920&amp;stc=1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:description" content="How to Enable and Disable Hyper-V in Windows 10 &amp; 8 I’m currently spending a lot of time with our customers helping them move towards Windows 10 from their current Windows 7 environment.  Due to there being no inbuilt type two hypervisor…">
+<meta name="twitter:title" content="How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON">
+<meta name="twitter:image" content="http://www.poweronplatforms.com/wp-content/uploads/2016/02/Hyper-V-in-Windows-10.jpg">
+<!-- / Yoast SEO plugin. -->
+
+<link rel="dns-prefetch" href="http://fonts.googleapis.com/">
+<link rel="dns-prefetch" href="http://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="PowerON » Feed" href="http://www.poweronplatforms.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="PowerON » Comments Feed" href="http://www.poweronplatforms.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="PowerON » How to Enable and Disable Hyper-V in Windows 10 &amp; 8 Comments Feed" href="http://www.poweronplatforms.com/enable-disable-hyper-v-windows-10-8/feed/">
+<link rel="stylesheet" id="js_composer_front-css" href="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/js_composer.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="contact-form-7-css" href="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="rs-plugin-settings-css" href="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/settings.css" type="text/css" media="all">
+<style id="rs-plugin-settings-inline-css" type="text/css">
+#rs-demo-id {}
+</style>
+<link rel="stylesheet" id="cookie-consent-style-css" href="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="wpex-font-awesome-css" href="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/font-awesome.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="wpex-style-css" href="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/style(1).css" type="text/css" media="all">
+<link rel="stylesheet" id="wpex-google-font-open-sans-css" href="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="wpex-visual-composer-css" href="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/wpex-visual-composer.css" type="text/css" media="all">
+<link rel="stylesheet" id="wpex-visual-composer-extend-css" href="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/wpex-visual-composer-extend.css" type="text/css" media="all">
+<link rel="stylesheet" id="wpex-responsive-css" href="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/wpex-responsive.css" type="text/css" media="all">
+<script id="hs-analytics" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/2206181.js"></script><script type="text/javascript" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/Capture.aspx"></script><script async="" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/analytics.js"></script><script type="text/javascript" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/jquery.js"></script>
+<script type="text/javascript" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/jquery.themepunch.tools.min.js"></script>
+<script type="text/javascript" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/jquery.themepunch.revolution.min.js"></script>
+<link rel="https://api.w.org/" href="http://www.poweronplatforms.com/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.poweronplatforms.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.poweronplatforms.com/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 4.6.1">
+<link rel="shortlink" href="http://www.poweronplatforms.com/?p=711">
+<link rel="alternate" type="application/json+oembed" href="http://www.poweronplatforms.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.poweronplatforms.com%2Fenable-disable-hyper-v-windows-10-8%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://www.poweronplatforms.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.poweronplatforms.com%2Fenable-disable-hyper-v-windows-10-8%2F&amp;format=xml">
+<style id="ctcc-css" type="text/css" media="screen">
+			#catapult-cookie-bar {
+				box-sizing: border-box;
+				max-height: 0;
+				opacity: 0;
+				z-index: 99999;
+				overflow: hidden;
+				color: #ddd;
+				position: fixed;
+				left: 0;
+				bottom: 0;
+				width: 100%;
+				background-color: #464646;
+			}
+			#catapult-cookie-bar a {
+				color: #fff;
+			}
+			#catapult-cookie-bar .x_close span {
+				background-color: ;
+			}
+			button#catapultCookie {
+				background:;
+				color: ;
+				border: 0; padding: 6px 9px; border-radius: 3px;
+			}
+			#catapult-cookie-bar h3 {
+				color: #ddd;
+			}
+			.has-cookie-bar #catapult-cookie-bar {
+				opacity: 1;
+				max-height: 999px;
+				min-height: 30px;
+			}</style><!--[if IE 8]><link rel="stylesheet" type="text/css" href="http://www.poweronplatforms.com/wp-content/themes/Total/css/ie8.css" media="screen"><![endif]--><!--[if IE 9]><link rel="stylesheet" type="text/css" href="http://www.poweronplatforms.com/wp-content/themes/Total/css/ie9.css" media="screen"><![endif]--><!--[if lt IE 9]><script src="http://www.poweronplatforms.com/wp-content/themes/Total/js/html5.js"></script><![endif]-->
+<link rel="shortcut icon" href="http://www.poweronplatforms.com/wp-content/uploads/2016/12/favicon.png">
+<link rel="apple-touch-icon-precomposed" href="http://www.poweronplatforms.com/wp-content/uploads/2016/12/apple-iphone-icon.png">
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="http://www.poweronplatforms.com/wp-content/uploads/2016/12/appleipad.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="http://www.poweronplatforms.com/wp-content/uploads/2016/12/iphone-retina.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://www.poweronplatforms.com/wp-content/uploads/2016/12/ipadretina.png"><meta name="generator" content="Powered by Visual Composer - drag and drop page builder for WordPress.">
+<!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="http://www.poweronplatforms.com/wp-content/plugins/js_composer/assets/css/vc_lte_ie9.min.css" media="screen"><![endif]--><!--[if IE  8]><link rel="stylesheet" type="text/css" href="http://www.poweronplatforms.com/wp-content/plugins/js_composer/assets/css/vc-ie8.min.css" media="screen"><![endif]--><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-79705509-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<script type="text/javascript" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/72723.js"></script>
+<noscript>&lt;img src="http://www.jenxsw21lb.com/72723.png" style="display:none;" /&gt;</noscript>
+
+<script src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/saved_resource" data-sumo-site-id="fc4499cd74e8888ed41d790029fcd22278e0943417fa538e7b979cf2ed24ee64" async="async"></script>
+<meta name="generator" content="Powered by Slider Revolution 5.2.4.1 - responsive, Mobile-Friendly Slider Plugin for WordPress with comfortable drag and drop interface.">
+<noscript>&lt;style type="text/css"&gt; .wpb_animate_when_almost_visible { opacity: 1; }&lt;/style&gt;</noscript>
+<script type="text/javascript" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/jscripts.php"></script> 
+<!-- TOTAL CSS -->
+<style type="text/css">
+/*TYPOGRAPHY*/body{font-family:"Open Sans"}/*Logo Height*/#site-logo img{height:120px}/*CUSTOMIZER STYLING*/@media only screen and (min-width:960px){#site-logo img{max-width:280}}a,h1 a:hover,h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover,h6 a:hover,.entry-title a:hover{color:#1e73be}a:hover{color:#1e73be}.theme-button,input[type="submit"],button{background:#1e73be}.navbar-style-one .menu-button >a >span.link-inner:hover{background:#1e73be}#site-logo img{}.shrink-sticky-header #site-logo img{height:60px}.shrink-sticky-header.sticky-header-shrunk #site-logo img,.shrink-sticky-header.sticky-header-shrunk .navbar-style-five .dropdown-menu >li >a{height:50px}#footer-bottom{text-align:left}.wpex-vc-column-wrapper{margin-bottom:40px}/*CUSTOM CSS*/.hs-form .input{max-width:1200px;width:100%}
+</style><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="674d3d92-3a9f-4620-99f6-ff856d18423d/service" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/service.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="2c40add5-3570-45d7-8212-8fc2942f7f74/service" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/service(1).js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="a25489e9-848c-4356-97ff-161b0852c509/service" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/service(2).js"></script></head>
+
+<!-- Begin Body -->
+<body class="single single-post postid-711 single-format-standard wp-custom-logo wpex-theme wpex-responsive full-width-main-layout skin-base no-composer wpex-live-site content-full-width post-in-category-blog post-in-category-unified-workspace has-topbar sidebar-widget-icons page-with-slider page-header-disabled has-post-slider post-slider-below-title wpex-mobile-toggle-menu-icon_buttons has-mobile-menu wpb-js-composer js-comp-ver-4.12.1 vc_responsive" itemscope="itemscope" itemtype="http://schema.org/WebPage" style="">
+
+<span data-ls_id="#site_top"></span>
+<div id="outer-wrap" class="clr">
+
+	
+	<div id="wrap" class="clr">
+
+		
+
+	<div id="top-bar-wrap-sticky-wrapper" class="wpex-sticky-top-bar-holder is-sticky" style="height: 50px;"><div id="top-bar-wrap" class="clr wpex-top-bar-sticky" style="top: 0px; width: 1423px;">
+
+		<div id="top-bar" class="clr container">
+
+			
+	<div id="top-bar-content" class="wpex-clr has-content top-bar-left">
+
+		
+		
+			<span class="fa fa-phone" style="color: #000;margin-right: 5px;"></span> +44 800 3029280 <span class="fa fa-envelope" style="color: #000;margin-left: 20px;margin-right: 5px;"></span> info@PowerONPlatforms.com <span class="fa fa-user" style="color: #000;margin-left: 20px;margin-right: 5px;"></span> <a href="http://www.poweronplatforms.com/wp-login.php" title="User Login" class="wpex-login">User Login</a>
+
+<span class="fa fa-pencil" style="color: #000;margin-left: 400px;margin-right: 5px;"></span> <a href="http://www.poweronplatforms.com/company/contact-us/">Contact Us</a>
+
+
+
+		
+	</div><!-- #top-bar-content -->
+
+			
+			
+
+		</div><!-- #top-bar -->
+
+	</div></div><!-- #top-bar-wrap -->
+
+
+
+<div id="site-header-sticky-wrapper" class="wpex-sticky-header-holder is-sticky" style="height: 120px;"><header id="site-header" class="header-one fixed-scroll shrink-sticky-header clr sticky-header-shrunk" itemscope="itemscope" itemtype="http://schema.org/WPHeader" style="top: 50px; width: 1423px;">
+
+	
+	<div id="site-header-inner" class="container clr">
+
+		
+<div id="site-logo" class="site-branding clr header-one-logo">
+	<div id="site-logo-inner" class="clr">
+									<a href="http://www.poweronplatforms.com/" title="PowerON" rel="home" class="main-logo"><img src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/PowerON-New-Logo-3.png" alt="PowerON" width="" height="120" data-no-retina=""></a>
+									</div><!-- #site-logo-inner -->
+</div><!-- #site-logo -->
+	
+	<div id="site-navigation-wrap" class="navbar-style-one wpex-dropdowns-caret clr">
+
+		<nav id="site-navigation" class="navigation main-navigation clr" itemscope="itemscope" itemtype="http://schema.org/SiteNavigationElement">
+
+			
+				<ul id="menu-main" class="dropdown-menu sf-menu sf-js-enabled" style="touch-action: pan-y;"><li id="menu-item-121" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-121"><a href="http://www.poweronplatforms.com/"><span class="link-inner">Home</span></a></li>
+<li id="menu-item-91" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children dropdown menu-item-91"><a href="http://www.poweronplatforms.com/it-offerings/" class="sf-with-ul"><span class="link-inner">Our Offerings</span></a>
+<ul class="sub-menu" style="display: none;">
+	<li id="menu-item-981" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-981"><a href="http://www.poweronplatforms.com/it-offerings/solutions/"><span class="link-inner">Solutions</span></a></li>
+	<li id="menu-item-8271" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-8271"><a href="http://www.poweronplatforms.com/system-center-automated-deployment/"><span class="link-inner">System Center Automated Deployment</span></a></li>
+	<li id="menu-item-7781" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7781"><a href="http://www.poweronplatforms.com/powerbi/"><span class="link-inner">PowerON PowerBI</span></a></li>
+	<li id="menu-item-991" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-991"><a href="http://www.poweronplatforms.com/it-offerings/consultancy-services/"><span class="link-inner">Consultancy Services</span></a></li>
+	<li id="menu-item-1001" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1001"><a href="http://www.poweronplatforms.com/it-offerings/enablement-support/"><span class="link-inner">Enablement Support</span></a></li>
+</ul>
+</li>
+<li id="menu-item-171" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-171"><a href="http://www.poweronplatforms.com/references/"><span class="link-inner">References</span></a></li>
+<li id="menu-item-1061" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1061"><a href="http://www.poweronplatforms.com/news-and-blogs/"><span class="link-inner">News and Blogs</span></a></li>
+<li id="menu-item-6971" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6971"><a href="http://www.poweronplatforms.com/events-current/"><span class="link-inner">Events</span></a></li>
+<li id="menu-item-16001" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16001"><a href="http://www.poweronplatforms.com/system-center-configmgr-download/"><span class="link-inner">Store</span></a></li>
+<li id="menu-item-101" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children dropdown menu-item-101"><a href="http://www.poweronplatforms.com/company/" class="sf-with-ul"><span class="link-inner">Company</span></a>
+<ul class="sub-menu" style="display: none;">
+	<li id="menu-item-1231" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1231"><a href="http://www.poweronplatforms.com/company/about-us/"><span class="link-inner">About Us</span></a></li>
+	<li id="menu-item-1251" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1251"><a href="http://www.poweronplatforms.com/company/careers-at-poweron/"><span class="link-inner">Careers at PowerON</span></a></li>
+	<li id="menu-item-1261" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1261"><a href="http://www.poweronplatforms.com/company/contact-us/"><span class="link-inner">Contact Us</span></a></li>
+	<li id="menu-item-1271" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1271"><a href="http://www.poweronplatforms.com/company/become-a-partner/"><span class="link-inner">Become a Partner</span></a></li>
+</ul>
+</li>
+<li class="search-toggle-li wpex-menu-extra"><a href="http://www.poweronplatforms.com/enable-disable-hyper-v-windows-10-8/#" class="site-search-toggle search-dropdown-toggle"><span class="link-inner"><span class="fa fa-search"></span></span></a></li></ul>
+			
+		</nav><!-- #site-navigation -->
+
+	</div><!-- #site-navigation-wrap -->
+
+	
+
+<div id="mobile-menu" class="clr wpex-mobile-menu-toggle wpex-hidden">
+			<a href="http://www.poweronplatforms.com/enable-disable-hyper-v-windows-10-8/#" class="mobile-menu-toggle"><span class="fa fa-navicon"></span></a>
+		</div><!-- #mobile-menu -->
+<div id="searchform-dropdown" class="header-searchform-wrap clr">
+	
+<form method="get" class="searchform" action="http://www.poweronplatforms.com/">
+	<input type="search" class="field" name="s" placeholder="Search">
+		<button type="submit" class="searchform-submit">
+		<span class="fa fa-search"></span>
+	</button>
+</form></div><!-- #searchform-dropdown -->
+	</div><!-- #site-header-inner -->
+
+	
+</header></div><!-- #header -->
+
+
+		
+		<main id="main" class="site-main clr" itemprop="" itemscope="itemscope" itemtype="http://schema.org/Blog">
+
+			
+<div class="page-slider clr">
+
+	
+	
+		
+<div class="forcefullwidth_wrapper_tp_banner" id="rev_slider_221_1_forcefullwidth" style="position:relative;width:100%;height:auto;margin-top:0px;margin-bottom:0px"><div id="rev_slider_221_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container" style="margin: 0px auto; padding: 0px; height: 267px; position: absolute; overflow: visible; width: 1423px; left: 0px; background-color: transparent;">
+<!-- START REVOLUTION SLIDER 5.2.4.1 fullwidth mode -->
+	<div id="rev_slider_221_1" class="rev_slider fullwidthabanner revslider-initialised tp-simpleresponsive" style="max-height: 300px; margin-top: 0px; margin-bottom: 0px; height: 267px;" data-version="5.2.4.1" data-slideactive="rs-291">
+<ul class="tp-revslider-mainul" style="visibility: visible; display: block; overflow: hidden; width: 100%; height: 100%; max-height: none;">	<!-- SLIDE  -->
+	<li data-index="rs-291" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default" data-masterspeed="300" data-rotate="0" data-saveperformance="off" data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="" class="tp-revslider-slidesli active-revslide" style="width: 100%; height: 100%; overflow: hidden; z-index: 20; visibility: inherit; opacity: 1; background-color: rgba(255, 255, 255, 0);">
+		<!-- MAIN IMAGE -->
+		<div class="slotholder" style="position: absolute; top: 0px; left: 0px; z-index: 0; width: 100%; height: 100%; visibility: inherit; opacity: 1; transform: matrix(1, 0, 0, 1, 0, 0);"><!--Runtime Modification - Img tag is Still Available for SEO Goals in Source - <img src="http://www.poweronplatforms.com/wp-content/plugins/revslider/admin/assets/images/transparent.png" style="background-color:#E7E7E7" alt="" title="How to Enable and Disable Hyper-V in Windows 10 &amp; 8" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg defaultimg" data-no-retina="">--><div class="tp-bgimg defaultimg" style="width: 100%; height: 100%; opacity: 1; visibility: inherit; z-index: 20; background-image: url(&quot;http://www.poweronplatforms.com/wp-content/plugins/revslider/admin/assets/images/transparent.png&quot;); background-color: rgb(231, 231, 231); background-size: cover; background-position: 50% 50%; background-repeat: no-repeat;" src="http://www.poweronplatforms.com/wp-content/plugins/revslider/admin/assets/images/transparent.png"></div></div>
+		<!-- LAYERS -->
+
+		<!-- LAYER NR. 1 -->
+		<div class="tp-parallax-wrap" style="position: absolute; visibility: visible; left: 760px; top: 80px; z-index: 5;"><div class="tp-loop-wrap" style="position:absolute;"><div class="tp-mask-wrap" style="position: absolute; overflow: visible; height: auto; width: auto;"><div class="tp-caption   tp-resizeme" id="slide-291-layer-5" data-x="854" data-y="90" data-width="[&#39;514&#39;]" data-height="[&#39;238&#39;]" data-transform_idle="o:1;" data-transform_in="opacity:0;s:300;e:Power2.easeInOut;" data-transform_out="opacity:0;s:300;" data-start="500" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 5; min-width: 457px; max-width: 457px; white-space: normal; font-size: 31px; line-height: 36px; font-weight: 400; color: rgb(10, 10, 10); font-family: Arial; text-align: center; visibility: inherit; transition: none; border-width: 0px; margin: 0px; padding: 0px; letter-spacing: 0px; min-height: 212px; max-height: 212px; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform-origin: 50% 50% 0px;">Due to there being no inbuilt type two hypervisor within Windows 7 on the tech teams desktops and laptops </div></div></div></div>
+
+		<!-- LAYER NR. 2 -->
+		<div class="tp-parallax-wrap" style="position: absolute; visibility: visible; left: 6px; top: 40px; z-index: 6;"><div class="tp-loop-wrap" style="position:absolute;"><div class="tp-mask-wrap" style="position: absolute; overflow: visible; height: auto; width: auto;"><div class="tp-caption   tp-resizeme" id="slide-291-layer-23" data-x="7" data-y="45" data-width="[&#39;none&#39;,&#39;none&#39;,&#39;none&#39;,&#39;none&#39;]" data-height="[&#39;none&#39;,&#39;none&#39;,&#39;none&#39;,&#39;none&#39;]" data-transform_idle="o:1;" data-transform_in="opacity:0;s:300;e:Power2.easeInOut;" data-transform_out="opacity:0;s:300;" data-start="500" data-responsive_offset="on" style="z-index: 6; visibility: inherit; transition: none; line-height: 0px; border-width: 0px; margin: 0px; padding: 0px; letter-spacing: 0px; font-weight: 400; font-size: 12px; white-space: nowrap; min-height: 0px; min-width: 0px; max-height: none; max-width: none; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform-origin: 50% 50% 0px;"><img src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/Hyper-V.png" alt="Hyper V" width="1170" height="501" data-ww="616" data-hh="225" data-no-retina="" style="width: 547.855px; height: 200.109px; transition: none; line-height: 0px; border-width: 0px; margin: 0px; padding: 0px; letter-spacing: 0px; font-weight: 400; font-size: 12px;"> </div></div></div></div>
+	</li>
+</ul>
+<div class="tp-bannertimer tp-bottom" style="visibility: hidden !important; width: 0%;"></div>	<div class="tp-loader spinner0" style="display: none;"><div class="dot1"></div><div class="dot2"></div><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>
+<script>var htmlDiv = document.getElementById("rs-plugin-settings-inline-css"); var htmlDivCss="";
+				if(htmlDiv) {
+					htmlDiv.innerHTML = htmlDiv.innerHTML + htmlDivCss;
+				}else{
+					var htmlDiv = document.createElement("div");
+					htmlDiv.innerHTML = "<style>" + htmlDivCss + "</style>";
+					document.getElementsByTagName("head")[0].appendChild(htmlDiv.childNodes[0]);
+				}
+			</script>
+		<script type="text/javascript">
+						/******************************************
+				-	PREPARE PLACEHOLDER FOR SLIDER	-
+			******************************************/
+
+			var setREVStartSize=function(){
+				try{var e=new Object,i=jQuery(window).width(),t=9999,r=0,n=0,l=0,f=0,s=0,h=0;
+					e.c = jQuery('#rev_slider_221_1');
+					e.gridwidth = [1600];
+					e.gridheight = [300];
+							
+					e.sliderLayout = "fullwidth";
+					if(e.responsiveLevels&&(jQuery.each(e.responsiveLevels,function(e,f){f>i&&(t=r=f,l=e),i>f&&f>r&&(r=f,n=e)}),t>r&&(l=n)),f=e.gridheight[l]||e.gridheight[0]||e.gridheight,s=e.gridwidth[l]||e.gridwidth[0]||e.gridwidth,h=i/s,h=h>1?1:h,f=Math.round(h*f),"fullscreen"==e.sliderLayout){var u=(e.c.width(),jQuery(window).height());if(void 0!=e.fullScreenOffsetContainer){var c=e.fullScreenOffsetContainer.split(",");if (c) jQuery.each(c,function(e,i){u=jQuery(i).length>0?u-jQuery(i).outerHeight(!0):u}),e.fullScreenOffset.split("%").length>1&&void 0!=e.fullScreenOffset&&e.fullScreenOffset.length>0?u-=jQuery(window).height()*parseInt(e.fullScreenOffset,0)/100:void 0!=e.fullScreenOffset&&e.fullScreenOffset.length>0&&(u-=parseInt(e.fullScreenOffset,0))}f=u}else void 0!=e.minHeight&&f<e.minHeight&&(f=e.minHeight);e.c.closest(".rev_slider_wrapper").css({height:f})
+					
+				}catch(d){console.log("Failure at Presize of Slider:"+d)}
+			};
+			
+			setREVStartSize();
+			
+						var tpj=jQuery;
+			
+			var revapi221;
+			tpj(document).ready(function() {
+				if(tpj("#rev_slider_221_1").revolution == undefined){
+					revslider_showDoubleJqueryError("#rev_slider_221_1");
+				}else{
+					revapi221 = tpj("#rev_slider_221_1").show().revolution({
+						sliderType:"hero",
+jsFileLocation:"//www.poweronplatforms.com/wp-content/plugins/revslider/public/assets/js/",
+						sliderLayout:"fullwidth",
+						dottedOverlay:"none",
+						delay:9000,
+						navigation: {
+						},
+						visibilityLevels:[1240,1024,778,480],
+						gridwidth:1600,
+						gridheight:300,
+						lazyType:"none",
+						shadow:0,
+						spinner:"spinner0",
+						autoHeight:"off",
+						disableProgressBar:"on",
+						hideThumbsOnMobile:"off",
+						hideSliderAtLimit:0,
+						hideCaptionAtLimit:0,
+						hideAllCaptionAtLilmit:0,
+						debugMode:false,
+						fallbacks: {
+							simplifyAll:"off",
+							disableFocusListener:false,
+						}
+					});
+				}
+			});	/*ready*/
+		</script>
+		</div><div class="tp-fullwidth-forcer" style="width: 100%; height: 267px;"></div></div><!-- END REVOLUTION SLIDER -->
+	
+</div><!-- .page-slider -->
+
+
+	<div style="height:30px;"></div>
+
+
+	<div id="content-wrap" class="container clr">
+
+		
+		<div id="primary" class="content-area clr">
+
+			
+			<div id="content" class="site-content clr">
+
+				
+				
+<article class="single-blog-article clr" itemprop="blogPost" itemscope="itemscope" itemtype="http://schema.org/BlogPosting">
+
+	
+<div class="entry clr" itemprop="text">
+	<h1 style="text-align: center;">How to Enable and Disable Hyper-V in Windows 10 &amp; 8</h1>
+<p>I’m currently spending a lot of time with our customers helping them move towards Windows 10 from their current Windows 7 environment.&nbsp; Due to there being no inbuilt&nbsp;type two&nbsp;hypervisor within Windows 7 on the tech teams desktops and laptops, there would always be some form of 3rd party hypervisor software installed.&nbsp; This normally leads me to show the power of Windows 10 and 8, it also gives some exposure to&nbsp;Hyper-V where the skills can be transferable to a degree to managing proper hyper-v environments.</p>
+<p>To support this,&nbsp;the following&nbsp;tutorial will show you how to enable and disable the built-in <strong>Hyper Virtualisation (Hyper-V)</strong> feature in <strong>Windows 10 &amp; 8 Pro </strong>or <strong>Windows 10 &amp; 8 Enterprise </strong>You must be signed in as an<strong> administrator </strong>to be able to do the steps in this tutorial.</p>
+<p><strong>Note: </strong>To support Hyper-V client, you must have a <strong>64-bit </strong>version of <strong>Windows 10 or&nbsp;8 Pro</strong> or <strong>Windows 10 or 8 Enterprise</strong> with a <a href="http://social.technet.microsoft.com/wiki/contents/articles/1401.hyper-v-list-of-slat-capable-cpus-for-hosts.aspx" target="_blank" rel="nofollow"><strong><span style="color: #0066cc;">64-bit CPU</span></strong></a> that supports <strong><a href="http://en.wikipedia.org/wiki/SLAT" target="_blank" rel="nofollow"><span style="color: #0066cc;">SLAT</span></a></strong> (Second Level Address Translation). You’ll also need at least <strong>4GB of RAM</strong>. Hyper-V does support creation of both 32-bit and 64-bit operating systems in the VMs.</p>
+<p><strong>For more info, see also:</strong> <a href="http://blogs.msdn.com/b/b8/archive/2011/09/07/bringing-hyper-v-to-windows-8.aspx" target="_blank" rel="nofollow"><span style="color: #0066cc;">Bringing Hyper-V to “Windows 8”</span></a></p>
+<h2>Option 1 – To Enable and Disable Hyper-V in Windows Features</h2>
+<div>
+<p><span style="font-size: medium;"><strong>1.</strong></span> Open <strong><a href="http://www.eightforums.com/tutorials/6632-windows-features-turn-off-windows-8-a.html" target="_blank"><span style="color: #0066cc;">Windows Features</span></a></strong>.<span style="font-size: medium;"><strong>2.</strong></span> Expand the <strong>Hyper-V</strong> sub-section, and do <strong>step 3 or 4</strong> below for what you want to do.</p>
+<p><a href="http://www.poweronplatforms.com/wp-content/uploads/2016/02/poweron-hyper-v.png" rel="attachment wp-att-8731"><img class="wp-image-8731 aligncenter" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/poweron-hyper-v-300x198.png" alt="poweron-hyper-v" width="344" height="227"></a></p>
+<p><span style="font-size: medium;"><strong>3. <span style="color: #0000cd;">To Enable Hyper-V</span></strong></span></p>
+<div>A) Ensure that all <strong>Hyper-V</strong> options are checked as shown above, click/tap on <strong>OK</strong>, and go to <strong>step 5</strong> below.</div>
+<div></div>
+<p><strong><span style="font-size: medium;">4. <span style="color: #0000cd;">To Disable Hyper-V</span></span></strong></p>
+<div>A) Uncheck <strong>Hyper-V</strong>, click/tap on <strong>OK</strong>, and go to <strong>step 5</strong> below.</div>
+<div></div>
+<p><span style="font-size: medium;"><strong>5.</strong></span><strong>Restart the computer</strong> when prompted.</p>
+</div>
+<h2>Option 2 – To Enable and Disable Hyper-V in PowerShell</h2>
+<div>
+<p><span style="font-size: medium;"><strong>1.</strong></span> Open an <strong><a href="http://www.eightforums.com/tutorials/12626-windows-powershell-open-elevated-windows-8-a.html" target="_blank"><span style="color: #0066cc;">elevated PowerShell</span></a></strong>, and do <strong>step 2 or 3</strong> below for what you want to do.</p>
+<p><span style="font-size: medium;"><strong>2. <span style="color: #0000cd;">To Enable Hyper-V</span></strong></span></p>
+<div>
+<p>A) In the elevated PowerShell window, copy and paste the command below, press Enter, and go to <strong>step 4</strong> below. <strong>Note</strong>, If you do not use the <strong>-All </strong>switch, then you will not install the <strong>Hyper-V GUI Management Tools</strong> and <strong>Hyper-V Module for Windows PowerShell </strong>features.</p>
+<p><strong>&nbsp;</strong></p>
+<pre class="brush:powershell">Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V –All</pre>
+<p><img id="vbattach_38914" class="previewthumb" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/attachment.php" alt=""></p>
+</div>
+<p><span style="font-size: medium;"><strong>3. <span style="color: #0000cd;">To Disable Hyper-V</span></strong></span></p>
+<div>
+<p>A) In the elevated PowerShell window, copy and paste the command below, press Enter, and go to <strong>step 4</strong> below.</p>
+<p><strong>&nbsp;</strong></p>
+<pre class="brush:powershell">Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-All</pre>
+<p><img id="vbattach_38918" class="previewthumb" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/attachment(1).php" alt=""></p>
+</div>
+<p><span style="font-size: medium;"><strong>4. </strong></span>Type <strong>Y</strong> and press Enter when prompted to restart the computer.</p>
+<div><img id="vbattach_38915" class="previewthumb" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/attachment(2).php" alt=""></div>
+</div>
+<h2>To Enable and Disable Hyper-V using DISM Command</h2>
+<div>
+<p><span style="font-size: medium;"><strong>1.</strong></span> Open an <strong><a href="http://www.eightforums.com/tutorials/2754-elevated-command-prompt-open-windows-8-a.html" target="_blank"><span style="color: #0066cc;">elevated command prompt</span></a></strong>.</p>
+<p><span style="font-size: medium;"><strong>2. <span style="color: #0000cd;">To Enable Hyper-V</span></strong></span></p>
+<div>
+<p>A) In the elevated Command Prompt, copy and paste the command below, press Enter, and go to <strong>step 4</strong> below.<strong><br>
+</strong></p>
+<pre class="brush:powershell">dism.exe /Online /Enable-Feature:Microsoft-Hyper-V /All</pre>
+<p><img id="vbattach_38921" class="previewthumb" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/attachment(3).php" alt=""></p>
+</div>
+<p><span style="font-size: medium;"><strong>3. <span style="color: #0000cd;">To Disable Hyper-V</span></strong></span></p>
+<div>
+<p>A) In the elevated Command Prompt, copy and paste the command below, press Enter, and go to <strong>step 4</strong> below.<strong><br>
+</strong></p>
+<pre class="brush:powershell">dism.exe /Online /Disable-Feature:Microsoft-Hyper-V-All</pre>
+<p><img id="vbattach_38920" class="previewthumb" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/attachment(4).php" alt=""></p>
+</div>
+<p><span style="font-size: medium;"><strong>4. </strong></span>Type <strong>Y</strong> and press Enter when prompted to restart the computer.</p>
+</div>
+<p>Harry Lowton<br>
+Enterprise Mobility Consultant</p>
+</div><!-- .entry -->
+
+
+<div class="wpex-social-share-wrap clr position-horizontal">
+
+	
+		
+	<div class="theme-heading social-share-title">
+		<span class="text">Please Share This</span>
+	</div>
+
+
+	
+	<ul class="wpex-social-share position-horizontal style-rounded clr">
+
+		
+				<li class="share-twitter">
+					<a href="http://twitter.com/share?text=How%20to%20Enable%20and%20Disable%20Hyper-V%20in%20Windows%2010%20%26%208&amp;url=http%3A%2F%2Fwww.poweronplatforms.com%2Fenable-disable-hyper-v-windows-10-8%2F&amp;via=@PowerON_UK" title="Share on Twitter" onclick="javascript:window.open(this.href, &#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+						<span class="fa fa-twitter"></span>
+						<span class="social-share-button-text">Tweet</span>
+					</a>
+				</li>
+
+			
+		
+				<li class="share-linkedin">
+					<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fwww.poweronplatforms.com%2Fenable-disable-hyper-v-windows-10-8%2F&amp;title=How%20to%20Enable%20and%20Disable%20Hyper-V%20in%20Windows%2010%20%26%208&amp;summary=%3Cp%3EHow%20to%20Enable%20and%20Disable%20Hyper-V%20in%20Windows%2010%20%26amp%3B%208%20I%27m%20currently%20spending%20a%20lot%20of%20time%20with%20our%20customers%20helping%20them%20move%20towards%20Windows%2010%20from%20their%20current%20Windows%207%20environment.%C2%A0%20Due%20to%20there%20being%20no%20inbuilt%C2%A0type%20two%C2%A0hypervisor%26hellip%3B%3C%2Fp%3E&amp;source=http://www.poweronplatforms.com/" title="Share on LinkedIn" onclick="javascript:window.open(this.href, &#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+						<span class="fa fa-linkedin"></span>
+						<span class="social-share-button-text">Share</span>
+					</a>
+				</li>
+
+			
+		
+	</ul><!-- .wpex-social-share -->
+
+</div><!-- .wpex-social-share-wrap -->
+	<div class="related-posts clr">
+
+		
+	<div class="theme-heading related-posts-title">
+		<span class="text">More PowerON Articles</span>
+	</div>
+
+
+		<div class="wpex-row clr">
+														
+<article class="related-post clr nr-col span_1_of_3 col-1 post-4001 post type-post status-publish format-standard has-post-thumbnail hentry category-azure category-blog tag-automation tag-azure tag-deploy tag-desired-state-configuration tag-dsc tag-html tag-oms tag-portal tag-scsm tag-service-manager tag-system-center entry format-video has-media">
+
+	
+		<figure class="related-post-figure clr overlay-parent overlay-parent-post">
+
+			<a href="http://www.poweronplatforms.com/using-azure-automation-dsc-configure-deploy-new-scsm-portal-part-1/" title="Using Azure Automation DSC to configure and deploy the new SCSM Portal (Part 1)" rel="bookmark" class="related-post-thumb">
+				<img src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/System-Center.jpg" width="200" height="100" alt="System Center DSC">							</a><!-- .related-post-thumb -->
+					</figure>
+
+	
+	
+		<div class="related-post-content equal-height-content clr">
+			<h4 class="related-post-title">
+				<a href="http://www.poweronplatforms.com/using-azure-automation-dsc-configure-deploy-new-scsm-portal-part-1/" title="Using Azure Automation DSC to configure and deploy the new SCSM Portal (Part 1)" rel="bookmark">Using Azure Automation DSC to configure and deploy the new SCSM Portal (Part 1)</a>
+			</h4><!-- .related-post-title -->
+			<div class="related-post-excerpt clr">
+				<p>Using Azure Automation DSC to configure and deploy the new SCSM Portal (Part 1) On…</p>			</div><!-- related-post-excerpt -->
+		</div><!-- .related-post-content -->
+
+	
+</article><!-- .related-post -->															
+<article class="related-post clr nr-col span_1_of_3 col-2 post-5761 post type-post status-publish format-standard has-post-thumbnail hentry category-blog category-system-center tag-1481 tag-configmgr tag-configmgr-1606 tag-guidance tag-sccm tag-sccm-1606 tag-step-by-step tag-updates-and-servicing tag-upgrade tag-upgrade-1606-guide entry format-video has-media">
+
+	
+		<figure class="related-post-figure clr overlay-parent overlay-parent-post">
+
+			<a href="http://www.poweronplatforms.com/configmgr-1606-upgrade/" title="How to Upgrade to ConfigMgr 1606" rel="bookmark" class="related-post-thumb">
+				<img src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/Upgrade-to-ConfigMgr.jpg" width="200" height="100" alt="Upgrade To ConfigMgr">							</a><!-- .related-post-thumb -->
+					</figure>
+
+	
+	
+		<div class="related-post-content equal-height-content clr">
+			<h4 class="related-post-title">
+				<a href="http://www.poweronplatforms.com/configmgr-1606-upgrade/" title="How to Upgrade to ConfigMgr 1606" rel="bookmark">How to Upgrade to ConfigMgr 1606</a>
+			</h4><!-- .related-post-title -->
+			<div class="related-post-excerpt clr">
+				<p>How to Upgrade to ConfigMgr 1606 Another exciting release if you are into Microsoft System…</p>			</div><!-- related-post-excerpt -->
+		</div><!-- .related-post-content -->
+
+	
+</article><!-- .related-post -->															
+<article class="related-post clr nr-col span_1_of_3 col-3 post-4361 post type-post status-publish format-standard has-post-thumbnail hentry category-blog category-powerbi category-system-center tag-power-bi tag-reporting tag-sccm entry format-video has-media">
+
+	
+		<figure class="related-post-figure clr overlay-parent overlay-parent-post">
+
+			<a href="http://www.poweronplatforms.com/power-bi-sccm-dashboard-reporting/" title="Power BI and SCCM Dashboard Reporting" rel="bookmark" class="related-post-thumb">
+				<img src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/PowerBI.jpg" width="158" height="85" alt="PowerBI">							</a><!-- .related-post-thumb -->
+					</figure>
+
+	
+	
+		<div class="related-post-content equal-height-content clr">
+			<h4 class="related-post-title">
+				<a href="http://www.poweronplatforms.com/power-bi-sccm-dashboard-reporting/" title="Power BI and SCCM Dashboard Reporting" rel="bookmark">Power BI and SCCM Dashboard Reporting</a>
+			</h4><!-- .related-post-title -->
+			<div class="related-post-excerpt clr">
+				<p>Power BI and SCCM Dashboard Reporting I've recently joined the PowerOn Platforms team and been…</p>			</div><!-- related-post-excerpt -->
+		</div><!-- .related-post-content -->
+
+	
+</article><!-- .related-post -->									</div><!-- .wpex-row -->
+
+	</div><!-- .related-posts -->
+
+
+ 
+<section id="comments" class="comments-area clr">
+
+	
+		
+	<h2 class="theme-heading comments-title">
+		<span class="text">This Post Has One Comment</span>
+	</h2>
+
+
+		<ol class="comment-list">
+					<li id="comment-102" class="comment even thread-even depth-1">
+			<article id="div-comment-102" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt="" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/56b92dcfaf349ef2bf0850ab33066add" srcset="http://2.gravatar.com/avatar/56b92dcfaf349ef2bf0850ab33066add?s=100&amp;d=mm&amp;r=g 2x" class="avatar avatar-50 photo" height="50" width="50">						<b class="fn">Ben</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="http://www.poweronplatforms.com/enable-disable-hyper-v-windows-10-8/#comment-102">
+							<time datetime="2016-09-16T13:16:25+00:00">
+								16th September 2016 at 1:16 pm							</time>
+						</a>
+											</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I’ve turned mine off, but it turns itself on. I’m guessing when it reboots, updates windows, etc. How do you turn it off permanently? I need it off because when it’s on I can’t run Virtualbox.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="http://www.poweronplatforms.com/enable-disable-hyper-v-windows-10-8/?replytocom=102#respond" onclick="return addComment.moveForm( &quot;div-comment-102&quot;, &quot;102&quot;, &quot;respond&quot;, &quot;711&quot; )" aria-label="Reply to Ben">Reply</a></div>			</article><!-- .comment-body -->
+</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+							
+		
+	
+					<div id="respond" class="comment-respond">
+			<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://www.poweronplatforms.com/enable-disable-hyper-v-windows-10-8/#respond" style="display:none;"><span class="fa fa-times"></span>Cancel comment reply</a></small></h3>				<form action="http://www.poweronplatforms.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+					<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" aria-required="true" required="required"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" aria-required="true" required="required"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200"></p>
+<p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="15360" aria-required="true" required="required" minlength="15"></textarea></p><p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="711" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p>
+<noscript>&lt;input type="hidden" name="JS04X7" value="NS1" /&gt;</noscript>
+<noscript>&lt;p&gt;&lt;strong&gt;Currently you have JavaScript disabled. In order to post comments, please make sure JavaScript and Cookies are enabled, and reload the page.&lt;/strong&gt; &lt;a href="http://enable-javascript.com/" rel="nofollow external" &gt;Click here for instructions on how to enable JavaScript in your browser.&lt;/a&gt;&lt;/p&gt;</noscript>
+				</form>
+					</div><!-- #respond -->
+		
+</section><!-- #comments -->
+</article><!-- .entry -->
+				
+			</div><!-- #content -->
+
+			
+		</div><!-- #primary -->
+
+		
+	</div><!-- .container -->
+
+
+            
+
+	<div class="post-pagination-wrap clr">
+
+		<ul class="post-pagination container clr">
+
+			
+				<li class="post-prev"><a href="http://www.poweronplatforms.com/power-bi-sccm-dashboard-reporting/" rel="prev"><span class="fa fa-angle-double-left"></span>Power BI and SCCM Dashboard Reporting</a></li>
+
+			
+			
+				<li class="post-next"><a href="http://www.poweronplatforms.com/azure-site-recovery-overview/" rel="next">Azure Site Recovery – Overview<span class="fa fa-angle-double-right"></span></a></li>
+
+						
+		</ul><!-- .post-post-pagination -->
+
+	</div><!-- .post-pagination-wrap -->
+
+
+        </main><!-- #main-content -->                
+        
+        
+
+
+    <footer id="footer" class="site-footer" itemscope="itemscope" itemtype="http://schema.org/WPFooter">
+
+        
+        <div id="footer-inner" class="container clr">
+
+            
+<div id="footer-widgets" class="wpex-row clr gap-30">
+
+		<div class="footer-box span_1_of_4 col col-1">
+			</div><!-- .footer-one-box -->
+
+			<div class="footer-box span_1_of_4 col col-2">
+					</div><!-- .footer-one-box -->
+		
+			<div class="footer-box span_1_of_4 col col-3 ">
+					</div><!-- .footer-one-box -->
+	
+			<div class="footer-box span_1_of_4 col col-4">
+					</div><!-- .footer-box -->
+	
+	
+</div><!-- #footer-widgets -->            
+        </div><!-- #footer-widgets -->
+
+        
+    </footer><!-- #footer -->
+
+
+
+<div id="footer-bottom" class="clr">
+
+	<div id="footer-bottom-inner" class="container clr">
+
+		
+			<div id="copyright" class="clr" role="contentinfo">
+				Copyright 2014 - 2016 PowerON Platforms. All Rights Reserved.			</div><!-- #copyright -->
+
+		
+		
+			<div id="footer-bottom-menu" class="clr">
+				<div class="menu-footer-container"><ul id="menu-footer" class="menu"><li id="menu-item-6891" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-6891"><a href="http://www.poweronplatforms.com/privacy-policy/">Privacy Policy</a></li>
+<li id="menu-item-151" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-151"><a href="http://www.poweronplatforms.com/company/">Company</a></li>
+<li id="menu-item-2831" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2831"><a href="http://www.poweronplatforms.com/company/about-us/">About Us</a></li>
+<li id="menu-item-2841" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2841"><a href="http://www.poweronplatforms.com/company/contact-us/">Contact Us</a></li>
+<li id="menu-item-2851" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2851"><a href="http://www.poweronplatforms.com/company/become-a-partner/">Become a Partner</a></li>
+</ul></div>
+			</div><!-- #footer-bottom-menu -->
+
+		
+	</div><!-- #footer-bottom-inner -->
+
+</div><!-- #footer-bottom -->
+    </div><!-- #wrap -->
+
+    
+</div><iframe id="sumome-jquery-iframe" style="display: none;" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/saved_resource.html"></iframe><!-- .outer-wrap -->
+
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+r3f5x9JS=escape(document['referrer']);
+hf4N='d5b26efdebc53217fa86af702ad6b196';
+hf4V='f12d2bfb97a0de953d5984247895cd13';
+cm4S="form[action='http://www.poweronplatforms.com/wp-comments-post.php']";
+jQuery(document).ready(function($){var e="#commentform, .comment-respond form, .comment-form, "+cm4S+", #lostpasswordform, #registerform, #loginform, #login_form, #wpss_contact_form, .wpcf7-form";$(e).submit(function(){$("<input>").attr("type","hidden").attr("name","r3f5x9JS").attr("value",r3f5x9JS).appendTo(e);$("<input>").attr("type","hidden").attr("name",hf4N).attr("value",hf4V).appendTo(e);return true;});$("#comment").attr({minlength:"15",maxlength:"15360"})});
+/* ]]> */
+</script> 
+
+<!-- Start of Async HubSpot Analytics Code for WordPress v1.1.0 -->
+<script type="text/javascript">
+var _hsq = _hsq || [];
+_hsq.push(["setContentType", "blog-post"]);
+(function(d,s,i,r) {
+  if (d.getElementById(i)){return;}
+  var n = d.createElement(s),e = document.getElementsByTagName(s)[0];
+  n.id=i;n.src = '//js.hs-analytics.net/analytics/'+(Math.ceil(new Date()/r)*r)+'/2206181.js';
+  e.parentNode.insertBefore(n, e);
+})(document, "script", "hs-analytics", 300000);
+</script>
+<!-- End of Async HubSpot Analytics Code -->
+
+<div id="mobile-menu-search" class="clr wpex-hidden">
+	<form method="get" action="http://www.poweronplatforms.com/" class="mobile-menu-searchform">
+		<input type="search" name="s" autocomplete="off" placeholder="Search">
+				<button type="submit" class="searchform-submit">
+			<span class="fa fa-search"></span>
+		</button>
+	</form>
+</div><!-- .mobile-menu-search -->
+<a href="http://www.poweronplatforms.com/enable-disable-hyper-v-windows-10-8/#" id="site-scroll-top" class="show"><span class="fa fa-chevron-up"></span></a>			<div id="sidr-close"><a href="http://www.poweronplatforms.com/enable-disable-hyper-v-windows-10-8/#sidr-close" class="toggle-sidr-close"></a></div>
+			<script type="text/javascript">
+			function revslider_showDoubleJqueryError(sliderID) {
+				var errorMessage = "Revolution Slider Error: You have some jquery.js library include that comes after the revolution files js include.";
+				errorMessage += "<br> This includes make eliminates the revolution slider libraries, and make it not work.";
+				errorMessage += "<br><br> To fix it you can:<br>&nbsp;&nbsp;&nbsp; 1. In the Slider Settings -> Troubleshooting set option:  <strong><b>Put JS Includes To Body</b></strong> option to true.";
+				errorMessage += "<br>&nbsp;&nbsp;&nbsp; 2. Find the double jquery.js include and remove it.";
+				errorMessage = "<span style='font-size:16px;color:#BC0C06;'>" + errorMessage + "</span>";
+					jQuery(sliderID).show().html(errorMessage);
+			}
+		</script>
+		<script type="text/javascript" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/jquery.form.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _wpcf7 = {"loaderUrl":"http:\/\/www.poweronplatforms.com\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif","recaptcha":{"messages":{"empty":"Please verify that you are not a robot."}},"sending":"Sending ..."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/scripts.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var ctcc_vars = {"expiry":"30","method":"1","version":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/uk-cookie-consent-js.js"></script>
+<script type="text/javascript" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/comment-reply.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpexLocalize = {"isRTL":"","mainLayout":"full-width","menuSearchStyle":"drop_down","siteHeaderStyle":"one","superfishDelay":"600","superfishSpeed":"fast","superfishSpeedOut":"fast","mobileMenuBreakpoint":"960","mobileMenuStyle":"sidr","mobileMenuToggleStyle":"icon_buttons","localScrollUpdateHash":"1","localScrollSpeed":"800","windowScrollTopSpeed":"800","carouselSpeed":"150","customSelects":".woocommerce-ordering .orderby, #dropdown_product_cat, .widget_categories select, .widget_archive select, #bbp_stick_topic_select, #bbp_topic_status_select, #bbp_destination_topic, .single-product .variations_form .variations select","milestoneDecimalFormat":",","hasStickyHeader":"1","stickyHeaderStyle":"shrink","hasStickyMobileHeader":"","overlayHeaderStickyTop":"0","stickyHeaderBreakPoint":"960","shrinkHeaderHeight":"70","sidrSource":"#sidr-close, #site-navigation, #mobile-menu-search","sidrDisplace":"1","sidrSide":"left","sidrSpeed":"300","sidrDropdownTarget":"arrow","stickyTopBarBreakPoint":"960","hasStickyTopBarMobile":"1","iLightbox":{"auto":false,"skin":"minimal","path":"horizontal","controls":{"arrows":true,"thumbnail":true,"fullscreen":true,"mousewheel":false},"effects":{"loadedFadeSpeed":50,"fadeSpeed":500},"show":{"title":true,"speed":200},"hide":{"speed":200},"overlay":{"blur":true,"opacity":0.9},"social":{"start":true,"show":"mouseenter","hide":"mouseleave","buttons":false}}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/total-min.js"></script>
+<script type="text/javascript" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/jscripts-ftr-min.js"></script>
+<script type="text/javascript" src="./How to Enable and Disable Hyper-V in Windows 10 &amp; 8 - PowerON_files/wp-embed.min.js"></script>
+			
+			<script type="text/javascript">
+				jQuery(document).ready(function($){
+										if(!catapultReadCookie("catAccCookies")){ // If the cookie has not been set then show the bar
+						$("html").addClass("has-cookie-bar");
+						$("html").addClass("cookie-bar-bottom-bar");
+						$("html").addClass("cookie-bar-bar");
+											}
+														});
+			</script>
+			
+		<div id="catapult-cookie-bar" class=""><div class="ctcc-inner "><span class="ctcc-left-side">This site uses cookies:  <a tabindex="0" target="_blank" href="http://www.poweronplatforms.com/cookie-policy/">Find out more.</a></span><span class="ctcc-right-side"><button id="catapultCookie" tabindex="0" onclick="catapultAcceptCookies();">Okay, thank you</button></span></div><!-- custom wrapper class --></div><!-- #catapult-cookie-bar -->
+
+<div id="sidr-main" class="sidr left"><div class="sidr-inner"><a href="http://www.poweronplatforms.com/enable-disable-hyper-v-windows-10-8/#sidr-close" class="sidr-class-toggle-sidr-close"></a></div><div class="sidr-inner">
+
+			
+				<ul id="sidr-id-menu-main" class="sidr-class-dropdown-menu sidr-class-sf-menu sidr-class-sf-js-enabled"><li id="sidr-id-menu-item-121" class="sidr-class-menu-item sidr-class-menu-item-type-post_type sidr-class-menu-item-object-page sidr-class-menu-item-121"><a href="http://www.poweronplatforms.com/"><span class="sidr-class-link-inner">Home</span></a></li>
+<li id="sidr-id-menu-item-91" class="sidr-class-menu-item sidr-class-menu-item-type-post_type sidr-class-menu-item-object-page sidr-class-menu-item-has-children sidr-class-dropdown sidr-class-menu-item-91"><a href="http://www.poweronplatforms.com/it-offerings/" class="sidr-class-sf-with-ul"><span class="sidr-class-link-inner">Our Offerings</span></a>
+<ul class="sidr-class-sub-menu">
+	<li id="sidr-id-menu-item-981" class="sidr-class-menu-item sidr-class-menu-item-type-post_type sidr-class-menu-item-object-page sidr-class-menu-item-981"><a href="http://www.poweronplatforms.com/it-offerings/solutions/"><span class="sidr-class-link-inner">Solutions</span></a></li>
+	<li id="sidr-id-menu-item-8271" class="sidr-class-menu-item sidr-class-menu-item-type-post_type sidr-class-menu-item-object-page sidr-class-menu-item-8271"><a href="http://www.poweronplatforms.com/system-center-automated-deployment/"><span class="sidr-class-link-inner">System Center Automated Deployment</span></a></li>
+	<li id="sidr-id-menu-item-7781" class="sidr-class-menu-item sidr-class-menu-item-type-post_type sidr-class-menu-item-object-page sidr-class-menu-item-7781"><a href="http://www.poweronplatforms.com/powerbi/"><span class="sidr-class-link-inner">PowerON PowerBI</span></a></li>
+	<li id="sidr-id-menu-item-991" class="sidr-class-menu-item sidr-class-menu-item-type-post_type sidr-class-menu-item-object-page sidr-class-menu-item-991"><a href="http://www.poweronplatforms.com/it-offerings/consultancy-services/"><span class="sidr-class-link-inner">Consultancy Services</span></a></li>
+	<li id="sidr-id-menu-item-1001" class="sidr-class-menu-item sidr-class-menu-item-type-post_type sidr-class-menu-item-object-page sidr-class-menu-item-1001"><a href="http://www.poweronplatforms.com/it-offerings/enablement-support/"><span class="sidr-class-link-inner">Enablement Support</span></a></li>
+</ul>
+</li>
+<li id="sidr-id-menu-item-171" class="sidr-class-menu-item sidr-class-menu-item-type-post_type sidr-class-menu-item-object-page sidr-class-menu-item-171"><a href="http://www.poweronplatforms.com/references/"><span class="sidr-class-link-inner">References</span></a></li>
+<li id="sidr-id-menu-item-1061" class="sidr-class-menu-item sidr-class-menu-item-type-post_type sidr-class-menu-item-object-page sidr-class-menu-item-1061"><a href="http://www.poweronplatforms.com/news-and-blogs/"><span class="sidr-class-link-inner">News and Blogs</span></a></li>
+<li id="sidr-id-menu-item-6971" class="sidr-class-menu-item sidr-class-menu-item-type-post_type sidr-class-menu-item-object-page sidr-class-menu-item-6971"><a href="http://www.poweronplatforms.com/events-current/"><span class="sidr-class-link-inner">Events</span></a></li>
+<li id="sidr-id-menu-item-16001" class="sidr-class-menu-item sidr-class-menu-item-type-post_type sidr-class-menu-item-object-page sidr-class-menu-item-16001"><a href="http://www.poweronplatforms.com/system-center-configmgr-download/"><span class="sidr-class-link-inner">Store</span></a></li>
+<li id="sidr-id-menu-item-101" class="sidr-class-menu-item sidr-class-menu-item-type-post_type sidr-class-menu-item-object-page sidr-class-menu-item-has-children sidr-class-dropdown sidr-class-menu-item-101"><a href="http://www.poweronplatforms.com/company/" class="sidr-class-sf-with-ul"><span class="sidr-class-link-inner">Company</span></a>
+<ul class="sidr-class-sub-menu">
+	<li id="sidr-id-menu-item-1231" class="sidr-class-menu-item sidr-class-menu-item-type-post_type sidr-class-menu-item-object-page sidr-class-menu-item-1231"><a href="http://www.poweronplatforms.com/company/about-us/"><span class="sidr-class-link-inner">About Us</span></a></li>
+	<li id="sidr-id-menu-item-1251" class="sidr-class-menu-item sidr-class-menu-item-type-post_type sidr-class-menu-item-object-page sidr-class-menu-item-1251"><a href="http://www.poweronplatforms.com/company/careers-at-poweron/"><span class="sidr-class-link-inner">Careers at PowerON</span></a></li>
+	<li id="sidr-id-menu-item-1261" class="sidr-class-menu-item sidr-class-menu-item-type-post_type sidr-class-menu-item-object-page sidr-class-menu-item-1261"><a href="http://www.poweronplatforms.com/company/contact-us/"><span class="sidr-class-link-inner">Contact Us</span></a></li>
+	<li id="sidr-id-menu-item-1271" class="sidr-class-menu-item sidr-class-menu-item-type-post_type sidr-class-menu-item-object-page sidr-class-menu-item-1271"><a href="http://www.poweronplatforms.com/company/become-a-partner/"><span class="sidr-class-link-inner">Become a Partner</span></a></li>
+</ul>
+</li>
+<li class="sidr-class-search-toggle-li sidr-class-wpex-menu-extra"><a href="http://www.poweronplatforms.com/enable-disable-hyper-v-windows-10-8/#" class="sidr-class-site-search-toggle sidr-class-search-dropdown-toggle"><span class="sidr-class-link-inner"><span class="fa fa-search"></span></span></a></li></ul>
+			
+		</div><div class="sidr-inner">
+	<form method="get" action="http://www.poweronplatforms.com/" class="sidr-class-mobile-menu-searchform">
+		<input type="search" name="s" autocomplete="off" placeholder="Search">
+				<button type="submit" class="sidr-class-searchform-submit">
+			<span class="fa fa-search"></span>
+		</button>
+	</form>
+</div></div><a href="javascript:void(0);" title="SumoMe" style="border-radius: 3px 0px 0px 3px; box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 10px; position: fixed; z-index: 2147483647; padding: 0px; width: 44px; height: 40px; text-indent: -10000px; opacity: 1; display: none !important; background-color: rgb(0, 115, 183);"><span style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;">SumoMe</span><span style="display:block;width:40px;height:40px;background:white;margin-left:4px;-webkit-border-radius: 3px 0 0 3px;-moz-border-radius: 3px 0 0 3px;-ms-border-radius: 3px 0 0 3px;-o-border-radius: 3px 0 0 3px;border-radius: 3px 0 0 3px;background-repeat:no-repeat;background-position:8px 8px;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAPBJREFUeNpi/P//PwMtAeOoBSPAAobi7fVAuomh15OwTcXbO4AkMxCXEam+mAlIaQLxNCCHkQjDy4G4hAT1liALDgBxBhDPAwoy41BcDzUcBjLwWoJwzAGYBSCQAMSLMCwp3l4BJBuwGIPdEoThIHCAESr4DEhKQgWXAXEiMIx/AcXLgOxOAiE9A4izwHGCavgbIBaDWbAESEYjadoMxHuAeCKRiQVkyUe0YFwLtDSEBeYVNAt8oZhYkIFFDBz0TMgcKgMkC3o97wDJp1Q0HBT+V5F9wAANc2qBg7CMyITuJWoGD10sGC2uRy2gHAAEGACB725KrIq6EgAAAABJRU5ErkJggg==);"></span></a></body></html>

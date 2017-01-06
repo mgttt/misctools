@@ -1,0 +1,19 @@
+#build
+svnadmin create /data/svnrepo
+
+#conf/svnserve.conf
+anon-access=none
+auth-access=write
+password-db=passwd 
+auth-db=authz
+
+#serve
+svnserve -d --listen-port 81 -r /data/svnrepo/
+
+#
+服务器和访问许可：一个警告
+
+首先需要记住，一个Subversion版本库是一组数据库文件，任何进程直接访问版本库需要对整个版本库有正确的读写许可，如果你不仔细处理，这会变得很头痛，特别是当你使用Berkeley DB数据库而不是FSFS时，详细信息可以阅读“支持多种版本库访问方法”一节。
+
+第二点，当配置svnserve、Apache httpd或者其它任何服务器时，不要使用root用户（或者其它具备无限制权限的用户）启动服务器进程，根据所有权和版本库允许的权限，通常应该创建一个新的自定义用户，例如很多管理员会创建一个叫做svn的用户，赋予这个用户排他的拥有权和对Subversion版本库的导出权利，只让服务器以这个用户运行。
+
