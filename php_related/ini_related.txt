@@ -1,0 +1,2 @@
+ --with-config-file-scan-dir
+ => 控制分散的 extension的 ini （从ubuntu看到的)
