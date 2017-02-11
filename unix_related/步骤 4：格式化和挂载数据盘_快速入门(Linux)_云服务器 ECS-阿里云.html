@@ -1,0 +1,1580 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+ 	<link rel="dns-prefetch" href="//gtms01.alicdn.com">
+	<link rel="dns-prefetch" href="//gtms02.alicdn.com">
+	<link rel="dns-prefetch" href="//gtms03.alicdn.com">
+	<link rel="stylesheet" href="//g.alicdn.com/hichina/home/4.0.18/dpl/style/base.css">
+	<link rel="stylesheet" type="text/css" href="//g.alicdn.com/aliyun/www-doc/0.0.16/css/common.css">
+	<link type="text/css" rel="stylesheet" href="//g.alicdn.com/??aliyun/www-dpl/0.3.53/knight/css/doc.icons.css">	
+	<link rel="stylesheet" href="//g.alicdn.com/tbc/global/0.0.8/index-min.css">
+	<link type="text/css" rel="stylesheet" href="/assets/css/editormd-markdown.css">
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta http-equiv="Cache-Control" content="no-siteapp"/>
+	<meta name="renderer" content="webkit">
+	<title>
+	    	        步骤 4：格式化和挂载数据盘_快速入门(Linux)_云服务器 ECS-阿里云
+	    	</title>
+	<meta name="keywords" content="步骤 4：格式化和挂载数据盘,快速入门(Linux),云服务器 ECS">
+	<meta name="description" content="如果您在创建实例时选择了数据盘，在登录实例后，系统需要先格式化数据盘，然后挂载数据盘。
+另外，您还可以根据业务需要，对数据盘进行多分区配置。建议使用系统自带的工">
+		<link rel="canonical" href="http://help.aliyun.com/document_detail/25426.html"/>
+		<script type="text/javascript" src="//www.aliyun.com/rgn/aliyun_assets?renderer=js"></script>
+	<script type="text/javascript" src="//g.alicdn.com/tbc/global/0.0.8/index-min.js"></script>	
+	<script type="text/javascript" src="//g.alicdn.com/aliyun/ali-init/0.0.7/index-min.js"></script>
+</head>
+
+
+<body data-spm="doc25426" class="dochelp-detail"><script type="text/javascript">
+(function (d) {
+var t=d.createElement("script");t.type="text/javascript";t.async=true;t.id="tb-beacon-aplus";
+t.setAttribute("exparams","category=&userid=&aplus&yunid=%22hi3408%2a%2a%2a%2a%40aliyun%2ecom%22&yunpk=34089191");
+t.src=("https:"==d.location.protocol?"https://s":"http://a")+".tbcdn.cn/s/aplus_v2.js";
+d.getElementsByTagName("head")[0].appendChild(t);
+})(document);
+</script>
+
+ 	<!-- 公共搜索 -->
+     <script type="text/javascript" src="//www.aliyun.com/rgn/aliyun_topbar_simple/index.js"></script>
+
+<!-- exported styles -->
+
+
+<link rel="stylesheet" type="text/css" href="//g.alicdn.com/ali-mod/??aliyun-help-top/0.0.2/index.css"/>
+
+
+
+  
+      
+  <!--region -->
+            
+                <div data-spm="331735" data-moduleid="177482" data-name="aliyun-help-top" data-guid="331735" id="guid-331735" data-scene-id="347014" data-scene-version="0" data-hidden="" data-gitgroup="ali-mod" data-ext="" class="aliyun-help-top J_Module" tms="aliyun-help-top/0.0.2" tms-datakey="347014"><div class="module-wrap J_tb_lazyload dbl_tms_module_wrap">
+
+
+  <div class="help-search" data-spm="2015709">
+    <div class="y-row">
+      <div class="y-span3 title">帮助与文档</div>
+      <div class="y-span9 y-last">
+        <div class="search">
+          <input id="search" placeholder="请用关键词进行搜索，例如“服务器密码重置”" autocomplete="off" disableautocomplete>
+          <ul class="tip">
+          </ul>
+          <a class="btn search-all-btn" href="javascript:;" data-spm-click="gostr=/aliyun;locaid=d202223">搜全部</a>
+          <a class="btn search-product-btn" href="javascript:;" data-spm-click="gostr=/aliyun;locaid=d223432">搜本产品</a>
+        </div>
+        <div class="hot-search">
+          <label>搜索热词：</label>
+          <ul class="y-clear">
+            
+            <li class="y-left"><a href="&#x2F;&#x2F;help.aliyun.com&#x2F;openSearchKnowledgeList.html?queryScope=all_all&amp;keyWords=%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8&amp;page=1">远程连接服务器</a></li>
+            
+            <li class="y-left"><a href="&#x2F;&#x2F;help.aliyun.com&#x2F;openSearchKnowledgeList.html?queryScope=all_all&amp;keyWords=%E6%8C%82%E8%BD%BD%E6%95%B0%E6%8D%AE%E7%9B%98&amp;page=1">挂载数据盘</a></li>
+            
+            <li class="y-left"><a href="&#x2F;&#x2F;help.aliyun.com&#x2F;openSearchKnowledgeList.html?queryScope=all_all&amp;keyWords=%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90&amp;page=1">域名解析</a></li>
+            
+            <li class="y-left"><a href="&#x2F;&#x2F;help.aliyun.com&#x2F;openSearchKnowledgeList.html?queryScope=all_all&amp;keyWords=ssd%20%E4%BA%91%E7%9B%98&amp;page=1">ssd云盘</a></li>
+            
+            <li class="y-left"><a href="&#x2F;&#x2F;help.aliyun.com&#x2F;openSearchKnowledgeList.html?queryScope=all_all&amp;keyWords=%E5%AE%9E%E5%90%8D%E8%AE%A4%E8%AF%81&amp;page=1">实名认证</a></li>
+            
+            <li class="y-left"><a href="&#x2F;&#x2F;help.aliyun.com&#x2F;openSearchKnowledgeList.html?queryScope=all_all&amp;keyWords=%E5%BF%98%E8%AE%B0%E5%AF%86%E7%A0%81&amp;page=1">忘记密码</a></li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="help-tab-box" data-spm="201511181">
+    <div class="y-row y-clear">
+      <ul class="y-left y-clear">
+        
+        <li class="y-left" key="fqa"><a href="//help.aliyun.com/">文档</a></li>
+        
+        <li class="y-left" key="new"><a href="//help.aliyun.com/contact/school.htm">新手学堂</a></li>
+        
+        <li class="y-left" key="contact"><a href="//help.aliyun.com/contact/contact.htm">联系客服</a></li>
+        
+      </ul>
+      <ul class="y-right  y-clear">
+        
+        <li class="y-left"><a class="tab" href="//help.aliyun.com/my_favorites.html"><img src="https://g.alicdn.com/aliyun/www-doc/0.0.11/images/star-hover_1a1b1e37dbcbd6e89afa940562ee882d.png">我的收藏</a></li>
+        
+
+
+      </ul>
+    </div>
+  </div>
+
+</div>
+</div>
+            
+  <!--region -->
+      
+  
+
+<!-- exported scripts -->
+
+
+<script src="//g.alicdn.com/ali-mod/??aliyun-help-top/0.0.2/index.js"></script>
+
+
+
+
+
+<div class="help-body help-index y-row">
+    <!-- menu S -->
+<script> window.openSearch ={queryScope:"25365_all",isDisplayAll:false , isEnglish:"no", source:"ecs", type:"doc", knowledgeId:"25426"} </script> 
+<script> window.help = {"action":"fqa"}; </script>
+<div class="help-menu-box" data-spm="6">
+  <div class="help-menu" style="padding-bottom: 0px;">
+  <div class="all y-clear" id="J_menu">
+    全部产品
+    <i class="icon-menu"></i>
+    <div class="goods y-clear">
+      <div class="y-left">
+        		  			  			  			<span>弹性计算</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/25365.html">云服务器 ECS</a></li>
+  			  		  			  			  <li><a href="/product/25815.html">高性能计算</a></li>
+  			  		  			  			  <li><a href="/product/25855.html">弹性伸缩</a></li>
+  			  		  			  			  <li><a href="/product/25972.html">容器服务</a></li>
+  			  		  			  			  <li><a href="/product/27992.html">批量计算</a></li>
+  			  		  			  			  			</ul>
+  			  			<span>会员服务</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/35468.html">备案</a></li>
+  			  		  			  			  <li><a href="/product/35470.html">财务</a></li>
+  			  		  			  			  <li><a href="/product/35469.html">会员账号&amp;实名认证</a></li>
+  			  		  			  			  			</ul>
+  			  			<span>域名与网站(万网)</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/35473.html">域名</a></li>
+  			  		  			  			  <li><a href="/product/29697.html">云解析</a></li>
+  			  		  			  			  <li><a href="/product/35465.html">云虚机主机</a></li>
+  			  		  			  			  <li><a href="/product/35466.html">企业邮箱</a></li>
+  			  		  			  			  <li><a href="/product/29830.html">弹性 Web 托管</a></li>
+  			  		  			  			  			</ul>
+  			  			<span>应用服务</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/28958.html">日志服务</a></li>
+  			  		  			  			  <li><a href="/product/29102.html">开放搜索</a></li>
+  			  		  			  			  <li><a href="/product/29260.html">性能测试</a></li>
+  			  		  			  			  <li><a href="/product/29412.html">邮件推送</a></li>
+  			  		  			  			  <li><a href="/product/29462.html">API 网关</a></li>
+  			  		  			  			  <li><a href="/product/30520.html">阿里云物联网套件</a></li>
+  			  		  			  			  			</ul>
+  			  			<span>互联网中间件</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/29657.html">分布式关系型数据库 DRDS</a></li>
+  			  		  			  			  <li><a href="/product/29500.html">企业级分布式应用服务 EDAS</a></li>
+  			  		  			  			  <li><a href="/product/34364.html">业务实时监控服务 ARMS</a></li>
+  			  		  			  			  <li><a href="/product/31788.html">云服务总线 CSB</a></li>
+  			  		  			  			  <li><a href="/product/29530.html">消息队列 MQ</a></li>
+  			  		  			  			  			</ul>
+  			  			<span>数加-大数据基础服务</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/27797.html">大数据计算服务</a></li>
+  			  		  			  			  <li><a href="/product/30254.html">大数据开发套件</a></li>
+  			  		  			  			  <li><a href="/product/26371.html">分析型数据库</a></li>
+  			  		  			  			  <li><a href="/product/45029.html">流计算</a></li>
+  			  		  			  			  <li><a href="/product/43581.html">数加平台介绍</a></li>
+  			  		  			  			  			</ul>
+  			  			<span>数加-数据应用</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/30367.html">推荐引擎</a></li>
+  			  		  			  			  <li><a href="/product/34383.html">公众趋势分析</a></li>
+  			  		  			  			  <li><a href="/product/28194.html">数据集成</a></li>
+  			  		  			  			  <li><a href="/product/44972.html">大数据解决方案</a></li>
+  			  		  			  			  			</ul>
+  			  			<span>开发者工具</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/29966.html">Eclipse 插件</a></li>
+  			  		  			  			  <li><a href="/product/29991.html">命令行工具 CLI</a></li>
+  			  		  			  			  			</ul>
+  			  			<span>移动服务</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/30019.html">移动数据分析</a></li>
+  			  		  			  			  <li><a href="/product/30047.html">移动推送</a></li>
+  			  		  			  			  <li><a href="/product/30100.html">HTTPDNS</a></li>
+  			  		  			  			  			</ul>
+  			  			<span>行业解决方案</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/29849.html">金融云</a></li>
+  			  		  			  			  			</ul>
+  			  			<span>分析</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/28066.html">E-MapReduce</a></li>
+  			  		  			</ul>
+            </div>
+      <div class="y-left">
+        		  			  			  			<span>存储与CDN</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/31815.html">对象存储 OSS</a></li>
+  			  		  			  			  <li><a href="/product/27412.html">消息服务</a></li>
+  			  		  			  			  <li><a href="/product/27278.html">表格存储</a></li>
+  			  		  			  			  <li><a href="/product/27099.html">CDN</a></li>
+  			  		  			  			  <li><a href="/product/27366.html">归档存储</a></li>
+  			  		  			  			  <li><a href="/product/27516.html">文件存储</a></li>
+  			  		  			  			  			</ul>
+  			  			<span>数据库</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/26090.html">云数据库 RDS 版</a></li>
+  			  		  			  			  <li><a href="/product/26340.html">云数据库 Redis 版</a></li>
+  			  		  			  			  <li><a href="/product/26556.html">云数据库 MongoDB 版</a></li>
+  			  		  			  			  <li><a href="/product/26320.html">云数据库 PetaData</a></li>
+  			  		  			  			  <li><a href="/product/35364.html">云数据库 HybridDB</a></li>
+  			  		  			  			  <li><a href="/product/26458.html">云数据库 OceanBase</a></li>
+  			  		  			  			  <li><a href="/product/26590.html">数据传输服务DTS</a></li>
+  			  		  			  			  <li><a href="/product/26437.html">数据管理</a></li>
+  			  		  			  			  <li><a href="/product/26528.html">云数据库 Memcache 版</a></li>
+  			  		  			  			  <li><a href="/product/49055.html">云数据库 HBase 版</a></li>
+  			  		  			  			  			</ul>
+  			  			<span>网络</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/27537.html">负载均衡</a></li>
+  			  		  			  			  <li><a href="/product/27706.html">专有网络 VPC</a></li>
+  			  		  			  			  <li><a href="/product/27782.html">高速通道</a></li>
+  			  		  			  			  <li><a href="/product/44413.html">NAT 网关</a></li>
+  			  		  			  			  			</ul>
+  			  			<span>云盾</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/28341.html">加密服务</a></li>
+  			  		  			  			  <li><a href="/product/28308.html">数据风控</a></li>
+  			  		  			  			  <li><a href="/product/28498.html">态势感知</a></li>
+  			  		  			  			  <li><a href="/product/28376.html">先知计划</a></li>
+  			  		  			  			  <li><a href="/product/28396.html">DDoS 基础防护</a></li>
+  			  		  			  			  <li><a href="/product/28461.html">DDoS 高防IP</a></li>
+  			  		  			  			  <li><a href="/product/28415.html">阿里绿网</a></li>
+  			  		  			  			  <li><a href="/product/28449.html">服务器安全(安骑士)</a></li>
+  			  		  			  			  <li><a href="/product/28487.html">数据安全险</a></li>
+  			  		  			  			  <li><a href="/product/28515.html">Web 应用防火墙</a></li>
+  			  		  			  			  <li><a href="/product/28533.html">证书服务</a></li>
+  			  		  			  			  <li><a href="/product/34401.html">移动安全</a></li>
+  			  		  			  			  <li><a href="/product/42806.html">安全管家服务</a></li>
+  			  		  			  			  <li><a href="/product/35474.html">漏洞扫描</a></li>
+  			  		  			  			  <li><a href="/product/44522.html">云盾混合云</a></li>
+  			  		  			  			  			</ul>
+  			  			<span>数加-数据分析展现</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/43570.html">数据可视化</a></li>
+  			  		  			  			  <li><a href="/product/34396.html">画像分析</a></li>
+  			  		  			  			  <li><a href="/product/30343.html">Quick BI</a></li>
+  			  		  			  			  			</ul>
+  			  			<span>数加-人工智能</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/30413.html">智能语音交互</a></li>
+  			  		  			  			  <li><a href="/product/30347.html">机器学习</a></li>
+  			  		  			  			  <li><a href="/product/30396.html">机器翻译</a></li>
+  			  		  			  			  <li><a href="/product/43579.html">人工智能图像类</a></li>
+  			  		  			  			  <li><a href="/product/42728.html">阿里云ET介绍</a></li>
+  			  		  			  			  			</ul>
+  			  			<span>管理与监控</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/28572.html">云监控</a></li>
+  			  		  			  			  <li><a href="/product/28625.html">访问控制</a></li>
+  			  		  			  			  <li><a href="/product/28802.html">操作审计</a></li>
+  			  		  			  			  <li><a href="/product/28850.html">资源编排</a></li>
+  			  		  			  			  <li><a href="/product/28933.html">密钥管理服务</a></li>
+  			  		  			  			  			</ul>
+  			  			<span>视频服务</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/29932.html">视频点播</a></li>
+  			  		  			  			  <li><a href="/product/29949.html">视频直播</a></li>
+  			  		  			  			  <li><a href="/product/29194.html">媒体转码</a></li>
+  			  		  			  			  			</ul>
+  			  			<span>培训与认证</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/32348.html">专业技术认证</a></li>
+  			  		  			  			  <li><a href="/product/32349.html">培训合作伙伴</a></li>
+  			  		  			  			  <li><a href="/product/32347.html">上云培训</a></li>
+  			  		  			  			  			</ul>
+  			  			<span>更多</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/30174.html">体验馆</a></li>
+  			  		  			  			  <li><a href="/product/30212.html">规则引擎</a></li>
+  			  		  			  			  <li><a href="/product/30488.html">云市场</a></li>
+  			  		  			  			  <li><a href="/product/30507.html">持续交付平台</a></li>
+  			  		  			  			  <li><a href="/product/35472.html">合作伙伴</a></li>
+  			  		  			  			  <li><a href="/product/35471.html">阿里云规则</a></li>
+  			  		  			  			  <li><a href="/product/44216.html">支持计划</a></li>
+  			  		  			  			  <li><a href="/product/42397.html">信任中心</a></li>
+  			  		  			  			  			</ul>
+  			  			<span>云通信</span>
+  			<ul>
+  			  		  			  			  <li><a href="/product/44282.html">短信服务</a></li>
+  			  		  			</ul>
+            </div>
+    </div>
+  </div>
+  </div>
+  <div id="J_menu_box">
+    <div class="help-menu" data-spm="6" data-spm-max-idx="537">
+    <span class="menu-title">云服务器 ECS</span>
+    <ul>
+                          <li class="level1 "><a href=" javascript:void(0); " title="产品简介">产品简介<i class="up"></i></a>
+                  <ul>
+                              <li class="level2 "><a href="/document_detail/25367.html" title="什么是云服务器 ECS">什么是云服务器 ECS</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/25368.html" title="优势">优势</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/25369.html" title="功能">功能</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/25371.html" title="应用场景">应用场景</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/knowledge_detail/40654.html" title="地域">地域</a>
+                </li>
+                      	    	                <li class="level2 "><a href=" javascript:void(0); " title="实例">实例<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25374.html" title="概述">概述</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25378.html" title="实例系列和规格族">实例系列和规格族</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25380.html" title="实例生命周期">实例生命周期</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="磁盘">磁盘<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25382.html" title="云盘参数和性能测试方法">云盘参数和性能测试方法</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25383.html" title="云盘的特点和应用场景">云盘的特点和应用场景</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/35108.html" title="云盘三副本技术介绍">云盘三副本技术介绍</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/35241.html" title="上一代磁盘">上一代磁盘</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="网络和安全性">网络和安全性<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25385.html" title="内网">内网</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25386.html" title="经典网络的IP">经典网络的IP</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25387.html" title="安全组">安全组</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="镜像">镜像<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25389.html" title="镜像">镜像</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="快照">快照<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25391.html" title="概述">概述</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25392.html" title="原理介绍">原理介绍</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25393.html" title="快照 2.0 产品规格升级">快照 2.0 产品规格升级</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25394.html" title="技术优势对比">技术优势对比</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25395.html" title="应用场景">应用场景</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href="/document_detail/25372.html" title="变更历史">变更历史</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level1 "><a href=" javascript:void(0); " title="购买指南">购买指南<i class="up"></i></a>
+                  <ul>
+                              <li class="level2 "><a href=" javascript:void(0); " title="购买渠道">购买渠道<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25398.html" title="官网购买">官网购买</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25399.html" title="API 购买">API 购买</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="购买实例">购买实例<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25370.html" title="计费模式">计费模式</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25402.html" title="新购">新购</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25403.html" title="升降配">升降配</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/48360.html" title="手动续费">手动续费</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/48363.html" title="续费降配">续费降配</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25404.html" title="自动续费">自动续费</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="购买磁盘">购买磁盘<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25407.html" title="新购">新购</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25408.html" title="扩容">扩容</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="购买网络带宽">购买网络带宽<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25411.html" title="新购">新购</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href="/document_detail/25412.html" title="ECS API 产品和业务限制">ECS API 产品和业务限制</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/45105.html" title="ECS 产品调价细则（20161015起）">ECS 产品调价细则（20161015起）</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level1 open"><a href=" javascript:void(0); " title="快速入门(Linux)">快速入门(Linux)<i class="up"></i></a>
+                  <ul>
+                              <li class="level2 "><a href="/document_detail/25422.html" title="概述">概述</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/25423.html" title="步骤 1：配置选型">步骤 1：配置选型</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/25424.html" title="步骤 2：创建Linux实例">步骤 2：创建Linux实例</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/25425.html" title="步骤 3：远程连接 Linux 实例">步骤 3：远程连接 Linux 实例</a>
+                </li>
+                      	    	                <li class="level2 action"><a href="/document_detail/25426.html" title="步骤 4：格式化和挂载数据盘">步骤 4：格式化和挂载数据盘</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level1 "><a href=" javascript:void(0); " title="快速入门(Windows)">快速入门(Windows)<i class="up"></i></a>
+                  <ul>
+                              <li class="level2 "><a href="/document_detail/25414.html" title="概述">概述</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/25415.html" title="步骤 1：配置选型">步骤 1：配置选型</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/25416.html" title="步骤 2：创建Windows实例">步骤 2：创建Windows实例</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/25417.html" title="步骤 3：连接 Windows 实例">步骤 3：连接 Windows 实例</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/25418.html" title="步骤 4：格式化数据盘">步骤 4：格式化数据盘</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level1 "><a href=" javascript:void(0); " title="建站教程">建站教程<i class="up"></i></a>
+                  <ul>
+                              <li class="level2 "><a href=" javascript:void(0); " title="搭建 WordPress 网站">搭建 WordPress 网站<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/43244.html" title="搭建 WordPress 网站">搭建 WordPress 网站</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/44543.html" title="步骤 1：购买 Linux 实例">步骤 1：购买 Linux 实例</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/44595.html" title="步骤 2：部署 Web 环境（LAMP）">步骤 2：部署 Web 环境（LAMP）</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/44619.html" title="步骤 3：安装 WordPress">步骤 3：安装 WordPress</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/44561.html" title="步骤 4：购买域名">步骤 4：购买域名</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/44590.html" title="步骤 5：备案">步骤 5：备案</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/44620.html" title="步骤 6：配置域名解析">步骤 6：配置域名解析</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href="/document_detail/25427.html" title="镜像部署 Linux 环境">镜像部署 Linux 环境</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/25420.html" title="镜像部署Windows环境">镜像部署Windows环境</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/43245.html" title="手动建站（Windows环境）">手动建站（Windows环境）</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level1 "><a href=" javascript:void(0); " title="用户指南">用户指南<i class="up"></i></a>
+                  <ul>
+                              <li class="level2 "><a href="/document_detail/25429.html" title="常用操作导航">常用操作导航</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/25430.html" title="ECS 使用须知">ECS 使用须知</a>
+                </li>
+                      	    	                <li class="level2 "><a href=" javascript:void(0); " title="连接实例">连接实例<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25433.html" title="使用远程连接功能连接 ECS 实例">使用远程连接功能连接 ECS 实例</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25434.html" title="连接 Linux 实例">连接 Linux 实例</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25435.html" title="连接 Windows 实例">连接 Windows 实例</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="实例">实例<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href=" javascript:void(0); " title="创建实例">创建实例<i class="up"></i></a>
+                  <ul>
+                              <li class="level4 "><a href="/document_detail/25432.html" title="创建实例概览">创建实例概览</a>
+                </li>
+                      	    	                <li class="level4 "><a href="/document_detail/25465.html" title="使用自定义镜像创建实例">使用自定义镜像创建实例</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level3 "><a href="/document_detail/25436.html" title="更换操作系统">更换操作系统</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25437.html" title="升降配">升降配</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25438.html" title="升级内存">升级内存</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25439.html" title="重置实例密码">重置实例密码</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25441.html" title="启动、查看、停止">启动、查看、停止</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25440.html" title="重启实例">重启实例</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/34374.html" title="重开机">重开机</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25442.html" title="释放实例、关闭自动释放">释放实例、关闭自动释放</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25443.html" title="加入、移出安全组">加入、移出安全组</a>
+                </li>
+                      	    	                <li class="level3 "><a href=" javascript:void(0); " title="用户数据及实例元数据">用户数据及实例元数据<i class="up"></i></a>
+                  <ul>
+                              <li class="level4 "><a href="/knowledge_detail/49121.html" title="用户数据">用户数据</a>
+                </li>
+                      	    	                <li class="level4 "><a href="/knowledge_detail/49122.html" title="实例元数据">实例元数据</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="磁盘">磁盘<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25445.html" title="创建云盘">创建云盘</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/32317.html" title="用快照创建磁盘">用快照创建磁盘</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25446.html" title="挂载数据盘">挂载数据盘</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25447.html" title="卸载、释放数据盘">卸载、释放数据盘</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25448.html" title="更换系统盘（自定义镜像）">更换系统盘（自定义镜像）</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/50134.html" title="更换系统盘（公共镜像）">更换系统盘（公共镜像）</a>
+                </li>
+                      	    	                <li class="level3 "><a href=" javascript:void(0); " title="扩容磁盘概览">扩容磁盘概览<i class="up"></i></a>
+                  <ul>
+                              <li class="level4 "><a href="/document_detail/35095.html" title="磁盘扩容概述">磁盘扩容概述</a>
+                </li>
+                      	    	                <li class="level4 "><a href="/document_detail/44986.html" title="扩容系统盘">扩容系统盘</a>
+                </li>
+                      	    	                <li class="level4 "><a href="/document_detail/25452.html" title="扩容数据盘(Linux)">扩容数据盘(Linux)</a>
+                </li>
+                      	    	                <li class="level4 "><a href="/document_detail/25451.html" title="扩容数据盘(Windows实例)">扩容数据盘(Windows实例)</a>
+                </li>
+                      	    	                <li class="level4 "><a href="/document_detail/34377.html" title="32T 块存储分区">32T 块存储分区</a>
+                </li>
+                      	    	                <li class="level4 "><a href="/document_detail/35099.html" title="FreeBSD系统盘扩容、分区、挂载">FreeBSD系统盘扩容、分区、挂载</a>
+                </li>
+                      	    	                <li class="level4 "><a href="/document_detail/35097.html" title="原地扩容LVM磁盘">原地扩容LVM磁盘</a>
+                </li>
+                      	    	                <li class="level4 "><a href="/document_detail/35093.html" title="原地扩容裸盘 (Linux)">原地扩容裸盘 (Linux)</a>
+                </li>
+                      	    	                <li class="level4 "><a href="/document_detail/35098.html" title="扩容多分区磁盘">扩容多分区磁盘</a>
+                </li>
+                      	    	                <li class="level4 "><a href="/document_detail/35094.html" title="扩容XFS磁盘 (Linux)">扩容XFS磁盘 (Linux)</a>
+                </li>
+                      	    	                <li class="level4 "><a href="/document_detail/25419.html" title="手动扩展系统盘">手动扩展系统盘</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level3 "><a href="/document_detail/25449.html" title="重新初始化磁盘">重新初始化磁盘</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25450.html" title="回滚磁盘">回滚磁盘</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25453.html" title="查看磁盘监控信息">查看磁盘监控信息</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="快照">快照<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25455.html" title="创建快照">创建快照</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25456.html" title="创建自动快照策略">创建自动快照策略</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25457.html" title="为磁盘设置自动快照策略">为磁盘设置自动快照策略</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/31691.html" title="配置自动快照随磁盘释放">配置自动快照随磁盘释放</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25458.html" title="删除快照">删除快照</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="镜像">镜像<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25460.html" title="使用快照创建自定义镜像">使用快照创建自定义镜像</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/35109.html" title="使用实例创建自定义镜像">使用实例创建自定义镜像</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25462.html" title="复制镜像">复制镜像</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25463.html" title="共享镜像">共享镜像</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25464.html" title="导入本地镜像">导入本地镜像</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25461.html" title="修改自定义镜像信息">修改自定义镜像信息</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25466.html" title="删除自定义镜像">删除自定义镜像</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="安全组">安全组<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25475.html" title="应用案例">应用案例</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/31707.html" title="安全组默认规则">安全组默认规则</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25468.html" title="创建安全组">创建安全组</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25471.html" title="配置规则">配置规则</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25469.html" title="查询安全组列表">查询安全组列表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25470.html" title="修改安全组属性">修改安全组属性</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25472.html" title="查询安全组规则">查询安全组规则</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25473.html" title="取消安全组规则">取消安全组规则</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25474.html" title="删除安全组">删除安全组</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="标签">标签<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25477.html" title="限制">限制</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25478.html" title="编辑标签">编辑标签</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25479.html" title="删除标签">删除标签</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25480.html" title="根据标签检索">根据标签检索</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href="/document_detail/25481.html" title="访问控制RAM">访问控制RAM</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/25482.html" title="监控">监控</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level1 "><a href=" javascript:void(0); " title="API 参考">API 参考<i class="up"></i></a>
+                  <ul>
+                              <li class="level2 "><a href="/document_detail/25484.html" title="简介">简介</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/25486.html" title="更新历史">更新历史</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/25485.html" title="API 概览">API 概览</a>
+                </li>
+                      	    	                <li class="level2 "><a href=" javascript:void(0); " title="调用方式">调用方式<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25488.html" title="概述">概述</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25489.html" title="请求结构">请求结构</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25490.html" title="公共参数">公共参数</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25491.html" title="返回结果">返回结果</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25492.html" title="签名机制">签名机制</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="借助 RAM 实现子账号对主账号的 ECS 资源访问">借助 RAM 实现子账号对主账号的 ECS 资源访问<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25494.html" title="概述">概述</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25496.html" title="RAM 中可对 ECS 资源进行授权的 Action">RAM 中可对 ECS 资源进行授权的 Action</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25497.html" title="ECS API 发生子账号访问主账号资源时的鉴权规则">ECS API 发生子账号访问主账号资源时的鉴权规则</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="实例相关接口">实例相关接口<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25499.html" title="创建实例">创建实例</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25500.html" title="启动实例">启动实例</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25501.html" title="停止实例">停止实例</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25502.html" title="重启实例">重启实例</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25503.html" title="修改实例属性">修改实例属性</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25504.html" title="修改实例 VPC 属性">修改实例 VPC 属性</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25505.html" title="查询实例状态">查询实例状态</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25506.html" title="查询实例列表">查询实例列表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25507.html" title="删除实例">删除实例</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25508.html" title="将实例加入安全组">将实例加入安全组</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25509.html" title="将实例移出安全组">将实例移出安全组</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25510.html" title="查询实例管理终端地址">查询实例管理终端地址</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25511.html" title="修改实例管理终端口令">修改实例管理终端口令</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/44393.html" title="续费实例">续费实例</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/47576.html" title="设置实例自动释放时间">设置实例自动释放时间</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/49227.html" title="查询用户数据">查询用户数据</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="磁盘相关接口">磁盘相关接口<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25513.html" title="创建磁盘">创建磁盘</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25514.html" title="查询磁盘">查询磁盘</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25515.html" title="挂载磁盘">挂载磁盘</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25516.html" title="卸载磁盘">卸载磁盘</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25517.html" title="修改磁盘属性">修改磁盘属性</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25518.html" title="删除磁盘">删除磁盘</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25519.html" title="重新初始化磁盘">重新初始化磁盘</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25520.html" title="回滚磁盘">回滚磁盘</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25521.html" title="更换系统盘">更换系统盘</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25522.html" title="扩容磁盘">扩容磁盘</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="快照相关接口">快照相关接口<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25524.html" title="创建快照">创建快照</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25525.html" title="删除快照">删除快照</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25526.html" title="查询快照">查询快照</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25527.html" title="创建自动快照策略">创建自动快照策略</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25528.html" title="释放自动快照策略">释放自动快照策略</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25529.html" title="修改自动快照策略">修改自动快照策略</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25530.html" title="查询自动快照策略">查询自动快照策略</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25531.html" title="执行自动快照策略">执行自动快照策略</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25532.html" title="取消自动快照策略">取消自动快照策略</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="镜像相关接口">镜像相关接口<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25534.html" title="查询可用镜像">查询可用镜像</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25535.html" title="创建自定义镜像">创建自定义镜像</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25536.html" title="修改镜像属性">修改镜像属性</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25537.html" title="删除自定义镜像">删除自定义镜像</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25538.html" title="复制镜像">复制镜像</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25539.html" title="取消复制镜像">取消复制镜像</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25540.html" title="管理镜像共享">管理镜像共享</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25541.html" title="查询镜像共享">查询镜像共享</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25542.html" title="导入镜像">导入镜像</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="网络相关接口">网络相关接口<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25544.html" title="分配公网 IP 地址">分配公网 IP 地址</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25545.html" title="修改实例网络规格">修改实例网络规格</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25546.html" title="申请弹性公网 IP">申请弹性公网 IP</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25547.html" title="绑定弹性公网 IP">绑定弹性公网 IP</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25548.html" title="查询弹性公网 IP 列表">查询弹性公网 IP 列表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25549.html" title="修改弹性公网 IP 属性">修改弹性公网 IP 属性</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25550.html" title="解绑弹性公网 IP">解绑弹性公网 IP</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25551.html" title="释放弹性公网 IP">释放弹性公网 IP</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="安全组相关接口">安全组相关接口<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25553.html" title="创建安全组">创建安全组</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25554.html" title="授权安全组权限">授权安全组权限</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25555.html" title="查询安全组规则">查询安全组规则</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25556.html" title="查询安全组列表">查询安全组列表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25557.html" title="撤销安全组规则">撤销安全组规则</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25558.html" title="删除安全组">删除安全组</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25559.html" title="修改安全组属性">修改安全组属性</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25560.html" title="授权出方向安全组权限">授权出方向安全组权限</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25561.html" title="撤销出方向安全组规则">撤销出方向安全组规则</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="专有网络相关接口">专有网络相关接口<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25563.html" title="新建专有网络">新建专有网络</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25564.html" title="删除专有网络">删除专有网络</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25565.html" title="查询专有网络列表">查询专有网络列表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25566.html" title="修改专有网络属性">修改专有网络属性</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="路由器相关接口">路由器相关接口<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25568.html" title="查询路由器列表">查询路由器列表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25569.html" title="修改路由器属性">修改路由器属性</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="交换机相关接口">交换机相关接口<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25571.html" title="新建交换机">新建交换机</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25572.html" title="删除交换机">删除交换机</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25573.html" title="查询交换机列表">查询交换机列表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25574.html" title="修改交换机属性">修改交换机属性</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="路由表相关接口">路由表相关接口<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25576.html" title="新建自定义路由">新建自定义路由</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25577.html" title="删除自定义路由">删除自定义路由</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25578.html" title="查询路由表列表">查询路由表列表</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="地域相关接口">地域相关接口<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25609.html" title="查询可用地域列表">查询可用地域列表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25610.html" title="查询可用区">查询可用区</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="监控相关接口">监控相关接口<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25612.html" title="查看云服务器实例的监控信息">查看云服务器实例的监控信息</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25613.html" title="查看弹性公网IP监控信息">查看弹性公网IP监控信息</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25614.html" title="查看磁盘的监控信息">查看磁盘的监控信息</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="NAT网关相关接口">NAT网关相关接口<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/32384.html" title="创建NAT网关">创建NAT网关</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/32385.html" title="查询NAT网关列表">查询NAT网关列表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/32386.html" title="删除NAT网关">删除NAT网关</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/32387.html" title="查询共享带宽包列表">查询共享带宽包列表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/32388.html" title="修改共享带宽包带宽">修改共享带宽包带宽</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/32389.html" title="修改共享带宽包-增加公网IP">修改共享带宽包-增加公网IP</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/32390.html" title="修改共享带宽包-减少公网IP">修改共享带宽包-减少公网IP</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/32391.html" title="删除共享带宽包">删除共享带宽包</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/32392.html" title="添加端口转发规则">添加端口转发规则</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/32395.html" title="查询端口转发规则列表">查询端口转发规则列表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/32394.html" title="修改端口转发规则">修改端口转发规则</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/32393.html" title="删除端口转发规则">删除端口转发规则</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="高速通道相关接口">高速通道相关接口<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25586.html" title="新建路由器接口">新建路由器接口</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25587.html" title="修改路由器接口属性">修改路由器接口属性</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25588.html" title="查询路由器接口列表">查询路由器接口列表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25589.html" title="发起路由器接口连接">发起路由器接口连接</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25590.html" title="将路由器接口置为非激活">将路由器接口置为非激活</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25591.html" title="将路由器接口置为激活">将路由器接口置为激活</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25592.html" title="修改路由器接口规格">修改路由器接口规格</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25593.html" title="删除路由器接口">删除路由器接口</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25594.html" title="查询可用专线接入点信息">查询可用专线接入点信息</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25595.html" title="申请物理专线接入">申请物理专线接入</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25596.html" title="查询物理专线列表">查询物理专线列表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25597.html" title="修改物理专线属性">修改物理专线属性</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25598.html" title="开通物理专线">开通物理专线</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25599.html" title="取消物理专线">取消物理专线</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25600.html" title="物理专线接入终止">物理专线接入终止</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25601.html" title="删除物理专线">删除物理专线</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25602.html" title="新建虚拟边界路由器">新建虚拟边界路由器</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25603.html" title="查询虚拟边界路由器列表">查询虚拟边界路由器列表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25604.html" title="修改虚拟边界路由器信息">修改虚拟边界路由器信息</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25605.html" title="查看物理专线下的边界路由器列表">查看物理专线下的边界路由器列表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25606.html" title="终止虚拟边界路由器">终止虚拟边界路由器</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25607.html" title="恢复虚拟边界路由器">恢复虚拟边界路由器</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/40543.html" title="删除虚拟边界路由器">删除虚拟边界路由器</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="标签相关接口">标签相关接口<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25616.html" title="绑定标签">绑定标签</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25617.html" title="解绑标签">解绑标签</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25618.html" title="查询标签">查询标签</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="其他接口">其他接口<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25620.html" title="查询实例资源规格列表">查询实例资源规格列表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25621.html" title="查询实例规格族列表">查询实例规格族列表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25622.html" title="查询任务列表">查询任务列表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25623.html" title="查询任务属性">查询任务属性</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25624.html" title="取消任务">取消任务</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="数据类型">数据类型<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25626.html" title="DiskItemType">DiskItemType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25627.html" title="DiskSetType">DiskSetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25628.html" title="ImageType">ImageType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25629.html" title="InstanceMonitorDataType">InstanceMonitorDataType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25630.html" title="InstanceStatusItemType">InstanceStatusItemType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25631.html" title="InstanceStatusSetType">InstanceStatusSetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25632.html" title="OperationLocksType">OperationLocksType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25633.html" title="InstanceTypeItemType">InstanceTypeItemType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25634.html" title="IpAddressSetType">IpAddressSetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25635.html" title="PermissionSetType">PermissionSetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25636.html" title="PermissionType">PermissionType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25637.html" title="RegionType">RegionType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25638.html" title="AvailableResourceCreationType">AvailableResourceCreationType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25639.html" title="AvailableDiskCategoriesType">AvailableDiskCategoriesType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25640.html" title="ZoneType">ZoneType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25641.html" title="SnapshotType">SnapshotType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25642.html" title="SecurityGroupIdSetType">SecurityGroupIdSetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25643.html" title="SecurityGroupSetType">SecurityGroupSetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25644.html" title="SecurityGroupItemType">SecurityGroupItemType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25645.html" title="IpRangeSetType">IpRangeSetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25646.html" title="AutoSnapshotPolicyType">AutoSnapshotPolicyType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25647.html" title="AutoSnapshotExecutionStatusType">AutoSnapshotExecutionStatusType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25648.html" title="DiskDeviceMapping">DiskDeviceMapping</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25649.html" title="VpcSetType">VpcSetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25650.html" title="VRouterSetType">VRouterSetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25651.html" title="RouteTableSetType">RouteTableSetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25652.html" title="RouteEntrySetType">RouteEntrySetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25653.html" title="VSwitchSetType">VSwitchSetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25654.html" title="EipAddressAssociateType">EipAddressAssociateType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25655.html" title="EipAddressSetType">EipAddressSetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25656.html" title="InstanceAttributesType">InstanceAttributesType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25657.html" title="VpcAttributesType">VpcAttributesType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25658.html" title="EipMonitorDataType">EipMonitorDataType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25659.html" title="DiskMonitorDataType">DiskMonitorDataType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25660.html" title="AccountType">AccountType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25661.html" title="ShareGroupType">ShareGroupType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25662.html" title="TagSetItem">TagSetItem</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25663.html" title="ResourceTypeCountItem">ResourceTypeCountItem</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25664.html" title="HaVipSetType">HaVipSetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25665.html" title="HaVipItemType">HaVipItemType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25666.html" title="AvailableInstanceTypesType">AvailableInstanceTypesType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25667.html" title="InstanceTypeFamilyItemType">InstanceTypeFamilyItemType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25668.html" title="RouterInterfaceSetType">RouterInterfaceSetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25669.html" title="RouterInterfaceItemType">RouterInterfaceItemType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25670.html" title="AvailableResourcesType">AvailableResourcesType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25671.html" title="TaskType">TaskType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25672.html" title="OperationProgressType">OperationProgressType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25673.html" title="RelatedItemType">RelatedItemType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25674.html" title="AccessPointSetType">AccessPointSetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25675.html" title="AccessPointType">AccessPointType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25676.html" title="PhysicalConnectionSetType">PhysicalConnectionSetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25677.html" title="PhysicalConnectionType">PhysicalConnectionType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25678.html" title="VirtualBorderRouterSetType">VirtualBorderRouterSetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25679.html" title="VirtualBorderRouterType">VirtualBorderRouterType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25680.html" title="NextHopListType">NextHopListType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25681.html" title="NextHopItemType">NextHopItemType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25682.html" title="VirtualBorderRouterForPhysicalConnectionSetType">VirtualBorderRouterForPhysicalConnectionSetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25683.html" title="VirtualBorderRouterForPhysicalConnectionType">VirtualBorderRouterForPhysicalConnectionType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/34921.html" title="NatGatewaySetType">NatGatewaySetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/34922.html" title="NatGatewayItemType">NatGatewayItemType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/34923.html" title="BandwidthPackageSetType">BandwidthPackageSetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/34924.html" title="BandwidthPackageItemType">BandwidthPackageItemType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/34927.html" title="ForwardEntrySetType">ForwardEntrySetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/34928.html" title="ForwardEntryItemType">ForwardEntryItemType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/34925.html" title="PublicIpAddressSetType">PublicIpAddressSetType</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/34926.html" title="PublicIpAddressItemType">PublicIpAddressItemType</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="附录">附录<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/document_detail/25685.html" title="实例资源规格对照表">实例资源规格对照表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25686.html" title="错误代码表">错误代码表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25687.html" title="实例状态表">实例状态表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25688.html" title="实例状态图">实例状态图</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25689.html" title="普通云盘状态表">普通云盘状态表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25690.html" title="普通云盘状态图">普通云盘状态图</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25691.html" title="磁盘种类表">磁盘种类表</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25692.html" title="如何调用接口">如何调用接口</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25693.html" title="如何保证幂等性">如何保证幂等性</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25694.html" title="欠费状态下的API行为">欠费状态下的API行为</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25695.html" title="实例被安全锁定时API的行为">实例被安全锁定时API的行为</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/25696.html" title="时间格式">时间格式</a>
+                </li>
+                      	    	                <li class="level3 "><a href="/document_detail/35112.html" title="使用ECS的API和SDK查询内容只能返回10条信息的原因">使用ECS的API和SDK查询内容只能返回10条信息的原因</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	        	          </ul>
+	        </li>
+	                        <li class="level1 "><a href=" javascript:void(0); " title="SDK 参考">SDK 参考<i class="up"></i></a>
+                  <ul>
+                              <li class="level2 "><a href="/document_detail/25698.html" title="创建 Access Key">创建 Access Key</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/25699.html" title="SDK">SDK</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/34917.html" title="下载、安装阿里云新版Java SDK">下载、安装阿里云新版Java SDK</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/34930.html" title="SDK使用方法和具体代码编写步骤">SDK使用方法和具体代码编写步骤</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level1 "><a href=" javascript:void(0); " title="故障处理">故障处理<i class="up"></i></a>
+                  <ul>
+                              <li class="level2 "><a href="/document_detail/34403.html" title="无法访问ECS云服务器">无法访问ECS云服务器</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/31710.html" title="无法访问ECS上的网站">无法访问ECS上的网站</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/31748.html" title="云服务器宕机排查">云服务器宕机排查</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/31749.html" title="加强云服务器安全">加强云服务器安全</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/31730.html" title="带宽跑满">带宽跑满</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/31728.html" title="影响网站打开速度的因素">影响网站打开速度的因素</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/31732.html" title="CPU跑满">CPU跑满</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/31729.html" title="FTP上传经常中断">FTP上传经常中断</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/34931.html" title="ECS云服务器FTP连接报错421">ECS云服务器FTP连接报错421</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/34918.html" title="网络正常但无法通过FTP连接ECS或虚机服务器">网络正常但无法通过FTP连接ECS或虚机服务器</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/31741.html" title="肉鸡类问题排查思路">肉鸡类问题排查思路</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/31750.html" title="监控CPU和内存的日志工具">监控CPU和内存的日志工具</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/32257.html" title="申请解锁">申请解锁</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/32258.html" title="Linux实例挂载数据盘报错">Linux实例挂载数据盘报错</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/34402.html" title="ECS云服务器对外攻击解锁后解决方案">ECS云服务器对外攻击解锁后解决方案</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/34919.html" title="云服务器遭受网络攻击的处理方法">云服务器遭受网络攻击的处理方法</a>
+                </li>
+                      	    	                <li class="level2 "><a href="/document_detail/34916.html" title="Ping响应延迟或丢包的解决办法">Ping响应延迟或丢包的解决办法</a>
+                </li>
+                      	        	        	        	          </ul>
+	        </li>
+	                        <li class="level1 "><a href=" javascript:void(0); " title="产品使用问题">产品使用问题<i class="up"></i></a>
+                  <ul>
+                              <li class="level2 "><a href="/knowledge_list/40649.html" title="ECS购买须知">ECS购买须知</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level2 "><a href="/knowledge_list/40577.html" title="ECS操作须知">ECS操作须知</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level2 "><a href="/knowledge_list/40545.html" title="ECS常见问题">ECS常见问题</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level2 "><a href="/knowledge_list/40679.html" title="相关协议">相关协议</a>
+                  <ul>
+                      	        	        	        	          </ul>
+	        </li>
+	        	          </ul>
+	        </li>
+	                        <li class="level1 "><a href=" javascript:void(0); " title="Windows操作运维问题">Windows操作运维问题<i class="up"></i></a>
+                  <ul>
+                              <li class="level2 "><a href=" javascript:void(0); " title="操作系统类问题">操作系统类问题<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/knowledge_list/42551.html" title="蓝屏夯机">蓝屏夯机</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42550.html" title="性能资源">性能资源</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42552.html" title="系统激活">系统激活</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42554.html" title="时间服务">时间服务</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42557.html" title="补丁更新">补丁更新</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42556.html" title="磁盘文件系统">磁盘文件系统</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42555.html" title="桌面配置">桌面配置</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42553.html" title="启动关机/登录登出">启动关机/登录登出</a>
+                  <ul>
+                      	        	        	        	          </ul>
+	        </li>
+	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="远程桌面">远程桌面<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/knowledge_list/42559.html" title="连接访问">连接访问</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42560.html" title="服务配置">服务配置</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42561.html" title="License授权">License授权</a>
+                  <ul>
+                      	        	        	        	          </ul>
+	        </li>
+	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="网络问题">网络问题<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/knowledge_list/42544.html" title="网络连接问题">网络连接问题</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42548.html" title="网卡配置">网卡配置</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42545.html" title="DNS问题">DNS问题</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42547.html" title="Windows防火墙">Windows防火墙</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42546.html" title="VPN问题">VPN问题</a>
+                  <ul>
+                      	        	        	        	          </ul>
+	        </li>
+	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="Web服务/数据库服务">Web服务/数据库服务<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/knowledge_list/42540.html" title="IIS Service">IIS Service</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42562.html" title="网页浏览器">网页浏览器</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42543.html" title="其它数据库">其它数据库</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42541.html" title="其它Web服务">其它Web服务</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42542.html" title="MS SQL Server">MS SQL Server</a>
+                  <ul>
+                      	        	        	        	          </ul>
+	        </li>
+	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href="/knowledge_list/42558.html" title="病毒安全">病毒安全</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level2 "><a href=" javascript:void(0); " title="AD域环境">AD域环境<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/knowledge_list/42490.html" title="帐户密码">帐户密码</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42491.html" title="域控配置">域控配置</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42486.html" title="组策略">组策略</a>
+                  <ul>
+                      	        	        	        	          </ul>
+	        </li>
+	        	          </ul>
+	        </li>
+	                        <li class="level2 "><a href=" javascript:void(0); " title="服务应用">服务应用<i class="up"></i></a>
+                  <ul>
+                              <li class="level3 "><a href="/knowledge_list/42563.html" title="服务安装配置">服务安装配置</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42565.html" title="其它三方应用">其它三方应用</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level3 "><a href="/knowledge_list/42564.html" title="Windows自带服务">Windows自带服务</a>
+                  <ul>
+                      	        	        	        	          </ul>
+	        </li>
+	        	          </ul>
+	        </li>
+	        	          </ul>
+	        </li>
+	                        <li class="level1 "><a href=" javascript:void(0); " title="Linux操作运维问题">Linux操作运维问题<i class="up"></i></a>
+                  <ul>
+                              <li class="level2 "><a href="/knowledge_list/41090.html" title="服务与应用">服务与应用</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level2 "><a href="/knowledge_list/41507.html" title="技术案例与工具">技术案例与工具</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level2 "><a href="/knowledge_list/41459.html" title="启动引导">启动引导</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level2 "><a href="/knowledge_list/41258.html" title="网络问题">网络问题</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level2 "><a href="/knowledge_list/41174.html" title="系统配置">系统配置</a>
+                  <ul>
+                      	    		    	  </ul>
+	        </li>
+	    	                <li class="level2 "><a href="/knowledge_list/41468.html" title="远程登录 （SSH）">远程登录 （SSH）</a>
+                  <ul>
+                      	        	        	        	          </ul>
+	        </li>
+	        	          </ul>
+	        </li>
+	                        <li class="level1 "><a href="/video_list/41668.html" title="视频专区">视频专区</a>
+                  <ul>
+                            </ul>
+	</div>
+  </div>
+</div>
+<!-- menu E -->
+	
+
+
+
+<div class="help-body-box help-body-box-detail" data-spm="2">
+  <div class="help-body-box-detail-crumbs" data-spm="3">
+	<ul class="y-clear">
+  <li><a href='/product/25365.html'>云服务器 ECS</a>&nbsp;&gt;&nbsp;</li><li><a href='/document_detail/25422.html'>快速入门(Linux)</a>&nbsp;&gt;&nbsp;</li><li><span>步骤 4：格式化和挂载数据盘</span></li>    </ul>
+  </div>
+  
+  <div class="help-body-box-detail-title">
+    <h1>步骤 4：格式化和挂载数据盘</h1>
+    <p> 更新时间：2017-01-05 10:40:32</p>
+  </div>
+  <div class="markdown-body" >
+  <p>如果您在创建实例时选择了数据盘，在登录实例后，系统需要先格式化数据盘，然后挂载数据盘。</p>
+<p>另外，您还可以根据业务需要，对数据盘进行多分区配置。建议使用系统自带的工具进行分区操作。</p>
+<p><strong>注意</strong>：云服务器 ECS 仅支持对 <strong>数据盘</strong> 进行二次分区，而不支持对 <strong>系统盘</strong> 进行二次分区（不管是 Windows 还是 Linux 系统）。<strong>如果您强行使用第三方工具对系统盘进行二次分区操作，可能引发未知风险，如系统崩溃、数据丢失等。</strong></p>
+<p>本文档以 <strong>非 I/O 优化+SSD云盘 Linux</strong> （Redhat、CentOS、Debian、Ubuntu）实例为例进行介绍。非 I/O 优化和 I/O 优化的区别在于，前者比后者多一个字母 x （如非 I/O优化为 xvdb，则 I/O 优化为 vdb）。</p>
+<ol>
+<li>使用<a href="/document_detail/25433.html">管理终端</a>，或远程连接工具，输入用户名 <strong>root</strong> 和密码登录到实例。</li><li>运行 <strong>fdisk -l</strong> 命令查看数据盘。<strong>注意</strong>：在没有分区和格式化数据盘之前，使用 <strong>df -h</strong> 命令是无法看到数据盘的。在下面的示例中，有一个 5 GB 的数据盘需要挂载。 <br>如果执行了 <strong>fdisk -l</strong> 命令后，没有发现 /dev/xvdb，则表示您的实例没有数据盘，因此无需挂载，请忽略这一章。<br><img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/25426/cn_zh/1462846465113/1.jpg" alt="1"></li><li>运行 <strong>fdisk /dev/xvdb</strong>，对数据盘进行分区。根据提示，依次输入 <strong>n</strong>，<strong>p</strong>，<strong>1</strong>，两次回车，<strong>wq</strong>，分区就开始了。<br><img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/25426/cn_zh/1462846584705/2.jpg" alt="2"></li><li>运行 <strong>fdisk -l</strong> 命令，查看新的分区。新分区 xvdb1 已经创建好。如下面示例中的/dev/xvdb1。<br><img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/25426/cn_zh/1462846693542/3.jpg" alt="3"></li><li>运行 <strong>mkfs.ext3 /dev/xvdb1</strong>，对新分区进行格式化。格式化所需时间取决于数据盘大小。您也可自主决定选用其他文件格式，如 ext4 等。<br><img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/25426/cn_zh/1462846760502/4.jpg" alt="4"></li><li>运行 <strong>echo  /dev/xvdb1 /mnt ext3 defaults 0 0 &gt;&gt; /etc/fstab </strong>写入新分区信息。完成后，可以使用 <strong>cat /etc/fstab</strong> 命令查看。<br><img src="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/25426/cn_zh/1462846921932/5.jpg" alt="5"> <br><strong>注意</strong>： Ubuntu 12.04 不支持 barrier，所以对该系统正确的命令是：<strong>echo  /dev/xvdb1 /mnt ext3 defaults 0 0 &gt;&gt; /etc/fstab</strong> <br>如果需要把数据盘单独挂载到某个文件夹，比如单独用来存放网页，可以修改以上命令中的 /mnt 部分。</li><li>运行 <strong>mount /dev/xvdb1 /mnt</strong> 挂载新分区，然后执行 <strong>df -h</strong> 查看分区。如果出现数据盘信息，说明挂载成功，可以使用新分区了。<pre class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><code><span class="pln"> mount </span><span class="pun">/</span><span class="pln">dev</span><span class="pun">/</span><span class="pln">xvdb1 </span><span class="pun">/</span><span class="pln">mnt</span></code></li><li class="L1"><code><span class="pln"> df </span><span class="pun">-</span><span class="pln">h</span></code></li><li class="L2"><code><span class="pln"> </span><span class="typ">Filesystem</span><span class="pln">      </span><span class="typ">Size</span><span class="pln">  </span><span class="typ">Used</span><span class="pln"> </span><span class="typ">Avail</span><span class="pln"> </span><span class="typ">Use</span><span class="pun">%</span><span class="pln"> </span><span class="typ">Mounted</span><span class="pln"> on</span></code></li><li class="L3"><code><span class="pln"> </span><span class="pun">/</span><span class="pln">dev</span><span class="pun">/</span><span class="pln">xvda1       </span><span class="lit">40G</span><span class="pln">  </span><span class="lit">1.5G</span><span class="pln">   </span><span class="lit">36G</span><span class="pln">   </span><span class="lit">4</span><span class="pun">%</span><span class="pln"> </span><span class="pun">/</span></code></li><li class="L4"><code><span class="pln"> tmpfs           </span><span class="lit">498M</span><span class="pln">     </span><span class="lit">0</span><span class="pln">  </span><span class="lit">498M</span><span class="pln">   </span><span class="lit">0</span><span class="pun">%</span><span class="pln"> </span><span class="str">/dev/</span><span class="pln">shm</span></code></li><li class="L5"><code><span class="pln"> </span><span class="pun">/</span><span class="pln">dev</span><span class="pun">/</span><span class="pln">xvdb1      </span><span class="lit">5.0G</span><span class="pln">  </span><span class="lit">139M</span><span class="pln">  </span><span class="lit">4.6G</span><span class="pln">   </span><span class="lit">3</span><span class="pun">%</span><span class="pln"> </span><span class="pun">/</span><span class="pln">mnt</span></code></li></ol></pre></li></ol>  </div>
+  
+      <!--导读目录 -->
+    <!--<div class="help-category-box">-->
+      <div class="help-category-contract">
+        <div class="help-category-title-wrapper">
+          <img class="help-category-expand-btn" src="//img.alicdn.com/tps/TB1PeyXOpXXXXbmXXXXXXXXXXXX-108-107.png">
+          <div class="help-category-title">本文导读目录</div>
+        </div>
+        <div class="help-category-btn-wrapper">
+          <div class="help-category-favorite-btn " title="收藏本文档"></div>
+          <a class="help-category-share-btn" target="_blank" title="分享本文档到微博" href="http://service.weibo.com/share/share.php?title=推荐一篇阿里云文档《步骤 4：格式化和挂载数据盘》（来自 阿里云文档 - 云服务器 ECS - 快速入门(Linux)）&url=http://help.aliyun.com/document_detail/25426.html?spm=5176.doc25446.2.3.UtPdHE"></a>
+          <a class="help-category-download-btn " title="下载快速入门(Linux)文档PDF" href="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/pdf/ecs-quick-start-for-linux-cn-zh-2017-02-06.pdf"></a>
+        </div>
+      </div>
+      <div class="help-category-expand">
+        <img class="help-category-expand-left" src="//img.alicdn.com/tps/TB1oe08OpXXXXasXpXXXXXXXXXX-154-154.png">
+        <div class="help-category-expand-right">
+          <div class="help-category-expand-title">本文导读目录</div>
+          <div class="help-category-expand-content">
+            <ul>
+            </ul>
+          </div>
+          <div class="help-category-expand-btns">
+            <div class="help-category-favorite-btn " title="收藏本文档"></div>
+            <a class="help-category-share-btn" target="_blank" title="分享本文档到微博" href="http://service.weibo.com/share/share.php?title=推荐一篇阿里云文档《步骤 4：格式化和挂载数据盘》（来自 阿里云文档 - 云服务器 ECS - 快速入门(Linux)）&url=http://help.aliyun.com/document_detail/25426.html?spm=5176.doc25446.2.3.UtPdHE"></a>
+            <a class="help-category-download-btn " title="下载快速入门(Linux)文档PDF" href="http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/pdf/ecs-quick-start-for-linux-cn-zh-2017-02-06.pdf"></a>
+          </div>
+        </div>
+      </div>
+    <!--</div>-->
+    <!--导读目录 -->
+	
+	<!-- 评论 -->
+    <div class="help-body-box-detail-comment">
+        以上内容是否对您有帮助？
+        <div class="help-body-box-detail-raty"></div>
+		<p class="help-body-box-detail-hint"></p>
+    </div>
+    <!-- 评论 -->
+
+
+    <!-- 反馈 -->
+    <div class="help-body-box-detail-feedback">
+      <div class="help-body-title">
+        <span>反馈</span>
+      </div>
+	  
+      <textarea>
+
+      </textarea>
+      <button class="y-btn-blue"> 提交</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" checked="checked"> &nbsp;匿名提交
+    </div>
+    <!-- 反馈 -->
+
+    <!-- 反馈list -->
+    <div class="help-body-box-detail-feedback-list">
+	      <h3>热门反馈</h3>
+      <ul>
+		        <li>
+           <div class="author">
+              <img src="/assets/pic/anonymous.png">
+              <span>匿名用户</span>
+           </div>
+           <p class="user-feedback">很好！</p>
+           <p class="feedback-time">2017-02-08 15:19:02</p>
+           <div class="author-reply">
+             <p><i>作者回复</i>感谢您的反馈！</p>
+             <p class="feedback-time">2017-02-08 15:23:25</p>
+           </div>
+        </li>
+		        <li>
+           <div class="author">
+              <img src="/assets/pic/anonymous.png">
+              <span>匿名用户</span>
+           </div>
+           <p class="user-feedback">Helpful!!!</p>
+           <p class="feedback-time">2017-01-19 23:59:05</p>
+           <div class="author-reply">
+             <p><i>作者回复</i>感谢您的反馈！</p>
+             <p class="feedback-time">2017-01-20 08:43:13</p>
+           </div>
+        </li>
+		        <li>
+           <div class="author">
+              <img src="/assets/pic/anonymous.png">
+              <span>匿名用户</span>
+           </div>
+           <p class="user-feedback">一块硬盘我直接格式化，但不分区，可以直接挂载使用吧？我测试了一下，格式化后可以直接挂载使用。</p>
+           <p class="feedback-time">2017-01-18 16:36:53</p>
+           <div class="author-reply">
+             <p><i>作者回复</i>可以的</p>
+             <p class="feedback-time">2017-01-18 19:47:57</p>
+           </div>
+        </li>
+		        <li>
+           <div class="author">
+              <img src="/assets/pic/anonymous.png">
+              <span>匿名用户</span>
+           </div>
+           <p class="user-feedback">那比如/mnt已经有数据了， 这时再把数据盘挂载到/mnt目录下， 原先已有的数据还会存在吗？</p>
+           <p class="feedback-time">2017-01-05 13:51:21</p>
+           <div class="author-reply">
+             <p><i>作者回复</i>您好！数据会在，但是看不到，需要重新挂载目录才行。</p>
+             <p class="feedback-time">2017-01-05 14:56:42</p>
+           </div>
+        </li>
+		        <li>
+           <div class="author">
+              <img src="/assets/pic/anonymous.png">
+              <span>匿名用户</span>
+           </div>
+           <p class="user-feedback">本操作适用于 非 I/O 优化+SSD云盘 Linux （Redhat、CentOS、Debian、Ubuntu）实例。   那此教程适用于IO优化的SSD云盘linux吗?</p>
+           <p class="feedback-time">2017-01-04 15:48:15</p>
+           <div class="author-reply">
+             <p><i>作者回复</i>适用的。唯一的区别是，IO优化的数据盘显示 vdb，而非IO优化的数据盘显示 xvdb，多了一个 v</p>
+             <p class="feedback-time">2017-01-05 09:13:26</p>
+           </div>
+        </li>
+		      </ul>
+	  <div class = "loading">加载中......</div>
+	    </div>
+    <!-- 反馈list -->
+	<input name='_tb_token_' type='hidden' value='yWt7SkDojffYM6dFhUtjN6'>
+	<script>
+	    window.HELP_NODE_ID=25426;
+			</script>
+	<script> window.detail = true; </script>
+
+</div>
+
+</div>
+
+
+<!-- footer S -->
+    <script type="text/javascript" src="//www.aliyun.com/rgn/aliyun_footer?renderer=js"></script>
+<script src="//g.alicdn.com/hichina/home/4.0.8/dpl/script/all.js"></script>
+<script type="text/javascript" src="//g.alicdn.com/??aliyun/www-doc/0.0.16/vendor/highlight.js,aliyun/www-doc/0.0.16/vendor/jquery.raty.js,aliyun/www-doc/0.0.16/vendor/tooltipster.bundle.js,aliyun/www-doc/0.0.16/scripts/common.js,aliyun/www-doc/0.0.16/scripts/2016doc.js"></script>
+<!-- footer E -->
+</body>
+</html>
+
+
+

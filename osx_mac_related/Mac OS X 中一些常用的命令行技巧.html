@@ -1,0 +1,806 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="robots" content="all"/>
+<meta name="author" content=""/>
+<meta name="description" content="Mac OS X 中一些常用的命令行技巧-	一、网络设置相关	1、网卡的物理地址的动态重置	出于某些需求，例如网络中的 IP 地址或网络帐号与网卡物理地址绑定，使得多个设备无法切换上网，可尝试临时更改物理地址。不过，系统偏好设置是不能修改网卡物理地址的，这就是命令行的用武之地了。具体来说，若心中已有想修改的物理地址，例如 00:1f:3c:93:b5:99，可执行$ sudo ifconfig en1 e..."/>
+<meta name="keywords" content=""/>
+<link rel="shortcut icon" type="image/x-icon" href="http://easior.is-programmer.com/user_files/easior/config/favicon.ico" />
+<link href="http://easior.is-programmer.com/posts.rss" rel="alternate" title="Blog RSS" type="application/rss+xml" />
+<link href="http://easior.is-programmer.com/comments.rss" rel="alternate" title="Comments RSS" type="application/rss+xml" />
+<link href="http://easior.is-programmer.com/messages.rss" rel="alternate" title="Messages RSS" type="application/rss+xml" />
+<link href="http://easior.is-programmer.com/site.rss" rel="alternate" title="is-Programmer.com RSS" type="application/rss+xml" />
+<link href="/stylesheets/common.css?1375031774" media="screen" rel="stylesheet" type="text/css" />
+<link href="/stylesheets/admin/smoothness/jquery-ui.css?1375031774" media="screen" rel="stylesheet" type="text/css" />
+<link href="/themes/user/iTheme/stylesheets/style.css?1375032041" media="screen" rel="stylesheet" type="text/css" />
+<link href="/themes/user/iTheme/stylesheets/dbx.css?1375032041" media="screen" rel="stylesheet" type="text/css" />
+
+<script src="/themes/user/iTheme/javascripts/dbx.js?1375032041" type="text/javascript"></script>
+<script src="/themes/user/iTheme/javascripts/dbx-key.js?1375032041" type="text/javascript"></script>
+
+<meta content="authenticity_token" name="csrf-param" />
+<meta content="wIagWtZA2idyANL5hkWqhtb+/OK6mnp+dorw87yw9TM=" name="csrf-token" />
+<script src="/javascripts/jquery-1.6.2.min.js?1375031774" type="text/javascript"></script>
+<title>Mac OS X 中一些常用的命令行技巧 - World Under Control</title>
+<script src="/plugins/highlight_search_word/javascripts/searchhi.js?1375032041" type="text/javascript"></script><link href="/plugins/syntaxhighlighter/stylesheets/shCore.css?1375032041" media="screen" rel="stylesheet" type="text/css" />
+<link href="/plugins/syntaxhighlighter/stylesheets/shThemeMidnight.css?1375032041" media="screen" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-1563106-1']);
+  _gaq.push(['_setDomainName', 'none']);
+  _gaq.push(['_setAllowLinker', true]);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<link href="/plugin.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="page">
+  <div id="wrapper">
+    <div id="header">
+      <h1><a href="/">World Under Control</a></h1>
+      <div class="description">Happy coding</div>
+      <form method="get" id="searchform" action="/posts">
+<div><input value="Search" name="s" id="s" onfocus="if (this.value == 'Search') {this.value = '';}" onblur="if (this.value == '') {this.value = 'Search';}" type="text">
+<input id="searchsubmit" value="Go" type="submit">
+</div>
+</form>
+    </div><!-- /header -->
+
+    <div id="left-col">
+      <div id="nav">
+        <ul>
+		    <li class="page_item"><a href="/">首页</a></li>
+		    <li class="page_item"><a href="/guestbook">留言板</a></li>
+		    <li class="page_item"><a href="/admin">管理</a></li>
+        </ul>
+      </div><!-- /nav -->
+
+    	
+      <div id="content">
+	
+<div id="article_wrap">
+  <div class="pre_next_post">
+	<div><a href="http://easior.is-programmer.com/posts/43547.html" class="up" title="上一篇">Mac OS X 中 Emacs.app 的命令行启动以及调试模式的开启</a></div> 
+        <div><a href="http://easior.is-programmer.com/posts/48924.html" class="down" title="下一篇">在 Mac OS X 中配置 MAMP 服务器</a></div>
+  </div>
+
+  <h1>Mac OS X 中一些常用的命令行技巧</h1>
+
+  <div id="article_header">
+    <strong> Easior Lars</strong> 
+    posted @ 2014年3月19日 06:30
+     in <a href="/categories/8503/posts">MacOSX</a>
+	with tags 
+	<a href="/tag/iso">iso</a>  <a href="/tag/curl">curl</a>  <a href="/tag/HFS+">HFS+</a>  <a href="/tag/DMG">DMG</a>  
+    , 9170 阅读
+        </div>
+
+  
+  
+  <div id="article_body">
+    <div id='article_content'><p>
+	一、网络设置相关</p>
+<p>
+	1、网卡的物理地址的动态重置</p>
+<p>
+	出于某些需求，例如网络中的 IP 地址或网络帐号与网卡物理地址绑定，使得多个设备无法切换上网，可尝试临时更改物理地址。不过，系统偏好设置是不能修改网卡物理地址的，这就是命令行的用武之地了。具体来说，若心中已有想修改的物理地址，例如 00:1f:3c:93:b5:99，可执行</p>
+<pre class="brush: bash">
+$ sudo ifconfig en1 ether 00:1f:3c:93:b5:99</pre>
+<p>
+	来临时修改网卡的物理地址；若没有物理地址，只是想临时启用尝试一下，可用 openssl 生成一个随机的物理地址：</p>
+<pre class="brush: bash">
+$ openssl rand -hex 6 | sed &#39;s/\(..\)/\1:/g; s/.$//&#39;</pre>
+<p>
+	当然，用 openssl 生成的物理地址可能会与网络中的网卡地址有冲突，在启用随机生成的网卡地址之前，最好先确认一下是否已有 IP 地址绑定该物理地址：</p>
+<pre class="brush: bash">
+$ arp -a</pre>
+<p>
+	2、主机名、计算机名的重置</p>
+<p>
+	默认的主机名让人非常无语，特别是出现了一些与 locale 有关的特殊字符。通常情况下，这些并不可见，但是，频繁使用终端时，就会被这些莫名其妙的主机名恶心到了。因此，修改主机名成了当务之急，不过修改的方法很简单。顺次点击左上角的苹果图标-&gt;系统偏好设置-&gt;共享，接着修改主机电脑名与局域网主机名即可。话说回来，Unix 的命令行是强大的，因此，主机名与计算机名的修改也可以通过命令行修改。</p>
+<pre class="brush: bash">
+$ sudo scutil --set ComputerName newnameformacosx
+$ sudo scutil --set HostName newhostnameformacosx</pre>
+<p>
+	好了，查看一下修改是否成功：</p>
+<pre class="brush: bash">
+$ scutil --get ComputerName
+$ scutil --get HostName</pre>
+<p>
+	将主机名放入 /etc/hosts 文件</p>
+<pre class="brush: bash">
+$ echo 127.0.0.1 newhostnameformacosx &gt;&gt; /etc/hosts</pre>
+<p>
+	重启网络服务让上述修改立马生效：</p>
+<pre class="brush: bash">
+$ sudo dscacheutil -flushcache
+$ sudo killall -HUP mDNSResponder</pre>
+<p>
+	3、命令行下载工具的使用</p>
+<p>
+	众所周知，wget 是大多数 *nix 系统中标准的命令行下载工具。不过 Mac OS X 中并不自带 wget，取而代之的是命令行下载工具 curl。下面来介绍一下 curl 的基本用法，例如直接下载</p>
+<pre class="brush: bash">
+$ curl -O http://wordpress.org/latest.zip</pre>
+<p>
+	若想将下载文件重命名</p>
+<pre class="brush: bash">
+$ curl -o wordpress-3.8.zip &#39;http://wordpress.org/latest.zip&#39;</pre>
+<p>
+	若想在下载过程中显示进度，可执行</p>
+<pre class="brush: bash">
+$ curl -# -O http://wordpress.org/latest.zip</pre>
+<p>
+	如果下载的 url 链接需要重定向，可试试下述方式</p>
+<pre class="brush: bash">
+$ curl -L -o &#39;file.zip&#39; &#39;http://example.com/download.php?fileID=foo&#39;</pre>
+<p>
+	若想节省带宽，可执行</p>
+<pre class="brush: bash">
+$ curl -L -O --compressed &#39;http://example.com/large.report-tab.html&#39;</pre>
+<p>
+	若下载链接需要输入用户名与密码，可试试</p>
+<pre class="brush: bash">
+$ curl -O ftp://james:123456@202.121.137.58:21/path/to/backup.tar.gz
+$ curl -O http://james:123456@202.121.137.58/file/path/data.tar.gz</pre>
+<p>
+	若下载的是带加密的链接，例如下载链接由 SSL/HTTPS/SFTP 提供，可试试</p>
+<pre class="brush: bash">
+$ curl --ftp-ssl -u james:123456 -O ftp://202.121.137.58:21/backups/07/07/2012/mysql.blog.sql.tar.gz
+$ curl -u james -O sftp://202.121.137.58/backups/data.tar.gz</pre>
+<p>
+	实际上，curl 也可以上传文件，例如</p>
+<pre class="brush: bash">
+$ curl -T wordpress.zip ftp://james:123456@202.121.137.58/path/to/backup/
+$ curl -T data.tar.gz -u james sftp://202.121.137.58/</pre>
+<p>
+	若想断点续传，可试试</p>
+<pre class="brush: bash">
+$ curl -C - -u james -O sftp://202.121.137.58/backup.tar.gz
+$ curl -C - -O http://202.121.137.58/file/path/data.tar.gz
+$ curl -C - -u james -T data.tar.gz sftp://202.121.137.58/</pre>
+<p>
+	4、系统更新与 Xcode.app 的命令行工具安装</p>
+<p>
+	通常，Mac OS X 上的软件更新是通过 App Store 完成，但是对于那些 geek 来说，可以试试下述命令：</p>
+<pre class="brush: bash">
+$ sudo softwareupdate --list</pre>
+<p>
+	会列出所有可能的更新，然后选择需要的更新进行安装</p>
+<pre class="brush: bash">
+$ sudo softwareupdate --install SomeApp</pre>
+<p>
+	若不想选择直接更新所有可能的更新，可执行</p>
+<pre class="brush: bash">
+$ sudo softwareupdate -i -a</pre>
+<p>
+	Xcode 是 Apple 推出的集成开发环境，它带有 Apple 改良过的 GCC 版本 llvm-gcc。安装它，非常容易，仅需去 App Store 下载 Xcode.app 即可。不过对于 Unix geek 来说，这是不能让人满意的。因为 Xcode.app 不自带命令行工具，需要单独安装它。在 Xcode 5.0 之前，命令行工具的安装非常简单，仅需打开 Xcode.app，然后点击偏好设置-&gt;下载-&gt;组件，然后选择 Xcode 命令行工具安装即可。但是自 Xcode 5.0 开始，安装 Xcode 的命令行工具，须在终端执行下述命令:</p>
+<pre class="brush: bash">
+$ xcode-select --install</pre>
+<p>
+	二、文件系统的相关操作</p>
+<p>
+	1、HFS+ 文件系统的扩展属性</p>
+<p>
+	在 Mac OS X 下的 HFS+ 文件系统上，文件经常会被附加上 Mac 专有的扩展属性。比如</p>
+<pre class="brush: bash">
+$ ls -l
+total 0
+-rw-r--r--@ 1 daniel  staff  0 16 jul 19:28 1.txt
+-rw-r--r--  1 daniel  staff  0 16 jul 19:28 2.txt</pre>
+<p>
+	会有 @ 标志。这个属性是用户在 Finder 里对文件进行任意操作时就会附加上的。比如右键查看 Get Info，然后在 spotlight commands 里写上几个字再删掉，此时，该文件就会附带有 @ 属性。如果想手动去除掉文件的 @ 属性，可以使用命令 xattr。例如</p>
+<pre class="brush: bash">
+$ xattr -l 1.txt
+com.apple.metadata:kmditemfindercomment
+$ xattr -d com.apple.metadata:kmditemfindercomment 1.txt
+$ xattr -l 1.txt
+$ ls -al 1.txt</pre>
+<p>
+	此时就没有特殊属性了。</p>
+<p>
+	2、文件或文件夹的复制、打包与解包</p>
+<p>
+	由于 Mac OS X 文件系统中的扩展属性，若将 Mac OS X 系统中的文件直接用打包并释放到 Linux 系统中会造成莫名奇妙的错误，这就需要处理一下文件在复制、打包过程中的扩展属性。首先，Mac OS X 的 cp 命令有一个选项 -X，用它可在复制过程中忽略这些文件的扩展属性。因此，在打包前，先可复制出一份没有扩展属性的文件包，例如</p>
+<pre class="brush: bash">
+$ cp -Xr /path/to/src - | tar czvf src.tar.gz -</pre>
+<p>
+	当然，除去扩展属性之外，通常，文件直接打包作成中还会出现 Mac OS X 系统专有的隐藏文件，例如 _MACOSX、._Filename 与 .DS_Store 等。在打 zip 包时，可使用 -X 选项排除这些文件，例如</p>
+<pre class="brush: bash">
+$ zip -r -X archive_name.zip folder_to_compress</pre>
+<p>
+	不过，对于 *nix 系统中专有的打包命令 tar，可就没有 -X 选项这么好的东西了。好在 Mac OS X 还是提供了专门的方法，例如，在打 gzip 包时，可使用如下命令</p>
+<pre class="brush: bash">
+$ COPYFILE_DISABLE=1 tar -zcvf archive_name.tar.gz folder_to_compress</pre>
+<p>
+	打 bzip2 包也很简单：</p>
+<pre class="brush: bash">
+$ COPYFILE_DISABLE=1 tar -jcvf archive_name.tar.bz2 folder_to_compress</pre>
+<p>
+	对于其他格式的 tar 包照此处理。解包过程相对简单，这里附上一段与解包相关的 Bash 配置：</p>
+<pre class="brush: bash">
+$ echo &quot;# ignore useless invisible files or extended attributes on Mac OS X for cp and tar
+export COPYFILE_DISABLE=true
+# extract: Extract most know archives with one command
+extract () {
+    if [ -f $1 ] ; then
+         case $1 in
+            *.tar.bz2)   tar xjf $1     ;;
+            *.tar.gz)    tar xzf $1     ;;
+            *.bz2)       bunzip2 $1     ;;
+            *.rar)       unrar e $1     ;;
+            *.gz)        gunzip $1      ;;
+            *.tar)       tar xf $1      ;;
+            *.tbz2)      tar xjf $1     ;;
+            *.tgz)       tar xzf $1     ;;
+            *.zip)       unzip $1       ;;
+            *.Z)         uncompress $1  ;;
+            *.7z)        7z x $1        ;;
+            *)     echo &quot;&#39;$1&#39; cannot be extracted via extract()&quot; ;;
+         esac
+    else
+         echo &quot;&#39;$1&#39; is not a valid file&quot;
+    fi
+}&quot; &gt;&gt; ~/.bashrc</pre>
+<p>
+	3、DMG 格式文件的制作以及 ISO 转换互转</p>
+<p>
+	DMG 格式是 Mac OS X 中常用的打包格式，创建 DMG 格式的文件，可直接利用系统自带的磁盘工具（Disk Utils)完成。不过这里稍微介绍一下命令行 hdiutil 的用法。创建 DMG 格式的文件</p>
+<pre class="brush: bash">
+$ hdiutil create -size 100M -stdinpass -format UDZO -srcfolder folder_to_compress archive_name.dmg</pre>
+<p>
+	其中可以选用的 DMG 格式有 UDZO（压缩格式，默认）、UDRO（只读格式）、UDBZ（Better compressed image）、UDRW（可读写格式）UDTO（DVD 格式）。若想修改 DMG 文件的大小，可执行</p>
+<pre class="brush: bash">
+$ hdiutil resize 150M /path/to/the/diskimage</pre>
+<p>
+	若想修改 DMG 格式中的加密口令，可执行</p>
+<pre class="brush: bash">
+$ hdiutil chpass /path/to/the/diskimage</pre>
+<p>
+	挂载 DMG 格式的文件可用</p>
+<pre class="brush: bash">
+$ hdiutil attach archive_name.dmg</pre>
+<p>
+	它的挂载点在 /Volumes 目录的同名目录下</p>
+<pre class="brush: bash">
+$ ls -lah /Volumes/archive_name/</pre>
+<p>
+	卸载 DMG 文件的方法是：</p>
+<pre class="brush: bash">
+$ hdiutil eject /Volumes/archive_name/</pre>
+<p>
+	将 ISO 格式的文件转为 DMG 格式的文件</p>
+<pre class="brush: bash">
+$ hdiutil convert /path/imagefile.iso -format UDRW -o /path/convertedimage.dmg</pre>
+<p>
+	将 DMG 格式的文件转为 ISO 格式的文件</p>
+<pre class="brush: bash">
+$ hdiutil convert /path/imagefile.dmg -format UDTO -o /path/convertedimage.cdr
+$ hdiutil makehybrid /path/convertedimage.cdr -iso -joliet -o /path/convertedimage.iso</pre>
+<p>
+	4、文件系统的挂载</p>
+<p>
+	大多数情况下，文件管理器 Finder 会自动发现诸如 USB 等外部设备，因此无须用户自行挂载分区；但是，有的时候，例如 Mac OS X 硬盘重新分区后，划出了 msdos 分区或者 ext4 等非 HFS 文件系统的分区，如果要读写这些分区，就需要手动挂载这些文件系统了。挂载文件系统的第一步是建立挂载点，例如</p>
+<pre class="brush: bash">
+$ sudo mkdir /Volumes/Foo
+$ sudo mkdir /Volumes/bar</pre>
+<p>
+	接着查看有哪些设备需要手动挂载并挂载它们</p>
+<pre class="brush: bash">
+$ ls /dev/disk*   
+$ sudo mount -t msdos /dev/disk1s1 /Volumes/Foo
+$ sudo mount -t hfs /dev/disk1s2 /Volumes/bar</pre>
+<p>
+	最后，卸载这些不在需要的分区</p>
+<pre class="brush: bash">
+$ diskutil eject /dev/disk1s1
+$ diskutil eject /dev/disk1s2</pre>
+<p>
+	4、文件或文件夹的隐藏属性</p>
+<p>
+	通常，为了保护 Mac OS X 系统中的文件不会被用户随意修改，文件管理器 Finder 是不会显示带隐藏属性的文件与系统文件。但是，有些时候，需要操作这些文件（夹）, 此时就需要让 Finder 找到这些文件，方法也很简单。在 Finder 的菜单栏中点击 Go -&gt; Go to folder，与之对应的，可使用快捷键 <code>shift+command+G</code>。 当然，如果对于 Mac OS X 自带的文件管理器不满意，可安装第三方文件管理器，例如 totalfinder。其实，单就隐藏文件来说，Mac OS X 还提供了其他方法，下面逐一介绍它们。</p>
+<p>
+	4.1 修改 Finder 配置文件</p>
+<p>
+	让 Finder 程序显示隐藏文件</p>
+<pre class="brush: bash">
+$ defaults write com.apple.finder AppleShowAllExtensions TRUE</pre>
+<p>
+	让 Finder 程序不显示隐藏文件</p>
+<pre class="brush: bash">
+$ defaults write com.apple.finder AppleShowAllExtensions FALSE</pre>
+<p>
+	Finder 的配置文件影响到整个文件系统，属于比较暴力的方法。</p>
+<p>
+	4.2、开启或关闭某些文件或文件夹的隐藏属性</p>
+<p>
+	用下面命令可以解除文件夹的隐藏属性：</p>
+<pre class="brush: bash">
+$ chflags nohidden ~/Library</pre>
+<p>
+	恢复文件夹的隐藏属性：</p>
+<pre class="brush: bash">
+$ chflags hidden ~/Library</pre>
+<p>
+	事实上，HFS+ 文件系统中文件和目录的隐藏属性也可通过 SetFile 命令来修改。例如，执行</p>
+<pre class="brush: bash">
+$ mkdir -p ~/Sites
+$ SetFile -a V ~/Sites</pre>
+<p>
+	可开启文件夹 ~/Sites 的隐藏属性；而执行</p>
+<pre class="brush: bash">
+$ SetFile -a v ~/Sites</pre>
+<p>
+	可以关闭它的隐藏属性。</p>
+<p>
+	三、杂项</p>
+<p>
+	1、重置被遗忘的管理员密码</p>
+<p>
+	首先，在系统开机还未进入登录界面时按下 <code>command+S</code> 进入单用户模式。然后输入</p>
+<pre class="brush: bash">
+$ mount -rw /</pre>
+<p>
+	以读写方式挂载文件系统；接着重置管理员 james 的密码</p>
+<pre class="brush: bash">
+$ passwd james</pre>
+<p>
+	完成后，输入</p>
+<pre class="brush: bash">
+$ reboot</pre>
+<p>
+	重启开机即可。</p>
+<p>
+	2、重建 Spotlight 数据库</p>
+<p>
+	比较简单的办法是用鼠标顺次点击系统偏好-&gt; Spotlight -&gt;重建数据库；对于命令行发烧友来说，可以试试</p>
+<pre class="brush: bash">
+$ sudo mdutil -E /</pre>
+<p>
+	3、清理缓存</p>
+<pre class="brush: bash">
+$ sudo purge</pre>
+<p>
+	<embed height="0" id="xunlei_com_thunder_helper_plugin_d462f475-c18e-46be-bd10-327458d045bd" type="application/thunder_download_plugin" width="0"></embed></p>
+<p>
+	<embed height="0" id="xunlei_com_thunder_helper_plugin_d462f475-c18e-46be-bd10-327458d045bd" type="application/thunder_download_plugin" width="0"></embed></p>
+<p>
+	<embed height="0" id="xunlei_com_thunder_helper_plugin_d462f475-c18e-46be-bd10-327458d045bd" type="application/thunder_download_plugin" width="0"></embed></p>
+<p>
+	<embed height="0" id="xunlei_com_thunder_helper_plugin_d462f475-c18e-46be-bd10-327458d045bd" type="application/thunder_download_plugin" width="0"></embed></p>
+</div>
+  </div>
+
+  
+
+  <div id="comments_wrap">
+      
+
+<div class="articlefooter">
+        <span class="comments">
+	<a href="/posts/43672.rss"><img alt="Small_feed" class="feed" src="/images/small_feed.png?1375031774" /></a>
+	评论 (2)
+    </span>
+</div>
+    <div id="comments">
+            <div class="comment_box comment_box0" id="comment220816" >
+<div class="comment_header">
+    <div class="comments_count">
+	    1
+    </div> 
+	    
+	    <span class="reply_comment_button"><a href="#" onclick="reply_to_id('220816');event.returnValue = false;return false;" title="回复 λ">[回复]</a></span>
+	    <span class="mark_spam_comment_button" style="display:none;"><a href="/comments/220816/mark_as_spam.js" data-method="post" data-remote="true" id="mark_spam_comment_220816" onclick="show_spin('mark_spam_comment_220816');" rel="nofollow" title="[标记为Spam]">[标记为Spam]</a></span>
+</div>
+<div class="comment_body">
+	<div class="comment_avatar">
+	    <a href="http://jakwings.is-programmer.com/"><img alt="Avatar_small" src="/user_files/jakwings/config/avatar_small.png?1375032410" /></a>
+	</div>
+	<div class="comment_content">
+	    <a href="http://jakwings.is-programmer.com/">λ</a> 说: 
+	    <br/>
+	    <small><a href="#comment220816">2014年3月19日 22:22</a></small>
+	    <p>不错。希望我的文章也能帮得上忙：http://blog.likelikeslike.com/tags/Mac</p>
+	</div>
+</div>
+</div>
+
+    <div class="comment_box comment_box1 comment_self" id="comment220818" >
+<div class="comment_header">
+    <div class="comments_count">
+	    2
+    </div> 
+	    <span class="twitter_comment_button"><a href="http://twitter.com/@easiorlars" class="follow_him" target="_blank"></a></span>
+	    <span class="reply_comment_button"><a href="#" onclick="reply_to_id('220818');event.returnValue = false;return false;" title="回复 Easior Lars">[回复]</a></span>
+	    <span class="mark_spam_comment_button" style="display:none;"><a href="/comments/220818/mark_as_spam.js" data-method="post" data-remote="true" id="mark_spam_comment_220818" onclick="show_spin('mark_spam_comment_220818');" rel="nofollow" title="[标记为Spam]">[标记为Spam]</a></span>
+</div>
+<div class="comment_body">
+	<div class="comment_avatar">
+	    <a href="http://easior.is-programmer.com/"><img alt="Avatar_small" src="/user_files/easior/config/avatar_small.png?1375032398" /></a>
+	</div>
+	<div class="comment_content">
+	    <a href="http://easior.is-programmer.com/">Easior Lars</a> 说: 
+	    <br/>
+	    <small><a href="#comment220818">2014年3月20日 08:59</a></small>
+	    <p>http://blog.likelikeslike.com/tags/Mac 已拜读，很有技术含量，受益良多！</p>
+	</div>
+</div>
+</div>
+
+
+ 
+    </div>
+
+
+
+<script src="/javascripts/ckeditor/ckeditor.js?1375031774" type="text/javascript"></script><br />
+<div id="post_comment">
+    <a href="#" id="cancel_reply_link" onclick="cancel_reply_to_id();event.returnValue = false;return false;" style="display:none;">[取消回复评论]</a>
+
+<form accept-charset="UTF-8" action="/posts/43672/comments" data-remote="true" id="rform_chito_comment" method="post" onsubmit="return false;"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="wIagWtZA2idyANL5hkWqhtb+/OK6mnp+dorw87yw9TM=" /></div>
+     <div id="comment_error" style="display: none;"></div>
+
+
+     
+    	 <label>昵称</label>
+         <input id="comment_writer" name="comment[writer]" size="10" type="text" value="" /> 
+         <a href="http://easior.is-programmer.com/login?jump=http%3A%2F%2Feasior.is-programmer.com%2Fposts%2F43672.html">登录</a> 
+         <label>E-mail:</label>
+         <input id="comment_email" name="comment[email]" size="30" type="text" value="" /> *
+         <br/>
+         <label>Web:</label>
+         <input id="comment_homepage" name="comment[homepage]" size="30" type="text" value="" />
+         <br/>
+         <label>Twitter:</label>
+         <input id="comment_twitter" name="comment[twitter]" size="12" type="text" value="" />
+         <br/>
+         <input id="comment_info" name="comment[info]" size="6" type="text" value="" class="comment_info_field" autocomplete="off" /> 
+         <input id="comment_value" name="comment[value]" type="hidden" value="some"/>
+
+     <div id="comment_editor">
+       <input id="comment_mode" name="comment[mode]" type="hidden" value="plain" />	
+       <input id="comment_reply_to" name="comment[reply_to]" type="hidden" value=""/>
+       <textarea class="pc" cols="40" id="comment_content" name="comment[content]" onkeydown="if(event.ctrlKey&amp;&amp;event.keyCode==13){document.getElementById('subm_chito_comment').click();return false};" rows="3">
+</textarea>
+       <input type="button" id="comment_editor_button" onclick='show_editor();' />
+     </div>
+         <label><input checked="checked" id="enable_notifier" name="enable_notifier" type="checkbox" value="1" />当有新评论通过 E-mail 通知我 </label>
+     <div id="comment_extra" >
+         <div id='show_simple_captcha'><!-- Copyright (c) 2007 [Sur http://expressica.com] -->
+
+<style type="text/CSS">
+  
+  #simple_captcha{padding: 5px 0 0 0 !important;}
+  #simple_captcha,
+  #simple_captcha div{display: table;}
+  #simple_captcha .simple_captcha_field,
+  #simple_captcha .simple_captcha_image{
+    margin: 0px 0px 2px 0px !important;
+    padding: 0px !important;
+  }
+  #simple_captcha .simple_captcha_image img{
+    margin: 0px !important;
+    padding: 0px !important;
+    width: 110px !important;
+  }
+  #simple_captcha .simple_captcha_label{font-size: 12px;}
+  #simple_captcha .simple_captcha_field input{
+    width: 120px !important;
+    border: 1px solid #ccc;
+    background-color: #efefef;
+  }
+</style>
+
+<div id='simple_captcha'>
+  <div class='simple_captcha_image'>
+    <img src='http://easior.is-programmer.com/simple_captcha/simple_captcha?distortion=high&image_style=simply_green&simple_captcha_key=9cf665ae450b5d68f2c3c2e41fd3b4436fb2166f&time=1485597101' alt='loading captcha image...' />
+  </div>
+  
+  <div class='simple_captcha_field'>
+    <input id="captcha" name="captcha" type="text" />
+  </div>
+  
+  <div class='simple_captcha_label'>
+    (输入验证码)
+  </div>
+</div>
+</div>
+     </div>
+         <input autocomplete="off" data-disable-with="发送评论中……" id="subm_chito_comment" name="commit" type="submit" value="发送" />
+         <span id="crtl_enter_tip" style="color:#ccc;font-size:small;"> or Ctrl+Enter</span>
+</form>
+
+</div>
+ <script type="text/javascript">
+//<![CDATA[
+        $('#subm_chito_comment').click(function(){
+            $(this).attr("disabled",true);
+            $(this).val('发送评论中……');
+            update_field();
+            $('#comment_value').val('');
+            $.post('/posts/43672/comments', $('#rform_chito_comment').find('input').serialize() + '&' + $('#rform_chito_comment').find('textarea').serialize(), function(){
+                $('#subm_chito_comment').val('发送');
+                $('#subm_chito_comment').attr("disabled",false);
+            });
+
+            return false;
+        });
+
+//]]>
+</script>
+
+
+  </div>
+  <div class="page_clear"></div>
+
+</div>
+
+
+      </div><!--/content -->
+
+      <div id="footer">
+      Host by <a href="http://www.is-programmer.com">is-Programmer.com</a> | Power by <a href="http://github.com/galeki/chito">Chito 1.3.3 beta</a><br/>
+      Translate from <a href="http://www.ndesign-studio.com/resources/wp-themes/">WP Theme</a> &amp; <a href="http://www.ndesign-studio.com/stock-icons/">Icons</a> by <a href="http://www.ndesign-studio.com/">N.Design Studio</a></div>
+    </div><!--/left-col -->
+
+<div class="dbx-group" id="sidebar">
+
+      <!--sidebox start -->
+      <div id="" class="dbx-box">
+        <h3 class="dbx-handle">Easior Lars</h3>
+        <div class="dbx-content">
+	    <div id="head">
+<img alt="Avatar" height="120" src="/user_files/easior/config/avatar.png?1375032398" width="120" />
+    <div id="info"></div>
+</div>
+
+        </div>
+      </div>
+      <!--sidebox end -->
+      <!--sidebox start -->
+      <div id="categories" class="dbx-box">
+        <h3 class="dbx-handle">分类</h3>
+        <div class="dbx-content">
+	        <ul id="category">
+	<li class="category">
+	        <a href="/categories/8503/posts">MacOSX</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/8996/posts">Linux</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/8914/posts">VirtualBox</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/9077/posts">Android</a>
+	</li>
+	<li class="category">
+	        <a href="/categories/61392/posts">MS Windows</a>
+	</li>
+    </ul>
+
+        </div>
+      </div>
+      <!--sidebox end -->
+      <!--sidebox start -->
+      <div id="" class="dbx-box">
+        <h3 class="dbx-handle">标签云</h3>
+        <div class="dbx-content">
+	      <div id="tag_cloud">
+    <a href="/tag/Ansible" class="tag_css1">Ansible</a>
+    <a href="/tag/Apple%20Mail" class="tag_css1">Apple Mail</a>
+    <a href="/tag/CJK" class="tag_css1">CJK</a>
+    <a href="/tag/Code::Blocks" class="tag_css2">Code::Blocks</a>
+    <a href="/tag/DMG" class="tag_css1">DMG</a>
+    <a href="/tag/Dock" class="tag_css1">Dock</a>
+    <a href="/tag/Eclipse" class="tag_css1">Eclipse</a>
+    <a href="/tag/EnvVars" class="tag_css1">EnvVars</a>
+    <a href="/tag/Finder" class="tag_css1">Finder</a>
+    <a href="/tag/GPG" class="tag_css2">GPG</a>
+    <a href="/tag/GPGMail" class="tag_css1">GPGMail</a>
+    <a href="/tag/GPGTools" class="tag_css1">GPGTools</a>
+    <a href="/tag/Git" class="tag_css2">Git</a>
+    <a href="/tag/Gitolite" class="tag_css2">Gitolite</a>
+    <a href="/tag/Gnome-keyring" class="tag_css1">Gnome-keyring</a>
+    <a href="/tag/HFS+" class="tag_css1">HFS+</a>
+    <a href="/tag/Kali" class="tag_css1">Kali</a>
+    <a href="/tag/Linuxbrew" class="tag_css1">Linuxbrew</a>
+    <a href="/tag/MINGW" class="tag_css2">MINGW</a>
+    <a href="/tag/MSYS2" class="tag_css1">MSYS2</a>
+    <a href="/tag/MacOSX" class="tag_css2">MacOSX</a>
+    <a href="/tag/MacTeX" class="tag_css1">MacTeX</a>
+    <a href="/tag/MariaDB" class="tag_css1">MariaDB</a>
+    <a href="/tag/Nagios" class="tag_css1">Nagios</a>
+    <a href="/tag/OpenSSH" class="tag_css1">OpenSSH</a>
+    <a href="/tag/Spotlight" class="tag_css1">Spotlight</a>
+    <a href="/tag/Webmin" class="tag_css1">Webmin</a>
+    <a href="/tag/Wordpress" class="tag_css1">Wordpress</a>
+    <a href="/tag/YAML" class="tag_css1">YAML</a>
+    <a href="/tag/apache" class="tag_css2">apache</a>
+    <a href="/tag/bash" class="tag_css1">bash</a>
+    <a href="/tag/centos" class="tag_css1">centos</a>
+    <a href="/tag/cgit" class="tag_css1">cgit</a>
+    <a href="/tag/curl" class="tag_css1">curl</a>
+    <a href="/tag/cygwin" class="tag_css1">cygwin</a>
+    <a href="/tag/debian" class="tag_css2">debian</a>
+    <a href="/tag/easy_install" class="tag_css1">easy_install</a>
+    <a href="/tag/emacs" class="tag_css2">emacs</a>
+    <a href="/tag/fedora" class="tag_css4">fedora</a>
+    <a href="/tag/gentoo" class="tag_css2">gentoo</a>
+    <a href="/tag/git-daemon" class="tag_css1">git-daemon</a>
+    <a href="/tag/git-module" class="tag_css1">git-module</a>
+    <a href="/tag/gitweb" class="tag_css2">gitweb</a>
+    <a href="/tag/gpg-agent" class="tag_css1">gpg-agent</a>
+    <a href="/tag/gtk+" class="tag_css2">gtk+</a>
+    <a href="/tag/gtkmm" class="tag_css2">gtkmm</a>
+    <a href="/tag/gui" class="tag_css1">gui</a>
+    <a href="/tag/homebrew" class="tag_css1">homebrew</a>
+    <a href="/tag/iso" class="tag_css1">iso</a>
+    <a href="/tag/latex" class="tag_css1">latex</a>
+    <a href="/tag/launchpad" class="tag_css1">launchpad</a>
+    <a href="/tag/linux" class="tag_css3">linux</a>
+    <a href="/tag/mediawiki" class="tag_css1">mediawiki</a>
+    <a href="/tag/mysql" class="tag_css2">mysql</a>
+    <a href="/tag/php" class="tag_css2">php</a>
+    <a href="/tag/phpBB" class="tag_css1">phpBB</a>
+    <a href="/tag/phpVirtualBox" class="tag_css1">phpVirtualBox</a>
+    <a href="/tag/phpmyadmin" class="tag_css1">phpmyadmin</a>
+    <a href="/tag/phpsysinfo" class="tag_css1">phpsysinfo</a>
+    <a href="/tag/pip" class="tag_css1">pip</a>
+    <a href="/tag/pygtk" class="tag_css1">pygtk</a>
+    <a href="/tag/python" class="tag_css1">python</a>
+    <a href="/tag/ssh-agent" class="tag_css1">ssh-agent</a>
+    <a href="/tag/virtualbox" class="tag_css2">virtualbox</a>
+    <a href="/tag/webdav" class="tag_css1">webdav</a>
+    <a href="/tag/wxGTK" class="tag_css1">wxGTK</a>
+    <a href="/tag/wxPython" class="tag_css1">wxPython</a>
+    <a href="/tag/wxWidgets" class="tag_css2">wxWidgets</a>
+    <a href="/tag/yum" class="tag_css1">yum</a>
+  </div>
+
+        </div>
+      </div>
+      <!--sidebox end -->
+      <!--sidebox start -->
+      <div id="" class="dbx-box">
+        <h3 class="dbx-handle">最新评论</h3>
+        <div class="dbx-content">
+	    <ul class="navlist">
+		<li>
+        <a href="/posts/36203.html#comment622736">wxuyec : 你好，
+
+请...</a>
+                </li>
+		<li>
+        <a href="/posts/43672.html#comment220818">Easior Lars : htt...</a>
+                </li>
+		<li>
+        <a href="/posts/43672.html#comment220816">λ : 不错。希望我的文章也能帮得...</a>
+                </li>
+		<li>
+        <a href="/posts/37717.html#comment217691">Easior Lars : Fed...</a>
+                </li>
+		<li>
+        <a href="/posts/37717.html#comment214511">test : 
+	Live DV...</a>
+                </li>
+	
+</ul>	
+
+        </div>
+      </div>
+      <!--sidebox end -->
+      <!--sidebox start -->
+      <div id="" class="dbx-box">
+        <h3 class="dbx-handle">最新留言</h3>
+        <div class="dbx-content">
+	    <ul class="navlist">
+            <li><a href="http://easior.is-programmer.com/guestbook#comment1099110">generic_female : ...</a></li>
+	
+</ul>	
+
+        </div>
+      </div>
+      <!--sidebox end -->
+      <!--sidebox start -->
+      <div id="" class="dbx-box">
+        <h3 class="dbx-handle">链接</h3>
+        <div class="dbx-content">
+	    <ul class="navlist">
+			    <li><a href="https://savannah.gnu.org" title="- No Info -">Savannah</a></li>
+			    <li><a href="http://fedorapeople.org/~easior" title="- No Info -">Fedora People</a></li>
+			    <li><a href="https://github.com/easior" title="- No Info -">Github</a></li>
+</ul>	
+
+        </div>
+      </div>
+      <!--sidebox end -->
+      <!--sidebox start -->
+      <div id="" class="dbx-box">
+        <h3 class="dbx-handle">RSS</h3>
+        <div class="dbx-content">
+	    <div style="text-align:center;">
+    <a href="http://easior.is-programmer.com/posts.rss"><img alt="RSS Link" src="/plugins/rss_icon_sidebar/images/feed_1.png?1375032041" /></a>
+</div>
+
+        </div>
+      </div>
+      <!--sidebox end -->
+      <!--sidebox start -->
+      <div id="" class="dbx-box">
+        <h3 class="dbx-handle">功能</h3>
+        <div class="dbx-content">
+	    <ul class="navlist">
+	<li><a href="http://easior.is-programmer.com/add">注册</a></li>
+	    <li><a href="http://easior.is-programmer.com/login">登录</a></li>
+	    <li><a href="/forgot_password">忘记密码？</a></li>
+	<li><a href="http://easior.is-programmer.com/posts.rss"><abbr title='Really Simple Syndication'>文章 RSS</abbr></a></li>
+	<li><a href="http://easior.is-programmer.com/comments.rss"><abbr title='Really Simple Syndication'>评论 RSS</abbr></a></li>
+	<li><a href="http://easior.is-programmer.com/messages.rss"><abbr title='Really Simple Syndication'>留言 RSS</abbr></a></li>
+</ul>	
+
+        </div>
+      </div>
+      <!--sidebox end -->
+
+</div><!--/sidebar -->
+<script src="/javascripts/jquery-ui-1.8.16.min.js?1375031774" type="text/javascript"></script>
+<script src="/javascripts/jquery.rails.js?1375031774" type="text/javascript"></script>
+<script src="/javascripts/blog.js?1375031774" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+thread_comment();
+//]]>
+</script>
+
+<script src="/plugins/auto_js_latex/javascripts/jquery.jslatex.packed.js?1375032041" type="text/javascript"></script>
+ <script type="text/javascript">
+                    function auto_js_latex(){
+                        try{
+                            $('#article_content').html($('#article_content').html().replace(/\[tex\]/g, "<span class='latex_eq'>").replace(/\[\/tex\]/g, "</span>"));
+                        }catch(e){;}
+                        try{
+                            $('#comments').html($('#comments').html().replace(/\[tex\]/g, "<span class='latex_eq'>").replace(/\[\/tex\]/g, "</span>"));
+                        }catch(e){;}
+                        try{
+                            $('.post_brief').each(function(index){
+                                $(this).html($(this).html().replace(/\[tex\]/g, "<span class='latex_eq'>").replace(/\[\/tex\]/g, "</span>"));
+                            });
+                        }catch(e){;}
+                        $(".latex_eq").each(function(){
+                            var html = $(this).html();
+                            html = html.replace(/&nbsp;/g, " ").replace(/<br \/>/g, "");
+                            $(this).html(html);
+                        });
+                        $(".latex_eq").latex(); 
+                    }
+                    $(document).ready(auto_js_latex);
+                </script>
+ <script src="/plugins/syntaxhighlighter/javascripts/shCore.js?1375032041" type="text/javascript"></script>
+<script src="/plugins/syntaxhighlighter/javascripts/shBrushes.js?1375032041" type="text/javascript"></script>
+<script type="text/javascript">SyntaxHighlighter.all();</script><script src="/plugins/img_resize/javascripts/core.js?1375032041" type="text/javascript"></script>
+ <script type="text/javascript">
+                    function auto_resize_img(){
+                        img_resize_normal(400, "在新窗口打开");
+                    }
+                    $(document).ready(auto_resize_img);
+                    </script>
+
+    <hr class="hidden" />
+
+  </div><!--/wrapper -->
+
+</div><!--/page -->
+
+</body></html>

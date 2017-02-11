@@ -1,0 +1,32 @@
+server {
+        listen 81 default_server;
+        auth_basic           "Please Input User Password";
+#auth_basic_user_file conf/htpasswd;
+        auth_basic_user_file /home/wjc/nginx_docker_htpasswd;
+
+        location / {
+
+#important:
+#include proxy_params_wjc2;
+#proxy_set_header X-Real-IP $remote_addr;
+#proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+#proxy_ignore_client_abort on;
+#proxy_connect_timeout 90;
+#proxy_send_timeout 90; proxy_read_timeout 90;
+#proxy_next_upstream error timeout invalid_header http_500 http_503 http_404;
+#proxy_set_header Accept-Encoding '';
+
+                #if ($http_user_agent ~ "^(docker\/1\.(3|4|5(?!\.[0-9]-dev))|Go ).*\$" ) {
+                #       return 404;
+                #}
+
+#proxy_pass http://acedemo.tiegame.com/;
+                proxy_pass http://127.0.0.1:2375/;
+                proxy_set_header  Host              $http_host;   # required for docker client's sake
+                proxy_set_header  X-Real-IP         $remote_addr; # pass on real client's IP
+                proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;
+                proxy_set_header  X-Forwarded-Proto $scheme;
+                proxy_read_timeout                  900;
+        }
+}
+
