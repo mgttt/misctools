@@ -1,0 +1,216 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+<link rel="stylesheet" href="IosevkaWEB.css">
+		<style>
+			@font-face {
+	font-family: system;
+	font-style: normal;
+	font-weight: 300;
+	src: local(".SFNSText-Light"), local(".HelveticaNeueDeskInterface-Light"), local(".LucidaGrandeUI"), local("Segoe UI Light"), local("Ubuntu Light"), local("Roboto-Light"), local("DroidSans"), local("Tahoma");
+}
+
+@font-face {
+	font-family: system;
+	font-style: italic;
+	font-weight: 300;
+	src: local(".SFNSText-LightItalic"), local(".HelveticaNeueDeskInterface-Italic"), local(".LucidaGrandeUI"), local("Segoe UI Light Italic"), local("Ubuntu Light Italic"), local("Roboto-LightItalic"), local("DroidSans"), local("Tahoma");
+}
+
+@font-face {
+	font-family: system;
+	font-style: normal;
+	font-weight: 400;
+	src: local(".SFNSText-Regular"), local(".HelveticaNeueDeskInterface-Regular"), local(".LucidaGrandeUI"), local("Segoe UI"), local("Ubuntu"), local("Roboto-Regular"), local("DroidSans"), local("Tahoma");
+}
+
+@font-face {
+	font-family: system;
+	font-style: italic;
+	font-weight: 400;
+	src: local(".SFNSText-Italic"), local(".HelveticaNeueDeskInterface-Italic"), local(".LucidaGrandeUI"), local("Segoe UI Italic"), local("Ubuntu Italic"), local("Roboto-Italic"), local("DroidSans"), local("Tahoma");
+}
+
+@font-face {
+	font-family: system;
+	font-style: normal;
+	font-weight: 500;
+	src: local(".SFNSText-Medium"), local(".HelveticaNeueDeskInterface-MediumP4"), local(".LucidaGrandeUI"), local("Segoe UI Semibold"), local("Ubuntu Medium"), local("Roboto-Medium"), local("DroidSans-Bold"), local("Tahoma Bold");
+}
+
+@font-face {
+	font-family: system;
+	font-style: italic;
+	font-weight: 500;
+	src: local(".SFNSText-MediumItalic"), local(".HelveticaNeueDeskInterface-MediumItalicP4"), local(".LucidaGrandeUI"), local("Segoe UI Semibold Italic"), local("Ubuntu Medium Italic"), local("Roboto-MediumItalic"), local("DroidSans-Bold"), local("Tahoma Bold");
+}
+
+@font-face {
+	font-family: system;
+	font-style: normal;
+	font-weight: 700;
+	src: local(".SFNSText-Bold"), local(".HelveticaNeueDeskInterface-Bold"), local(".LucidaGrandeUI"), local("Segoe UI Bold"), local("Ubuntu Bold"), local("Roboto-Bold"), local("DroidSans-Bold"), local("Tahoma Bold");
+}
+
+@font-face {
+	font-family: system;
+	font-style: italic;
+	font-weight: 700;
+	src: local(".SFNSText-BoldItalic"), local(".HelveticaNeueDeskInterface-BoldItalic"), local(".LucidaGrandeUI"), local("Segoe UI Bold Italic"), local("Ubuntu Bold Italic"), local("Roboto-BoldItalic"), local("DroidSans-Bold"), local("Tahoma Bold");
+}
+			.fonthei {
+				font-family: -apple-system, "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN", "Source Han Sans SC", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+			}
+			.fontsong {font-family: Georgia, "Nimbus Roman No9 L", "Songti SC", STSong, "AR PL New Sung", "AR PL SungtiL GB", NSimSun, SimSun, "TW\-Sung", "WenQuanYi Bitmap Song", "AR PL UMing CN", "AR PL UMing HK", "AR PL UMing TW", "AR PL UMing TW MBE", PMingLiU, MingLiU, serif;}
+			.fixedsys {font-family:"Fixedsys"}
+			
+			@font-face {
+				font-family: 'DOS';
+				src: url('fonts/Fixedsys500c.eot');
+				src: local('☺'), url('fonts/Fixedsys500c.woff') format('woff'), url('fonts/Fixedsys500c.ttf') format('truetype'), url('fonts/Fixedsys500c.svg') format('svg');
+				font-weight: normal;
+				font-style: normal;
+			}
+			.srccode9ptdn{
+				/*
+				font-family: "Andale Mono",Consolas,DOS,Helvetica, Tahoma, Arial,-apple-system,"Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN", "Source Han Sans SC", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+				*/
+				font-family: "Andale Mono",Consolas,DOS,Helvetica, Tahoma, Arial,SimHei,STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
+			}
+			.srccode9ptup{
+				font-family: "Andale Mono",Consolas,DOS,Helvetica, Tahoma, Arial,SimHei,STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
+				/*
+				font-family: -apple-system, "Andale Mono",Consolas,DOS,Helvetica, Tahoma, Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN", "Source Han Sans SC", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+				*/
+			}
+.srccode, pre, code {
+font-family: IosevkaWEB,"Andale Mono",Consolas,DOS,Helvetica, Tahoma, Arial,SimHei,STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
+}
+.srccode2, pre, code {
+font-family: IosevkaWEB,"Andale Mono",Consolas,DOS,Helvetica, Tahoma, Arial,sans-serif;
+}
+			.font9ptdn{
+				font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
+			}
+			.font9ptup{
+				font-family: Helvetica, Tahoma, Arial, STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif;
+			}
+			.pt9{
+				font-size:9pt;
+			}
+			.pt11{
+				font-size:11pt;
+			}
+			.pt14{
+				font-size:14pt;
+			}
+		</style>
+
+		<table cellpadding="5" border=1>
+			<tr>
+				<td>srccode pt14</td>
+				<td class="srccode pt14">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>srccode pt11</td>
+				<td class="srccode pt11">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>srccode pt9</td>
+				<td class="srccode pt9">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>srccode2 pt14</td>
+				<td class="srccode2 pt14">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>srccode2 pt11</td>
+				<td class="srccode2 pt11">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>srccode2 pt9</td>
+				<td class="srccode2 pt9">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>fontsong pt11</td>
+				<td class="fonthei pt11">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>fontsong pt9</td>
+				<td class="fontsong pt9">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>fontsong pt14</td>
+				<td class="fonthei pt14">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>fonthei pt11</td>
+				<td class="fonthei pt11">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>fonthei pt9</td>
+				<td class="fonthei pt9">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>fonthei pt14</td>
+				<td class="fonthei pt14">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>font9ptup pt11</td>
+				<td class="font9ptup pt11">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>font9ptdn pt9</td>
+				<td class="font9ptdn pt9">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>font9ptup pt14</td>
+				<td class="font9ptup pt14">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td> pt14</td>
+				<td class="srccode9ptup pt14">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>srccode9ptup pt11</td>
+				<td class="srccode9ptup pt11">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>srccode9ptdn pt9</td>
+				<td class="srccode9ptdn pt9">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>fixedsys pt14</td>
+				<td class="srccode9ptup pt14">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>fixedsys pt11</td>
+				<td class="fixedsys pt11">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>fixedsys pt9</td>
+				<td class="fixedsys pt9">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>system, "Segoe UI", Tahoma</td>
+				<td style="font-family:system, 'Segoe UI', Tahoma">一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+			<tr>
+				<td>default body</td>
+				<td>一二三四五六七八九十<br/>简体字测试<br/>簡體字測試</br/>LITil17O<br>0123456789<br/>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>abcdefghijklmnopqrstuvwxyz</td>
+			</tr>
+		</table>			
+		<!--
+<link rel="stylesheet" href="//cdn.jsdelivr.net/font-hack/2.020/css/hack.min.css">
+-->
+<style>
+</style>
+<div class="IosevkaWEB">
+IosevkaWEB
+01234567890123456789012345678901234567890123456789012345678901234567890123456789<br/>
+源代码中文是否等距一二三四, 五六<br/>
+ABCDEFGHIJKLMNOPQRSTUVWXYZ<br/>
+abcdefghijklmnopqrstuvwyxz
+</pre>

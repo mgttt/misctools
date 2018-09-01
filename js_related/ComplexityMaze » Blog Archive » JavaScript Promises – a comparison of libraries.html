@@ -1,0 +1,981 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>ComplexityMaze  &raquo; Blog Archive   &raquo; JavaScript Promises – a comparison of libraries</title>
+
+<link rel="stylesheet" href="http://complexitymaze.com/wp-content/themes/fresh-editorial-mod/style.css" type="text/css" media="screen" />
+<link rel="alternate" type="application/rss+xml" title="ComplexityMaze RSS Feed" href="http://complexitymaze.com/feed/" />
+<link rel="pingback" href="http://complexitymaze.com/xmlrpc.php" />
+<!--[if lt IE 7.]>
+<script defer type="text/javascript" src="http://complexitymaze.com/wp-content/themes/fresh-editorial-mod/includes/js/pngfix.js"></script>
+<![endif]-->
+<link rel="alternate" type="application/rss+xml" title="ComplexityMaze &raquo; JavaScript Promises – a comparison of libraries Comments Feed" href="http://complexitymaze.com/2014/03/03/javascript-promises-a-comparison-of-libraries/feed/" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://complexitymaze.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://complexitymaze.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Travelling entrepreneurs' href='http://complexitymaze.com/2011/11/28/travelling-entrepreneurs/' />
+<link rel='next' title='JavaScript promises &#8211; server-call with progress-indicator' href='http://complexitymaze.com/2014/03/25/javascript-promises-server-call-with-progress-indicator/' />
+<meta name="generator" content="WordPress 4.1.15" />
+<link rel='canonical' href='http://complexitymaze.com/2014/03/03/javascript-promises-a-comparison-of-libraries/' />
+<link rel='shortlink' href='http://complexitymaze.com/?p=1560' />
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+<meta name="google-site-verification" content="_8kEpQ2TKpes3U-5W86Jfhgd5SxDqCKlCsS8Sl2aXnc" />
+</head>
+<body>
+<div id="wrapper">
+
+	<div id="logo-wrapper">
+		<div id="headertag">
+			<div id="toptag">
+
+			</div>
+		</div>
+		<div id="header">
+			<div id="topheader">
+				<div id="mainnavigationleft">
+				</div>
+				<div id="mainnavigation">
+					<ul>
+
+						<li><a href="http://complexitymaze.com/">Home</a></li>
+						<li class="page_item page-item-2"><a href="http://complexitymaze.com/about/">About</a></li>
+
+					</ul>
+				</div>
+				<div id="mainnavigationright">
+				</div>
+			</div>
+			<div id="logo">
+				<div id="title">
+
+				</div>
+			</div>
+			<div id="navigation">
+				<ul>
+						<li class="cat-item cat-item-5"><a href="http://complexitymaze.com/category/blogging/" >Blogging</a>
+</li>
+	<li class="cat-item cat-item-377"><a href="http://complexitymaze.com/category/c/" >C#</a>
+</li>
+	<li class="cat-item cat-item-16"><a href="http://complexitymaze.com/category/geeky/" >Geeky</a>
+</li>
+	<li class="cat-item cat-item-376"><a href="http://complexitymaze.com/category/javascript-2/" >JavaScript</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://complexitymaze.com/category/misc/" >Misc</a>
+</li>
+	<li class="cat-item cat-item-15"><a href="http://complexitymaze.com/category/photo/" >Photo</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://complexitymaze.com/category/travel/" >Travel</a>
+</li>
+					<li><!-- always leave empty --></li>
+				</ul>
+			</div>
+		</div>
+</div>
+
+
+		<div id="content">
+			<div id="contentleft">
+
+				<div class="blogpostwrapper">
+					<div id="mainimage">
+						<img src="http://complexitymaze.com/wp-content/themes/fresh-editorial-mod/images/mainimage.jpg" alt="Main image" title="Main image" />
+					</div>
+
+
+	
+		
+					<div class="blogpost">
+						<div class="blogtitle">
+							<h2><a href="http://complexitymaze.com/2014/03/03/javascript-promises-a-comparison-of-libraries/" rel="bookmark" title="Permanent Link to JavaScript Promises – a comparison of libraries">JavaScript Promises – a comparison of libraries</a></h2>
+						</div>
+						<div class="datetab">
+							<div class="blogdate">
+								3rd March							</div>
+							<div class="blogdateyear">
+								2014							</div>
+						</div>
+						<div class="blogauthor">
+							written by Poul						</div>
+						<div class="blogcontent">
+							<p>In my <a onclick="javascript:pageTracker._trackPageview('/outgoing/qed.dk/poul-foged/2014/02/21/javascript-promises-ryd-op-de-asynkrone-kald/');"  href="http://qed.dk/poul-foged/2014/02/21/javascript-promises-ryd-op-de-asynkrone-kald/" target="_new">previous</a> post in Danish I looked at how to perform asynchronous calls by using promises. Now the time has come to pick which library that fits the next project.</p>
+<p>There is a lot of variants and the spread is huge. One search for promise via the node package manager <a onclick="javascript:pageTracker._trackPageview('/outgoing/www.npmjs.org');"  href="https://www.npmjs.org">npmjs.org</a> gave 1150 libraries which either provides or are dependent on promises. Of these I have picked 12 different libraries to look at, all are open source and all offer a promise-like structure.</p>
+<p><b>Updates:</b> </p>
+<ul>
+<li>2014/03/06 &#8211; Fixed a few misspellings (@rauschma via Twitter)</li>
+<li>2014/03/07 &#8211; Removed raw sizes, since they did&#8217;nt make much sense (@x-skeww via Reddit)</li>
+<li>2014/03/07 &#8211; Added that catiline uses lie underneath. (@CWMma via Twitter)</li>
+<li>2014/03/07 &#8211; Added clarification on what the test does. (@CWMma via Twitter)</li>
+</ul>
+<p>The API across the libraries are almost alike, so I&#8217;ve decided to look at:</p>
+<p><i>Features</i><br />
+What kind of generic promise related features does each library offer?</p>
+<p><i>Size</i><br />
+And I&#8217;m thinking mostly browsers here &#8211; how many extra bytes will this add to my site?</p>
+<p><i>Speed</i><br />
+How fast are the basic promise operations in the library? You would expect that these will execute many times so this is important.</p>
+<p>&nbsp;</p>
+<h3>The libraries</h3>
+<p>
+First an overview of the selected candidates, their license and author. Note that the name is linking to the source of the library (typical Github).
+</p>
+<p>&nbsp;</p>
+<table style="font-size: 13px;background-color: #eee">
+<tbody>
+<tr>
+<td style="border-color: #FFF;padding: 5px;text-align: center"></td>
+<td style="font-weight: bold;border-color: #FFF;text-align: center">License</td>
+<td style="font-weight: bold;border-color: #FFF;text-align: center">Author</td>
+<td style="font-weight: bold;border-color: #FFF">Note</td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF"><a onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/petkaantonov/bluebird');"  href="https://github.com/petkaantonov/bluebird">Bluebird</a></td>
+<td style="border-color: #FFF;text-align: center"><a onclick="javascript:pageTracker._trackPageview('/outgoing/opensource.org/licenses/MIT');"  href="http://opensource.org/licenses/MIT" target="_blank">MIT</a></td>
+<td style="border-color: #FFF;text-align: center">Petka Antonov</td>
+<td style="border-color: #FFF">
+Loaded with features and should be one of the fastest around and with special empathizes on error handling via good stack traces. Features can be toggled via custom builds.</td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF"><a onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/calvinmetcalf/catiline');"  href="https://github.com/calvinmetcalf/catiline">Catiline</a></td>
+<td style="border-color: #FFF;text-align: center"><a onclick="javascript:pageTracker._trackPageview('/outgoing/opensource.org/licenses/MIT');"  href="http://opensource.org/licenses/MIT" target="_blank">MIT</a></td>
+<td style="border-color: #FFF;text-align: center">Calvin Metcalf</td>
+<td style="border-color: #FFF">
+Mostly designed for handling of web workers but contains a promise implementation. Uses lie underneath.</td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF"><a onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/jakearchibald/es6-promise');"  href="https://github.com/jakearchibald/es6-promise">ES6 Promise polyfill</a></td>
+<td style="border-color: #FFF;text-align: center"><a onclick="javascript:pageTracker._trackPageview('/outgoing/opensource.org/licenses/MIT');"  href="http://opensource.org/licenses/MIT" target="_blank">MIT</a></td>
+<td style="border-color: #FFF;text-align: center">Jake Archibald</td>
+<td style="border-color: #FFF">
+Borrows code from RSVP, but implemented according to the ECMAScript 6 specification.</td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF"><a onclick="javascript:pageTracker._trackPageview('/outgoing/jquery.com');"  href="http://jquery.com">jQuery</a></td>
+<td style="border-color: #FFF;text-align: center"><a onclick="javascript:pageTracker._trackPageview('/outgoing/opensource.org/licenses/MIT');"  href="http://opensource.org/licenses/MIT" target="_blank">MIT</a></td>
+<td style="border-color: #FFF;text-align: center"> The jQuery Foundation</td>
+<td style="border-color: #FFF">
+Classic library for DOM-manipulation across browsers.</td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF"><a onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/Obvious/kew');"  href="https://github.com/Obvious/kew">kew</a></td>
+<td style="border-color: #FFF;text-align: center"><a onclick="javascript:pageTracker._trackPageview('/outgoing/www.apache.org/licenses/LICENSE-2.0.html');"  href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0</a></td>
+<td style="border-color: #FFF;text-align: center"> The Obvious Corporation</td>
+<td style="border-color: #FFF">
+I&#8217;m guessing it is pronounced &#8216;Q&#8217;, can be considered as a optimized edition of Q but with a smaller feature set.</td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF"><a onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/calvinmetcalf/lie');"  href="https://github.com/calvinmetcalf/lie">lie</a></td>
+<td style="border-color: #FFF;text-align: center"><a onclick="javascript:pageTracker._trackPageview('/outgoing/opensource.org/licenses/MIT');"  href="http://opensource.org/licenses/MIT" target="_blank">MIT</a></td>
+<td style="border-color: #FFF;text-align: center">Calvin Metcalf</td>
+<td style="border-color: #FFF"></td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF"><a onclick="javascript:pageTracker._trackPageview('/outgoing/gist.github.com/RubaXa/8501359');"  href="https://gist.github.com/RubaXa/8501359">MyDeferred</a></td>
+<td style="border-color: #FFF;text-align: center"><a onclick="javascript:pageTracker._trackPageview('/outgoing/opensource.org/licenses/MIT');"  href="http://opensource.org/licenses/MIT" target="_blank">MIT</a></td>
+<td style="border-color: #FFF;text-align: center">RubaXa</td>
+<td style="border-color: #FFF">Small Gist style implementation</td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF"><a onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/cho45');"  href="https://github.com/cho45">MyPromise</a></td>
+<td style="border-color: #FFF;text-align: center"><a onclick="javascript:pageTracker._trackPageview('/outgoing/opensource.org/licenses/MIT');"  href="http://opensource.org/licenses/MIT" target="_blank">MIT</a></td>
+<td style="border-color: #FFF;text-align: center">cho45@lowreal.net</td>
+<td style="border-color: #FFF">Small Gist style implementation</td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF"><a onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/kriskowal/q');"  href="https://github.com/kriskowal/q">Q</a></td>
+<td style="border-color: #FFF;text-align: center"><a onclick="javascript:pageTracker._trackPageview('/outgoing/opensource.org/licenses/MIT');"  href="http://opensource.org/licenses/MIT" target="_blank">MIT</a></td>
+<td style="border-color: #FFF;text-align: center">Kris Kowal</td>
+<td style="border-color: #FFF">
+Well known implementation, a light edition of it can be found in the popular AngularJS framework from Google.</td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF"><a onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/tildeio/rsvp.js');"  href="https://github.com/tildeio/rsvp.js">RSVP</a></td>
+<td style="border-color: #FFF;text-align: center"><a onclick="javascript:pageTracker._trackPageview('/outgoing/opensource.org/licenses/MIT');"  href="http://opensource.org/licenses/MIT" target="_blank">MIT</a></td>
+<td style="border-color: #FFF;text-align: center">Tilde</td>
+<td style="border-color: #FFF"></td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF"><a onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/cujojs/when');"  href="https://github.com/cujojs/when">when</a></td>
+<td style="border-color: #FFF;text-align: center"><a onclick="javascript:pageTracker._trackPageview('/outgoing/opensource.org/licenses/MIT');"  href="http://opensource.org/licenses/MIT" target="_blank">MIT</a></td>
+<td style="border-color: #FFF;text-align: center">cujoJS</td>
+<td style="border-color: #FFF"></td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF"><a onclick="javascript:pageTracker._trackPageview('/outgoing/yuilibrary.com/');"  href="http://yuilibrary.com/">Yui</a></td>
+<td style="border-color: #FFF;text-align: center"><a onclick="javascript:pageTracker._trackPageview('/outgoing/yuilibrary.com/license');"  href="http://yuilibrary.com/license" target="_blank">BSD</a></td>
+<td style="border-color: #FFF;text-align: center">Yahoo!</td>
+<td style="border-color: #FFF">Yahoo&#8217;s library for DOM-manipulation across browsers.</td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<h3>Features</h3>
+<p>The following is a look at the library feature set, looking only at features directly linked to promises:</p>
+<p>&nbsp;</p>
+<table style="font-size: 13px;background-color: #eee">
+<tbody>
+<tr>
+<td style="border-color: #FFF;padding: 5px;text-align: center"></td>
+<td style="font-weight: bold;border-color: #FFF;text-align: center"><a href="#promises">Promises/A+</a></td>
+<td style="font-weight: bold;border-color: #FFF;text-align: center"><a href="#progression">Progression</a></td>
+<td style="font-weight: bold;border-color: #FFF;text-align: center"><a href="#delayed">Delayed promise</a></td>
+<td style="font-weight: bold;border-color: #FFF;text-align: center"><a href="#parallel">Parallel synchronization</a></td>
+<td style="font-weight: bold;border-color: #FFF;text-align: center"><a href="#webworkers">Web Workers</a></td>
+<td style="font-weight: bold;border-color: #FFF;text-align: center"><a href="#cancellation">Cancellation</a></td>
+<td style="font-weight: bold;border-color: #FFF;text-align: center"><a href="#generators">Generators</a></td>
+<td style="font-weight: bold;border-color: #FFF;text-align: center"><a href="#jquery">Wrap jQuery</a></td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF">Bluebird</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓ (+389 B)</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓ (+615 B)</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓ (+272 B)</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓ (+396 B)</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓ (+276 B)</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓ </td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF">Catiline</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF">ES6 Promise polyfill</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF">JQuery</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF">kew</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF">lie</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF">MyDeferred</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF">MyPromise</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF">Q</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF">RSVP</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF">when</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+</tr>
+<tr>
+<td style="font-weight: bold;border-color: #FFF">Yui</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">✓</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+<td style="border-color: #FFF;padding: 5px;text-align: center">-</td>
+</tr>
+</tbody>
+</table>
+<p><sup><br />
+The numbers in parenthesis by Bluebird is the additional size in bytes each feature will add.</sup></p>
+<p><i id="promises">Promises/A+</i><br />
+Is the <a onclick="javascript:pageTracker._trackPageview('/outgoing/promises-aplus.github.io/promises-spec/');"  href="http://promises-aplus.github.io/promises-spec/" target="_new">Promises/A+ specification implemented</a>?</p>
+<p><i id="progression">Progression</i><br />
+Are methods provided for notification on status on asynchronous tasks before the task is completed?</p>
+<p><i id="delayed">Delayed promise</i><br />
+Can you create a promise that is resolved after a specified delay?</p>
+<p><i id="parallel">Parallel synchronization</i><br />
+Are there methods for synchronization of multiple operations, can we get a resolved promise when a bunch of other promises are resolved?</p>
+<p><i id="webworkers">Web Workers</i><br />
+Can asynchronous code be executed via a web worker &#8211; pushed to a separate execution thread?</p>
+<p><i id="cancellation">Cancellation</i><br />
+Can promise execution be stopped before it is finished?</p>
+<p><i id="generators">Generators</i><br />
+Are coming functions around JavaScript generators supported?</p>
+<p><i id="jquery">Wrap jQuery</i><br />
+Can promises produced by jQuery be converted to this library&#8217;s promises?</p>
+<p>&nbsp;</p>
+<h3>Size</h3>
+<p>Every library have been minified via Googles <a onclick="javascript:pageTracker._trackPageview('/outgoing/closure-compiler.appspot.com/home');"  href="http://closure-compiler.appspot.com/home">Closure compiler</a>. All executed on &#8216;Simple&#8217; to prevent any damaging changes. For libraries that support custom builds I have picked the smallest configuration that still supports promises. The result is including compression in the http-stack, so its actually the raw number of bytes one would expect that the application is added when using each library:</p>
+<p>&nbsp;</p>
+<div style="width: 100%;clear: both;float: left;margin: -20px 20px 20px">
+<img src="http://complexitymaze.com/wp-content/uploads/minified-and-compressed.png" style="border:none;" alt="Minified and compressed" width="700" height="542" class="aligncenter size-full wp-image-1575" /></div>
+<h3>Speed</h3>
+<p>The speed has been measured via the site <a href="jsperf.com">jsPerf</a> which gives the option to execute the same tests across a lot of different browsers and platforms including mobile and tablets. <em><a onclick="javascript:pageTracker._trackPageview('/outgoing/jsperf.com/promise-comparisons/91');"  href="http://jsperf.com/promise-comparisons/91">The test</a> creates a new promise with each library and measures how much latency is imposed on execution of the asynchronous block (see more detailed explanation <a onclick="javascript:pageTracker._trackPageview('/outgoing/calvinmetcalf.com/post/61761231881/javascript-schedulers');"  href="http://calvinmetcalf.com/post/61761231881/javascript-schedulers" target=_new>here</a>)</em>. Note that the test was not created by me, but a lot of fantastic people (current version is 91). The numbers are average across platforms:</p>
+<p>&nbsp;</p>
+<div style="width: 100%;clear: both;float: left;margin:-20px 20px 20px">
+<img src="http://complexitymaze.com/wp-content/uploads/operations-per-second4.png" style="border:none;" alt="Operations per second" width="700" height="542" class="aligncenter size-full wp-image-1574" />
+</div>
+<h3>Conclusion</h3>
+<p>Over half of the worlds websites already uses jQuery. If you have worked with promises in jQuery, you quickly find that they are inadequate.<br />
+I have previously had problems with failing code that doesn&#8217;t reject the promise on error as you would expect, but where the error still bubbles up and ends up being a global browser error. The promise specification dictates that errors should be caught and the promise rejected, which is not what happens in jQuery.</p>
+<p>So if you today have a site based on jQuery, the obvious choice is to pick one of the libraries that offers conversion from jQuery&#8217;s unsafe promises to one of the more safe kind. If size is a priority either Q or when are good suggestions, loaded with features and at a decent speed.</p>
+<p>If you are less worried about size, Bluebird is a better choice. The modularity makes it easy to toggle features and it has a significant test suite that covers performance on a lot of other aspects than the single one covered by this post.</p>
+<p>If performance is essential, kew is a good bet. A team has picked up Q and looked into lowering its resource requirements. This has resulted in a light weight but very fast library.</p>
+<p>If you are looking for a more limited solution with good speed and without big libraries, the ES6 Promise polyfill is a good choice &#8211; then in the long term when the browsers catch up, the library can be removed completely.</p>
+<p><em>This post is also available in Danish at <a onclick="javascript:pageTracker._trackPageview('/outgoing/qed.dk/poul-foged/2014/03/03/en-sammenligning-af-JavaScript-promise-biblioteker/');"  href="http://qed.dk/poul-foged/2014/03/03/en-sammenligning-af-JavaScript-promise-biblioteker/">QED.dk</a></em></p>
+							<div class="blogtags">
+															</div>
+						</div>
+						<div class="blogdivide">
+						</div>
+						<div class="blogstrip">
+							<div class="blogcomments">
+															</div>
+							<div class="blogcategory">
+								<a href="http://complexitymaze.com/category/misc/" rel="category tag">Misc</a>							</div>
+						</div>
+					</div>
+
+					
+						
+					
+<!-- You can start editing here. -->
+
+<div id="commentreplies">
+
+	<div class="commentitle">
+		<h3 id="respond">12 Comments</h3>
+	</div>
+
+	<ol class="commentlist">
+
+	
+		<li class="alt" id="comment-71463">
+
+			<div class="commentwrapper">
+
+				<div class="commentleft">
+					<div class="commentsavatar">
+											</div>
+				</div>
+				<div class="commentcentre">
+					<div class="commentauthor">
+						<a onclick="javascript:pageTracker._trackPageview('/outgoing/qed.dk/poul-foged/2014/03/03/en-sammenligning-af-javascript-promise-biblioteker/');"  href='http://qed.dk/poul-foged/2014/03/03/en-sammenligning-af-javascript-promise-biblioteker/' rel='external nofollow' class='url'>Javascript Promises – En sammenligning af biblioteker | Poul Foged</a>					</div>
+					<div class="commentdate">
+						03/03/2014					</div>
+				</div>
+				<div class="commentright">
+					<div class="commentcomment">
+
+						
+						<p>[&#8230;] This post is also available in English at Complexitymaze.com [&#8230;]</p>
+						<div class="commentedit">
+													</div>
+					</div>
+				</div>
+
+			</div>
+
+		</li>
+
+	
+	
+		<li id="comment-71696">
+
+			<div class="commentwrapper">
+
+				<div class="commentleft">
+					<div class="commentsavatar">
+						<img alt='' src='http://0.gravatar.com/avatar/274ac35774956379f381cb41bb6e2524?s=16&amp;d=wavatar&amp;r=G' class='avatar avatar-16 photo' height='16' width='16' />					</div>
+				</div>
+				<div class="commentcentre">
+					<div class="commentauthor">
+						azu					</div>
+					<div class="commentdate">
+						04/03/2014					</div>
+				</div>
+				<div class="commentright">
+					<div class="commentcomment">
+
+						
+						<p>Is ypromise better than YUI?<br />
+ypromise is standalone version of YUI promises.<br />
+<a onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/yahoo/ypromise');"  href="https://github.com/yahoo/ypromise" rel="nofollow">https://github.com/yahoo/ypromise</a></p>
+						<div class="commentedit">
+													</div>
+					</div>
+				</div>
+
+			</div>
+
+		</li>
+
+	
+	
+		<li class="alt" id="comment-75026">
+
+			<div class="commentwrapper">
+
+				<div class="commentleft">
+					<div class="commentsavatar">
+						<img alt='' src='http://0.gravatar.com/avatar/e80993c4b01c90e8c2df425df085c9b3?s=16&amp;d=wavatar&amp;r=G' class='avatar avatar-16 photo' height='16' width='16' />					</div>
+				</div>
+				<div class="commentcentre">
+					<div class="commentauthor">
+						<a onclick="javascript:pageTracker._trackPageview('/outgoing/www.complexitymaze.com');"  href='http://www.complexitymaze.com' rel='external nofollow' class='url'>Poul</a>					</div>
+					<div class="commentdate">
+						08/03/2014					</div>
+				</div>
+				<div class="commentright">
+					<div class="commentcomment">
+
+						
+						<p>@azu I&#8217;ll check it out &#8230;</p>
+						<div class="commentedit">
+													</div>
+					</div>
+				</div>
+
+			</div>
+
+		</li>
+
+	
+	
+		<li id="comment-75277">
+
+			<div class="commentwrapper">
+
+				<div class="commentleft">
+					<div class="commentsavatar">
+						<img alt='' src='http://1.gravatar.com/avatar/9f54c1f814e618404997a7291930064a?s=16&amp;d=wavatar&amp;r=G' class='avatar avatar-16 photo' height='16' width='16' />					</div>
+				</div>
+				<div class="commentcentre">
+					<div class="commentauthor">
+						Esailija					</div>
+					<div class="commentdate">
+						08/03/2014					</div>
+				</div>
+				<div class="commentright">
+					<div class="commentcomment">
+
+						
+						<p>The benchmark you posted is completely irrelevant to promise use cases &#8211; how about <a onclick="javascript:pageTracker._trackPageview('/outgoing/spion.github.io/posts/why-i-am-switching-to-promises.html');"  href="http://spion.github.io/posts/why-i-am-switching-to-promises.html" rel="nofollow">http://spion.github.io/posts/why-i-am-switching-to-promises.html</a> ?</p>
+						<div class="commentedit">
+													</div>
+					</div>
+				</div>
+
+			</div>
+
+		</li>
+
+	
+	
+		<li class="alt" id="comment-75608">
+
+			<div class="commentwrapper">
+
+				<div class="commentleft">
+					<div class="commentsavatar">
+											</div>
+				</div>
+				<div class="commentcentre">
+					<div class="commentauthor">
+						<a onclick="javascript:pageTracker._trackPageview('/outgoing/vesti3.ru/news/44815');"  href='http://vesti3.ru/news/44815' rel='external nofollow' class='url'>Дайджест интересных материалов из мира веб-разработки и IT за последнюю неделю №99 (2 — 8 марта 2014) | Вести3.ру &#8212; Информационный журнал</a>					</div>
+					<div class="commentdate">
+						08/03/2014					</div>
+				</div>
+				<div class="commentright">
+					<div class="commentcomment">
+
+						
+						<p>[&#8230;] JavaScript промисы – сравнение библиотек [&#8230;]</p>
+						<div class="commentedit">
+													</div>
+					</div>
+				</div>
+
+			</div>
+
+		</li>
+
+	
+	
+		<li id="comment-75685">
+
+			<div class="commentwrapper">
+
+				<div class="commentleft">
+					<div class="commentsavatar">
+											</div>
+				</div>
+				<div class="commentcentre">
+					<div class="commentauthor">
+						<a onclick="javascript:pageTracker._trackPageview('/outgoing/idea.creativelabs.biz/%d0%b4%d0%b0%d0%b9%d0%b4%d0%b6%d0%b5%d1%81%d1%82-%d0%b8%d0%bd%d1%82%d0%b5%d1%80%d0%b5%d1%81%d0%bd%d1%8b%d1%85-%d0%bc%d0%b0%d1%82%d0%b5%d1%80%d0%b8%d0%b0%d0%bb%d0%be%d0%b2-');"  href='http://idea.creativelabs.biz/%d0%b4%d0%b0%d0%b9%d0%b4%d0%b6%d0%b5%d1%81%d1%82-%d0%b8%d0%bd%d1%82%d0%b5%d1%80%d0%b5%d1%81%d0%bd%d1%8b%d1%85-%d0%bc%d0%b0%d1%82%d0%b5%d1%80%d0%b8%d0%b0%d0%bb%d0%be%d0%b2-' rel='external nofollow' class='url'>Дайджест интересных материалов из мира веб-разработки и IT за последнюю неделю №99 (2 — 8 марта 2014) » CreativLabs</a>					</div>
+					<div class="commentdate">
+						09/03/2014					</div>
+				</div>
+				<div class="commentright">
+					<div class="commentcomment">
+
+						
+						<p>[&#8230;] JavaScript промисы – сравнение библиотек [&#8230;]</p>
+						<div class="commentedit">
+													</div>
+					</div>
+				</div>
+
+			</div>
+
+		</li>
+
+	
+	
+		<li class="alt" id="comment-75919">
+
+			<div class="commentwrapper">
+
+				<div class="commentleft">
+					<div class="commentsavatar">
+						<img alt='' src='http://1.gravatar.com/avatar/30ae08fd471be35ad3a6deeffae67eed?s=16&amp;d=wavatar&amp;r=G' class='avatar avatar-16 photo' height='16' width='16' />					</div>
+				</div>
+				<div class="commentcentre">
+					<div class="commentauthor">
+						<a onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/narqo');"  href='http://github.com/narqo' rel='external nofollow' class='url'>Vladimir Varankin</a>					</div>
+					<div class="commentdate">
+						09/03/2014					</div>
+				</div>
+				<div class="commentright">
+					<div class="commentcomment">
+
+						
+						<p>If it would be interesting to you, I suggest you to check Vow (<a onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/dfilatov/vow');"  href="https://github.com/dfilatov/vow" rel="nofollow">https://github.com/dfilatov/vow</a>) library as well. It implements both Promises/A+ and DOM Promise specs and works in browser and in node.js.</p>
+						<div class="commentedit">
+													</div>
+					</div>
+				</div>
+
+			</div>
+
+		</li>
+
+	
+	
+		<li id="comment-76350">
+
+			<div class="commentwrapper">
+
+				<div class="commentleft">
+					<div class="commentsavatar">
+											</div>
+				</div>
+				<div class="commentcentre">
+					<div class="commentauthor">
+						<a onclick="javascript:pageTracker._trackPageview('/outgoing/curations.thisismartin.com/2014/03/10/links-reads-for-2014-week-10/');"  href='http://curations.thisismartin.com/2014/03/10/links-reads-for-2014-week-10/' rel='external nofollow' class='url'>Links &amp; reads for 2014 Week 10 | Martin&#039;s Weekly Curations</a>					</div>
+					<div class="commentdate">
+						10/03/2014					</div>
+				</div>
+				<div class="commentright">
+					<div class="commentcomment">
+
+						
+						<p>[&#8230;] JavaScript Promises – a comparison of libraries [&#8230;]</p>
+						<div class="commentedit">
+													</div>
+					</div>
+				</div>
+
+			</div>
+
+		</li>
+
+	
+	
+		<li class="alt" id="comment-155075">
+
+			<div class="commentwrapper">
+
+				<div class="commentleft">
+					<div class="commentsavatar">
+						<img alt='' src='http://0.gravatar.com/avatar/2007f986372e27efb3b4b3a64804d1d5?s=16&amp;d=wavatar&amp;r=G' class='avatar avatar-16 photo' height='16' width='16' />					</div>
+				</div>
+				<div class="commentcentre">
+					<div class="commentauthor">
+						pashoo					</div>
+					<div class="commentdate">
+						23/04/2015					</div>
+				</div>
+				<div class="commentright">
+					<div class="commentcomment">
+
+						
+						<p>your article is outdated. The fastest library is the bluebird. It is much more faster than the native Promises in Google Chrome</p>
+						<div class="commentedit">
+													</div>
+					</div>
+				</div>
+
+			</div>
+
+		</li>
+
+	
+	
+		<li id="comment-155379">
+
+			<div class="commentwrapper">
+
+				<div class="commentleft">
+					<div class="commentsavatar">
+						<img alt='' src='http://0.gravatar.com/avatar/cc3e62c85ae2db5b82fb1fbdfac2111e?s=16&amp;d=wavatar&amp;r=G' class='avatar avatar-16 photo' height='16' width='16' />					</div>
+				</div>
+				<div class="commentcentre">
+					<div class="commentauthor">
+						muchi					</div>
+					<div class="commentdate">
+						15/05/2015					</div>
+				</div>
+				<div class="commentright">
+					<div class="commentcomment">
+
+						
+						<p>It suprises me whe all the datagrids uses jQuery if it is so slow. I was looking for one to my recent project and found <a onclick="javascript:pageTracker._trackPageview('/outgoing/jspreadsheets.com/');"  href="http://jspreadsheets.com/" rel="nofollow">http://jspreadsheets.com/</a> and checked in at <a onclick="javascript:pageTracker._trackPageview('/outgoing/atmospherejs.com/');"  href="https://atmospherejs.com/" rel="nofollow">https://atmospherejs.com/</a> and what should I use. Guess there is only one option to go with vanilla?</p>
+						<div class="commentedit">
+													</div>
+					</div>
+				</div>
+
+			</div>
+
+		</li>
+
+	
+	
+		<li class="alt" id="comment-155945">
+
+			<div class="commentwrapper">
+
+				<div class="commentleft">
+					<div class="commentsavatar">
+						<img alt='' src='http://1.gravatar.com/avatar/fb5e3a539b1e23c54b080b6d12b411c2?s=16&amp;d=wavatar&amp;r=G' class='avatar avatar-16 photo' height='16' width='16' />					</div>
+				</div>
+				<div class="commentcentre">
+					<div class="commentauthor">
+						<a onclick="javascript:pageTracker._trackPageview('/outgoing/idorecall.com');"  href='http://idorecall.com' rel='external nofollow' class='url'>Dan Dascalescu</a>					</div>
+					<div class="commentdate">
+						22/06/2015					</div>
+				</div>
+				<div class="commentright">
+					<div class="commentcomment">
+
+						
+						<p>Have you looked at Promiz? It&#8217;s written by Zoli Kahan, a genius guy (he was accepted in the Thiel Fellows this month).</p>
+<p><a onclick="javascript:pageTracker._trackPageview('/outgoing/github.com/Zolmeister/promiz');"  href="https://github.com/Zolmeister/promiz" rel="nofollow">https://github.com/Zolmeister/promiz</a></p>
+						<div class="commentedit">
+													</div>
+					</div>
+				</div>
+
+			</div>
+
+		</li>
+
+	
+	
+		<li id="comment-160004">
+
+			<div class="commentwrapper">
+
+				<div class="commentleft">
+					<div class="commentsavatar">
+											</div>
+				</div>
+				<div class="commentcentre">
+					<div class="commentauthor">
+						<a onclick="javascript:pageTracker._trackPageview('/outgoing/codeloaded.wordpress.com/2015/12/22/promises-part-2-promise-definition/');"  href='https://codeloaded.wordpress.com/2015/12/22/promises-part-2-promise-definition/' rel='external nofollow' class='url'>Promises &#8211; Part 2 &#8211; Promise definition | codeloaded</a>					</div>
+					<div class="commentdate">
+						23/12/2015					</div>
+				</div>
+				<div class="commentright">
+					<div class="commentcomment">
+
+						
+						<p>[&#8230;] Comparison of JavaScript Promise Libraries (Mar, 2014) [&#8230;]</p>
+						<div class="commentedit">
+													</div>
+					</div>
+				</div>
+
+			</div>
+
+		</li>
+
+	
+	
+	</ol>
+
+ </div>
+
+
+		
+
+			<div id="commentwrap">
+				<div class="commentitle">
+					<h3 id="respond">Leave a Reply</h3>
+				</div>
+
+					<form action="http://complexitymaze.com/wp-comments-post.php" method="post" id="commentform">
+
+					
+					<div class="commentformlabel">
+						<input type="text" name="author" id="author" value="" size="22" tabindex="1" aria-required='true' />
+						<label for="author"><small>Name (required)</small></label>
+					</div>
+					<div class="commentformlabel">
+						<input type="text" name="email" id="email" value="" size="22" tabindex="2" aria-required='true' />
+						<label for="email"><small>Mail (will not be published) (required)</small></label>
+					</div>
+					<div class="commentformlabel">
+						<input type="text" name="url" id="url" value="" size="22" tabindex="3" />
+						<label for="url"><small>Website</small></label>
+					</div>
+					
+
+					<textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea>
+
+					<input name="submit" type="submit" id="submit" tabindex="5" value="Submit Comment" />
+					<input type="hidden" name="comment_post_ID" value="1560" />
+
+					<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="c07693f18f" /></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="184"/></p>
+					</form>
+
+			</div>
+
+
+
+
+
+			</div>
+		</div>
+
+				<div id="contentright">
+	<div id="sidebar">
+		<div id="rss" onclick="location.href='http://complexitymaze.com/feed/';" style="cursor:pointer;">
+			<img src="http://complexitymaze.com/wp-content/themes/fresh-editorial-mod/images/rss.gif" title="RSS Feed" alt="RSS Feed" />
+		</div>
+		<div id="introductionwrap">
+			<div id="introduction">
+				<h3>ABOUT</h3>
+				<p>
+					Finding the route to a simpler life				</p>
+			</div>
+		</div>
+		<div id="searchformsidebar">
+			<form method="get" id="searchform" action="http://complexitymaze.com/">
+	<div id="searchmenu">
+		<input class="searchbg" type="text" value="" name="s" id="s" />
+	</div>
+	<div id="searchsubmitbtn">
+		<input type="image" src="http://complexitymaze.com/wp-content/themes/fresh-editorial-mod/images/magnify.png" alt="Search" />
+	</div>
+</form>		</div>
+		
+	
+		<div id="widgets">
+		<div id="widgetswrap"><div id="widgetsposts"><h2>Who are we?</h2>			<div class="textwidget">This is a blog by Poul Foged and Therese Hansen. We are a Danish married couple, both professional software developers with a passion for travelling the world.</div>
+		</div></div>		<div id="widgetswrap"><div id="widgetsposts">		<h2>Recent Posts</h2>		<ul>
+					<li>
+				<a href="http://complexitymaze.com/2014/04/03/cheat-sheet-from-basic-linq-to-javascript/">Cheat sheet: from basic LINQ to JavaScript</a>
+						</li>
+					<li>
+				<a href="http://complexitymaze.com/2014/03/25/javascript-promises-server-call-with-progress-indicator/">JavaScript promises &#8211; server-call with progress-indicator</a>
+						</li>
+					<li>
+				<a href="http://complexitymaze.com/2014/03/03/javascript-promises-a-comparison-of-libraries/">JavaScript Promises – a comparison of libraries</a>
+						</li>
+					<li>
+				<a href="http://complexitymaze.com/2011/11/28/travelling-entrepreneurs/">Travelling entrepreneurs</a>
+						</li>
+					<li>
+				<a href="http://complexitymaze.com/2011/01/21/are-you-looking-for-a-new-business-model/">Are you looking for a new business model?</a>
+						</li>
+				</ul>
+		</div></div><div id="widgetswrap"><div id="widgetsposts"><h2>Comments</h2><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Jorma</span> on <a href="http://complexitymaze.com/2014/04/03/cheat-sheet-from-basic-linq-to-javascript/comment-page-1/#comment-161847">Cheat sheet: from basic LINQ to JavaScript</a></li><li class="recentcomments"><span class="comment-author-link">Liazy</span> on <a href="http://complexitymaze.com/2014/04/03/cheat-sheet-from-basic-linq-to-javascript/comment-page-1/#comment-160728">Cheat sheet: from basic LINQ to JavaScript</a></li><li class="recentcomments"><span class="comment-author-link"><a onclick="javascript:pageTracker._trackPageview('/outgoing/codeloaded.wordpress.com/2015/12/22/promises-part-2-promise-definition/');"  href='https://codeloaded.wordpress.com/2015/12/22/promises-part-2-promise-definition/' rel='external nofollow' class='url'>Promises &#8211; Part 2 &#8211; Promise definition | codeloaded</a></span> on <a href="http://complexitymaze.com/2014/03/03/javascript-promises-a-comparison-of-libraries/comment-page-1/#comment-160004">JavaScript Promises – a comparison of libraries</a></li></ul></div></div><div id="widgetswrap"><div id="widgetsposts"><h2><a class='rsswidget' href='http://www.version2.dk/feeds/blogs/theresehansen'><img style='border:0' width='14' height='14' src='http://complexitymaze.com/wp-includes/images/rss.png' alt='RSS' /></a> <a class='rsswidget' href='https://www.version2.dk/rss/term/316'>Version2-blog by Therese</a></h2><ul><li><a class='rsswidget' href='https://www.version2.dk/blog/tvangsdigitalisering-og-privatisering-af-dansk-infrastruktur-55225?utm_medium=feed&#038;utm_source=version2.dk&#038;utm_campaign=blogs&#038;utm_content=therese_hansen'>Tvangsdigitalisering og privatisering af dansk infrastruktur</a></li><li><a class='rsswidget' href='https://www.version2.dk/blog/det-store-ansvar-54329?utm_medium=feed&#038;utm_source=version2.dk&#038;utm_campaign=blogs&#038;utm_content=therese_hansen'>Det store ansvar</a></li><li><a class='rsswidget' href='https://www.version2.dk/blog/fejl-fanden-54957?utm_medium=feed&#038;utm_source=version2.dk&#038;utm_campaign=blogs&#038;utm_content=therese_hansen'>Fejl for fanden!</a></li><li><a class='rsswidget' href='https://www.version2.dk/blog/goto-cheat-sheet-53800?utm_medium=feed&#038;utm_source=version2.dk&#038;utm_campaign=blogs&#038;utm_content=therese_hansen'>GOTO Cheat Sheet</a></li></ul></div></div><div id="widgetswrap"><div id="widgetsposts"><h2>Copyright</h2>			<div class="textwidget">All rights reserved.</div>
+		</div></div><div id="widgetswrap"><div id="widgetsposts"><h2>Google Ads</h2>			<div class="textwidget"><script type="text/javascript"><!--
+google_ad_client = "pub-7536584336789624";
+/* 160x600, created 5/30/10 */
+google_ad_slot = "7989266453";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+		</div></div><div id="widgetswrap"><div id="widgetsposts"><h2>Sitemeter</h2>			<div class="textwidget"><!-- Site Meter XHTML Strict 1.0 -->
+<script type="text/javascript" src="http://s37.sitemeter.com/js/counter.js?site=s37complex">
+</script>
+<!-- Copyright (c)2009 Site Meter -->
+</div>
+		</div></div><div id="widgetswrap"><div id="widgetsposts"><h2>Find us on twitter</h2>			<div class="textwidget"><a href="http://complexitymaze.com/wp-content/uploads/twittersign.jpg"><img src="http://complexitymaze.com/wp-content/uploads/twittersign-150x150.jpg" alt="" title="twittersign" width="150" height="150" class="aligncenter size-thumbnail wp-image-1106" /></a>
+Therese: 
+<br />
+<a href="http://www.twitter.com/qedtherese">@qedtherese</a>
+<br />
+<br />
+Poul:
+<br />
+<a href="http://www.twitter.com/modec">@modec</a>
+<br />
+</div>
+		</div></div>		</div>
+	</div>
+</div>
+
+		</div>
+
+
+
+		
+		<div id="footercontent">
+			<div id="footerheader">
+			</div>
+			<div id="footerbg">
+				<div class="footercolumn">
+					<div id="blogroll">
+						<h3>BLOGROLL</h3>
+						<ul>
+							<li><a href="http://www.version2.dk/blogs/theresehansen" rel="me" title="Version2-blog (in Danish)">Danish version2-blog (Therese)</a></li>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="footercolumn">
+					<div id="archive">
+						<h3>ARCHIVE</h3>
+						<ul>
+								<li><a href='http://complexitymaze.com/2014/04/'>April 2014</a></li>
+	<li><a href='http://complexitymaze.com/2014/03/'>March 2014</a></li>
+	<li><a href='http://complexitymaze.com/2011/11/'>November 2011</a></li>
+	<li><a href='http://complexitymaze.com/2011/01/'>January 2011</a></li>
+	<li><a href='http://complexitymaze.com/2010/12/'>December 2010</a></li>
+	<li><a href='http://complexitymaze.com/2010/11/'>November 2010</a></li>
+	<li><a href='http://complexitymaze.com/2010/10/'>October 2010</a></li>
+	<li><a href='http://complexitymaze.com/2010/09/'>September 2010</a></li>
+	<li><a href='http://complexitymaze.com/2010/08/'>August 2010</a></li>
+	<li><a href='http://complexitymaze.com/2010/07/'>July 2010</a></li>
+	<li><a href='http://complexitymaze.com/2010/06/'>June 2010</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="footercolumn">
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="footer">
+		<div id="footerbottomcontent">
+			<p>
+				&copy ComplexityMaze 2010 Poul Foged &amp Therese Hansen.
+				<br />
+				<a title="web designer" href="http://www.brightcherry.co.uk">Based on a Web design</a> by Bright<b class="pink">Cherry</b> modified by Therese Hansen.
+			</p>
+		</div>
+	</div>
+
+
+
+
+
+<!-- tracker added by Ultimate Google Analytics plugin v1.6.0: http://www.oratransplant.nl/uga -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-16783239-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+<script type='text/javascript' src='http://complexitymaze.com/wp-content/plugins/akismet/_inc/form.js?ver=3.0.2'></script>
+</body>
+</html>

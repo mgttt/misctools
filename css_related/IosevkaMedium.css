@@ -1,0 +1,5 @@
+@font-face {
+	font-family: IosevkaMedium;
+	font-weight: 500;
+	src: url('IosevkaMedium/iosevka-medium.woff2') format('woff2'), url('IosevkaMedium/iosevka-medium.woff') format('woff'), url('IosevkaMedium/iosevka-medium.ttf') format('truetype');
+}

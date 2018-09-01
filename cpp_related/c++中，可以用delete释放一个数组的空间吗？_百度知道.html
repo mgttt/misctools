@@ -1,0 +1,2882 @@
+<!DOCTYPE html>
+<!--STATUS OK-->
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+		<meta http-equiv="content-type" content="text/html;charset=gbk" />
+		<meta property="wb:webmaster" content="3aababe5ed22e23c" />
+		<meta name="referrer" content="always" />
+		<title>c++中，可以用delete释放一个数组的空间吗？_百度知道</title>
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+		<link rel="icon" sizes="any" mask href="//www.baidu.com/img/baidu.svg" />
+      			
+<script>
+    window.alogObjectConfig = {
+        product: '102',
+        page: '102_3', 
+        monkey_page: 'zhidao-ques',
+        speed_page: '3',
+        speed: {
+            sample: '0.02'
+        },
+        monkey: {
+            sample: '0.01'
+        },
+        exception: { 
+            sample: '0.01'
+        },
+        feature: {
+            sample: '0.01'
+        },
+        cus: {
+            sample: '0.01',
+            custom_metrics: ['c_sbox', 'c_menu', 'c_ask', 'c_best']
+        },
+        csp: {
+            sample: '0.02',
+            'default-src': [
+                {match: '*bae.baidu.com', target: 'Accept,Warn'},
+                {match: '*.baidu.com,*.bdstatic.com,*.bdimg.com,localhost,*.hao123.com,*.hao123img.com', target: 'Accept'},
+                {match: /^(127|172|192|10)(\.\d+){3}$/, target: 'Accept'},
+                {match: '*', target: 'Accept,Warn'}
+            ]
+        }
+    };
+ 
+    void function(a,b,c,d,e,f,g){a.alogObjectName=e,a[e]=a[e]||function(){(a[e].q=a[e].q||[]).push(arguments)},a[e].l=a[e].l||+new Date,d="https:"===a.location.protocol?"https://fex.bdstatic.com"+d:"http://fex.bdstatic.com"+d;var h=!0;if(a.alogObjectConfig&&a.alogObjectConfig.sample){var i=Math.random();a.alogObjectConfig.rand=i,i>a.alogObjectConfig.sample&&(h=!1)}h&&(f=b.createElement(c),f.async=!0,f.src=d+"?v="+~(new Date/864e5)+~(new Date/864e5),g=b.getElementsByTagName(c)[0],g.parentNode.insertBefore(f,g))}(window,document,"script","/hunter/alog/alog.min.js","alog"),void function(){function a(){}window.PDC={mark:function(a,b){alog("speed.set",a,b||+new Date),alog.fire&&alog.fire("mark")},init:function(a){alog("speed.set","options",a)},view_start:a,tti:a,page_ready:a}}();
+    void function(n){var o=!1;n.onerror=function(n,e,t,c){var i=!0;return!e&&/^script error/i.test(n)&&(o?i=!1:o=!0),i&&alog("exception.send","exception",{msg:n,js:e,ln:t,col:c}),!1},alog("exception.on","catch",function(n){alog("exception.send","exception",{msg:n.msg,js:n.path,ln:n.ln,method:n.method,flag:"catch"})})}(window);
+</script>
+
+		
+<script>
+	!function(document, window){
+		var log = {
+			list: [],
+			host: 'https://' + location.host + '/api/httpscheck',
+			log: function(param) {
+				var a = [];
+		    	for(var k in param) {
+		    		a.push(k + '=' + param[k]);
+		    	}
+		    	var msg = a.join('&');
+		    	if(~this.list.indexOf(msg)){
+		    		return;
+		    	}
+		    	this.list.push(msg);
+		  		var img = new Image();
+		    	var key = '_ik_log_' + (Math.random()*2147483648 ^ 0).toString(36);
+		    	window[key] = img;
+		    		img.onload = img.onerror = img.onabort = function() {
+		        		img.onload = img.onerror = img.onabort = null;
+		        		window[key] = null;
+			    		img = null;
+		    	};
+		  		img.src = this.host + '?' + msg;
+			}
+		};
+
+		function HTTPSWarningLog(){
+			this.selector = [
+				'link',
+				'script',
+				'img',
+				'embed',
+				'iframe'
+			];
+			this.warningCounter = 0;
+			this.init();
+		};
+
+		HTTPSWarningLog.prototype = {
+			init: function(){
+				this.fetch();
+			},
+
+			fetch: function(){
+				for(var tags = this.selector, i =0, len = tags.length; i < len;i++) {
+					this.getTag(tags[i]);
+				}
+			},
+
+			getTag: function(tag) {
+				var domList = document.getElementsByTagName(tag);
+				if(!domList.length) {
+					return;
+				}
+				for(var i = 0,len = domList.length;i<len;i++) {
+					var el = domList[i];
+					var url = el.getAttribute(el.tagName==='LINK' ? 'href' : 'src');
+                    if(el.getAttribute('rel') === 'canonical') {
+                        continue;
+                    }
+					if(url && 'https:' === location.protocol && !url.indexOf('http:')){
+						this.sendLog(el, el.tagName.toLowerCase(),url);
+						this.warningCounter++;
+					}
+				}
+			},
+			
+			sendLog: function(el, type, url){
+				log.log({
+					url: location.href,
+					wtype: type,
+					wurl: url
+				});
+			}
+		};
+
+		function domReady(fn){
+		    if(document.addEventListener) {
+		        document.addEventListener('DOMContentLoaded', function() {
+		            document.removeEventListener('DOMContentLoaded',arguments.callee, false);
+		            fn();
+		        }, false);
+		    }else if(document.attachEvent) {
+		        document.attachEvent('onreadystatechange', function() {
+		            if(document.readyState == 'complete') {
+		                document.detachEvent('onreadystatechange', arguments.callee);
+		                fn();
+		            }
+		        });
+		    }
+		};
+
+		domReady(function(){
+			new HTTPSWarningLog();
+			for(var i=1; i<6; i++) {
+				!function(i){
+					setTimeout(function(){
+						new HTTPSWarningLog();
+					}, i*i*i*1000);
+				}(i);
+			}
+		});
+	}(document, window);
+</script>
+		        
+<meta name="keywords" content="c++,delete,数组,空间"/>
+<meta name="description" content="c++中，可以用delete释放一个数组的空间吗？这样定义数组的话是在栈上分配内存，超过作用域范围的时候会自动释放掉，使用new操作符分配的内存，是在堆上，需要使用delete释放，因此如果像你那样定义数组的话，不必释"/>
+<link rel="canonical" href="http://zhidao.baidu.com/question/61066086.html"/>
+<script>
+        if (location.hash && location.hash.indexOf('bdres2exe=') > -1) {
+            document.write('<script src="//m.baidu.com/static/as/res2exe/js/res2exe_1.0.3.min.js?v=091818"></' + 'script>');
+        }
+    </script>
+
+		<script type="text/javascript">
+			!function(){var n={},t={};n.context=function(n,e){var i=arguments.length;if(i>1)t[n]=e;else if(1==i){if("object"!=typeof n)return t[n];for(var o in n)n.hasOwnProperty(o)&&(t[o]=n[o])}},"F"in window||(window.F=n)}();;
+			
+            
+																																																																			
+			F.context('user', {"isLogin":"1","stoken":"b4a6a6264971043b49f80cb142b93529","name":"wanjochan","imId":"28f277616e6a6f6368616e0c04","id":"67957288","wealth":"61","gradeIndex":"2","isMavin":"","encryptedBDUSS":"a470SJWHRSlAk3G+Psg7t76bzryDLMr3TZePcrKwFEfq1uF8DEDn+SycuKK3YiAQ+8cz\/3Rm7wbnOX9pokJb+SAGrYDfByU5QN9hvlOvZO6qTo5v0qSNlrerR2q8+TEd4C4OjfZHWqs4cbtEQx\/xErnxqhHBZrjebs7TdOScRlnNX7EZBjQ42VUx6JNUYEk6T0vHXkwMkO\/Er846Y8ycEQYU+HtTeCMNeyLeRF1FFWjxoKhiGz9SaU1y9BwJhfsht0KddLSGZw97BPcrhPz\/ceo8\/R5XNwkarVdZfGk","ECBD":"\/+tygOTWZySa+YBUG2u6tR3R9evmbrU9XbEG3U3AthXJ8pkSgzsoUGTz368fHEPF7zvU8kGSoQPwWuUPi\/wy4L8CFY8PQ1ro7uP\/gEwexZUWHJEQg47XN0ixXKu8yGoyQ7FWSuMnof6L\/JqNFyjV29ZGaFPz3hvNv1r0jTOFzjYpZIQOZOBzeoCyoB285cy3UkjED9QVEvOCzvPLgY8W\/Vc9Ft3gnfH9Yi+u\/sflUJvB3C4HFQEzSLXniYRH2MTp0AkLHE\/H+VdR7vZTkUI9SQ==","experience":"473","answerNum":"2"});
+			F.context('user')['internalAdmin'] = null;
+
+							F.context('defaultQuery', '{"title":"","value":""}');
+									
+					        		        		            		        		            		        		        
+		        F.context({
+		            'sign-in' : {
+		                'isSignIn' : '0',
+		                'signinDays' : '[]',
+		                'speedToday': '0',
+		                'dayNum': '0',
+		                'wealth': '',
+		                // 'newDayNum': '0' % 60,
+		                'signCardCanUsed': '2',
+		                'reSignItemId': '70',
+		                'noSignDays': '',
+		                'maybeSignNum': '',
+                        'signBoxId': '0',
+                        'futureSignBoxId': '128',
+                        'futureBoxDay': '7',
+                        'monthSpeedToday': '0'
+		            } 
+		        });
+		                
+                                                F.context('productsDomain', {
+                'zuoye': 'http://zuoye.baidu.com',
+                'baobao': 'http://baobao.baidu.com',
+                'doctor': 'http://muzhi.baidu.com'
+            });
+            F.context('isQuality', false);
+            F.context('now', 1488756538);
+		</script>
+        <script>F.context('sysTaskAutoInit', 1);</script>
+
+		
+<script type="text/javascript">
+    	var dontTriggerPrompt = true;
+    	
+        F.context('page',{
+        	isAdopted: '1'
+            ,misAsk: '0'
+            ,delAsk: '0'
+            ,isLocked: '0'
+            ,isReplyLocked: '0'
+            ,isFromWap: "0"
+            ,cid: '866'
+            ,cidTop: '74'
+            ,cidMid: '1073'
+            ,qid: '61066086'
+            ,tags: 'C++_编程语言_编程'
+            ,title: 'c++中，可以用delete释放一个数组的空间吗？'
+            ,giveScore: '0'
+            ,encodeUid: '65d14069236f25705e798500'
+                        ,uid: '8769893'
+            ,imId: '65d179757765696d696e673331348500'
+            ,passPhoto: '0'
+                                    ,qb_test_case: '13'
+                        ,rpRecommand: 'false'                        ,rankFile: '0' 
+                        ,userName: 'yuweiming314'
+            ,user : {
+                sex: '1'
+                ,iconType: '6'
+                ,gradeIndex: '7'
+                ,gradeIndexC: '七'
+                                ,grAnswerNum: '34'
+                                                                                                                                                                ,goodRate: '18'
+                            }
+                                    ,con: '数组是这样定义的：<br \/><br \/>char  aa[100];<br \/><br \/>那用完之后如何释放这100个字节的空间呢？我记得delete只能释放指针空间。'
+                                    ,answerNum: '6'
+            ,isView: '1'
+            ,isGetWealth:'0'
+                        ,pgcArr: [790,791,792,794,795]
+            ,isCompanyIask: '0'
+            ,bdplayer:'mozilla\/5.0 (windows nt 6.3; wow64) applewebkit\/537.36 (khtml, like gecko) chrome\/50.0.2661.102 safari\/537.36'
+        });
+        
+        F.context('user')['internalAdmin'] = null;
+
+                	F.context('user')['isAsker'] = '0';
+        	F.context('user')['isReplyer'] = '0';
+            F.context('user')['uid'] = '67957288';
+            F.context('user')['answerNumber'] = '2';
+            F.context('user')['isNew'] = '-1';
+            F.context('user')['isHaveCid'] = '0';
+            F.context('user')['stoken'] = 'b4a6a6264971043b49f80cb142b93529';
+            F.context('user')['isMavin'] = '0';
+            F.context('businessToken', '');
+            
+            F.context('user')['replyBold'] = '0';
+            F.context('user')['replyRed'] = '0';
+            F.context('user')['delSelfReply'] = '0';
+            F.context('user')['delSelfQuestion'] = '0';
+            F.context('user')['highQualityNum'] = '0';
+            F.context('privilege', {
+                                                    'replyBold': {
+                        'is_card': '0',
+                        'remain_time': '',
+                        'number': '0',
+                        'days': ''
+                    },
+                                                                    'replyRed': {
+                        'is_card': '0',
+                        'remain_time': '',
+                        'number': '0',
+                        'days': ''
+                    }
+                                            });
+                            F.context('answers', {});
+        F.context('relateWords', {});
+                F.context('egg', {
+            id: '8'
+            ,flashUrl: 'http:\/\/img.iknow.bdimg.com\/gglft\/gglft_flash.swf'
+            ,onlineTime: '2013-11-15'
+            ,offlineTime: '2013-12-01'
+            ,loginRate: '0.7'
+            ,notLoginRate: '0.3'
+            ,targetUrl: 'http:\/\/zhidao.baidu.com\/s\/gglft\/index.html?isegg=1'
+            ,btnText: '确定'
+            ,dialogText: '恭喜你捡到一张刮刮卡，立刻参与刮刮乐翻天活动，拍立得、iPad mini、iPhone 5手机等超多大奖等你刮出来~'
+            ,dialogBackground: ''
+            ,dialogTextMargin: '0'
+            ,active: '0'
+            ,activeUrl: ''
+            ,activeStatus: ''
+            ,guideLogin: '1'
+            ,dialogTextLogin: ''
+            ,btnTextLogin: ''
+            ,dialogTextActive: ''
+            ,btnTextActive: ''
+            ,dialogBackground: ''
+            ,limitGrade: '0'
+            ,limitGoodRate: '0'
+        });
+                        F.context('cmsTopic', [
+                                    {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/qinliugan.html',
+                'title': 'H7N9禽流感病毒问题解答',
+                'qid': '538944731,538944974,538945159,538945410,538945640,538945806,538946023,538947972,538948119,538948841,538948985,538949170,538949278,538949607,538951811,538952044,538952289,539260208,539271130,539272340,539272652,539272848,539273004,538758680,537145971,537481975,537482138,537491741,537496345,537145971,539271582,539310838,96016332,16608956,16608956,534580619',
+                'expert': ''
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen18.html',
+                'title': '传统医学解读人体奥秘',
+                'qid': '',
+                'expert': '正安中医梁冬,薄化君大夫,罗炳翔大夫'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen17.html',
+                'title': '我们有文化，遇见“流氓”也不怕！',
+                'qid': '',
+                'expert': '打假第一人王海'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/topic\/zhichangtiaocao\/index.html',
+                'title': '跳槽前必读8大问题',
+                'qid': '530550652,530550695,530550746,530550777,530550821,530550859,530550898,530550937',
+                'expert': ''
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/topic\/zhichangmianshi\/index.html',
+                'title': 'HR不懂爱，他的提问你答不来！',
+                'qid': '529252350,529252523,529252831,529253040,529253301,529253429,529256645,529256979,529257198,529257285',
+                'expert': ''
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen16.html',
+                'title': '孙云晓解答青春叛逆期教育',
+                'qid': '',
+                'expert': '青研中心孙云晓'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen16.html',
+                'title': '孙宏艳解答青春叛逆期教育',
+                'qid': '',
+                'expert': '青研中心孙宏艳'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen15.html?fr=qbzt',
+                'title': '雷明解答职场中的跳槽疑惑',
+                'qid': '',
+                'expert': '心理咨询雷明'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen15.html?fr=qbzt',
+                'title': '唐宁解答女性职场疑惑',
+                'qid': '',
+                'expert': '职场唐宁'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen14.html?fr=qbzt',
+                'title': '北大售票帝裴济洋教你买票回家！',
+                'qid': '',
+                'expert': 'peijiyang_pku'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/jiaogui.html?fr=qbzt',
+                'title': '权威解读2013驾考新规',
+                'qid': '496005611,105728210',
+                'expert': ''
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/topic\/shi\/index.html?fr=qbzt',
+                'title': '被误读最深的名言锦句',
+                'qid': '510380393,510380025,510380524,510380639,510380685,510380918,510381072,510380301',
+                'expert': ''
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen13.html?fr=qbzt',
+                'title': '交管局李晓东处长解答驾考新规',
+                'qid': '',
+                'expert': '交管局李晓东'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen13.html?fr=qbzt',
+                'title': '交管局李勤处长解读新交规',
+                'qid': '',
+                'expert': '交管局李勤'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen12.html?fr=qbzt',
+                'title': '胡柳解答保险理财',
+                'qid': '',
+                'expert': '保险理财胡柳'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen12.html?fr=qbzt',
+                'title': '魏德善解答证券投资',
+                'qid': '',
+                'expert': '证券专家魏德善'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen06.html?fr=qbzt',
+                'title': '金韵蓉老师教你精油护肤',
+                'qid': '',
+                'expert': 'lafasojyr'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/topic\/kuaidu\/suhuaji\/index.html?fr=qbzt',
+                'title': '你的食物含塑化剂吗',
+                'qid': '499771676,274675532,273938276,275181078,274282140,499772730,275226786,274536152,282757232,274210910,275395808,499772593,275355018,274093929',
+                'expert': ''
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/topic\/kuaidu\/youjia\/index.html?fr=qbzt',
+                'title': '油价是升还是降',
+                'qid': '7701062,7720360,23590745,239386624,302573038,218721231,337321559',
+                'expert': ''
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/topic\/kuaidu\/2012usa\/index.html?fr=qbzt',
+                'title': '美国总统是如何选出来的',
+                'qid': '494863184,494863014,494869926,494869853,494868987',
+                'expert': ''
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/topic\/Chicken\/index.html?fr=qbzt',
+                'title': '45天鸡能不能吃',
+                'qid': '503005578,503006139,503006460,503006854,503007374,503007374',
+                'expert': ''
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/topic\/1942\/index.html?fr=qbzt',
+                'title': '你知道1942吗？',
+                'qid': '502766042,502766042,502647814,502647814,502777253,502776800,502650170,502650170',
+                'expert': ''
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/topic\/jiehuo\/jiankangyaoyan\/index.html?fr=qbzt',
+                'title': '健康流言知真假',
+                'qid': '178807906,334055366,498402753,291937633,209426382,414548424,7540625,222613405,498406267,498408474,109760622,388525641',
+                'expert': ''
+            },
+                                                {
+                'url': 'http:\/\/www.baidu.com\/search\/zhidao\/jingshenbing\/index.html?fr=qbzt',
+                'title': '大家都有病',
+                'qid': '492345830,491605430,492350128,492350240,492350299,281444990,492440880,489745109,492443590,492443722',
+                'expert': ''
+            },
+                                                {
+                'url': 'http:\/\/www.baidu.com\/search\/zhidao\/gangnamstyle\/index.html?fr=qbzt',
+                'title': '江南Style红的很科学',
+                'qid': '478958350,487057430,483904315,485109741,487057528,485109517,487057485,487057395,487057395,487057363,480719567',
+                'expert': ''
+            },
+                                                {
+                'url': 'http:\/\/www.baidu.com\/search\/zhidao\/bing\/index.html?fr=qbzt',
+                'title': '其实这都不是病',
+                'qid': '480816980,480792024,481137959,480812943,480813792',
+                'expert': ''
+            },
+                                                {
+                'url': 'http:\/\/www.baidu.com\/search\/zhidao\/aizheng\/index.html?fr=qbzt',
+                'title': '吃也会得癌症！',
+                'qid': '328576004,480213867,480213973,480218158,480232828',
+                'expert': ''
+            },
+                                                {
+                'url': 'http:\/\/www.baidu.com\/search\/zhidao\/2012gongfu\/index.html?fr=qbzt',
+                'title': '江湖神功知多少',
+                'qid': '475780308,473798866,475780429,473806239,475780510,473800706,475780712,475782468,475780619,473801366',
+                'expert': ''
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen11.html?fr=qbzt',
+                'title': '姚海峰医生解答宠物健康',
+                'qid': '',
+                'expert': '姚海峰博士'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen11.html?fr=qbzt',
+                'title': '王天明专业解答宠物营养',
+                'qid': '',
+                'expert': '宠物营养'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen10.html?fr=qbzt',
+                'title': '苏芩谈远离爱留下的伤',
+                'qid': '',
+                'expert': '知名作家苏芩'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen08.html?fr=qbzt',
+                'title': '张国庆分析中日关系',
+                'qid': '',
+                'expert': '社科院张国庆'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen06.html?fr=qbzt',
+                'title': '小P老师教你彩妆造型',
+                'qid': '',
+                'expert': 'yoka小P老师'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen06.html?fr=qbzt',
+                'title': '梅琳老师教你美肌护肤',
+                'qid': '',
+                'expert': 'lafasoml'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen06.html?fr=qbzt',
+                'title': '美丽主持人李静的美容问答',
+                'qid': '',
+                'expert': 'lafasolj'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen05.html?fr=qbzt',
+                'title': '伊能静解答如何演电影',
+                'qid': '',
+                'expert': 'yinengjing2013'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen05.html?fr=qbzt',
+                'title': '导演赵林山揭秘电影',
+                'qid': '',
+                'expert': 'daoyanzls'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen05.html?fr=qbzt',
+                'title': '五岳散人谈美食',
+                'qid': '',
+                'expert': 'wysr2012'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen04.html?fr=qbzt',
+                'title': '早教专家李跃儿谈早教',
+                'qid': '',
+                'expert': 'lyer2013bd'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen04.html?fr=qbzt',
+                'title': '产科主任余梅教孕产',
+                'qid': '',
+                'expert': 'ym2013bd'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/topic\/muru\/index.html?fr=qbzt',
+                'title': '妈妈最关心的8个问题',
+                'qid': '526309070,526865300,526865300,526308815,526865218,526865157,526865101,526865101,526309710,526865031',
+                'expert': ''
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen03.html?fr=qbzt',
+                'title': '健身专家王友松教健身',
+                'qid': '',
+                'expert': 'wangyousong7'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen03.html?fr=qbzt',
+                'title': '顾中一教你健康营养',
+                'qid': '',
+                'expert': 'guzhongyi'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen03.html?fr=qbzt',
+                'title': '李湘教你减肥秘诀',
+                'qid': '',
+                'expert': 'lixiangzslx'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/zhishilingxiu02.html?fr=qbzt',
+                'title': '心血管病专家贾玉和谈病痛',
+                'qid': '',
+                'expert': 'jiayuhe7'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/zhishilingxiu02.html?fr=qbzt',
+                'title': '糖尿病专家向红丁谈病痛',
+                'qid': '',
+                'expert': 'xianghongd3'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/zhishilingxiu01.html?fr=qbzt',
+                'title': '金领小V谈职场生存学',
+                'qid': '',
+                'expert': '小V2013'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/zhishilingxiu01.html?fr=qbzt',
+                'title': '杜子建说创业',
+                'qid': '',
+                'expert': '杜子建2012'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen08.html?fr=qbzt',
+                'title': '张召忠谈钓鱼岛争端',
+                'qid': '',
+                'expert': 'zshaozhong2012'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen07.html?fr=qbgl',
+                'title': '崔玉涛谈婴幼儿护理',
+                'qid': '',
+                'expert': '儿科医生崔玉涛'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/zhishilingxiu02.html?fr=qbzt',
+                'title': '急诊女超人于莺谈病痛',
+                'qid': '',
+                'expert': 'yuyingjzk'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/zhishilingxiu01.html?fr=qbzt',
+                'title': '薛蛮子谈天使投资',
+                'qid': '',
+                'expert': '薛蛮子2012'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/wowen09.html?fr=qbgl',
+                'title': '郑渊洁让童年如童话',
+                'qid': '',
+                'expert': '作家郑渊洁'
+            },
+                                                {
+                'url': 'http:\/\/zhidao.baidu.com\/s\/maya.html?fr=qbgl',
+                'title': '2012世界末日真相',
+                'qid': '384640140,193245477,62563072,306563588,158114723,409478947,12992979,129335529,84523086,13774477,161887534',
+                'expert': ''
+            }
+                                ]);
+                        
+        
+        F.context('isForAnswerHq', '0');
+                F.context({
+            'itopicSyncAdminStr': '["553869863","408584470","663150510","1601193224","1305370811","1253985996","240173754","2421480383","282555480","617337308","703281543","1824698773","2560348928","49725318","220659661","161331174","1372601133","1969665018","837552203","365536315","331452762"]'
+        });
+
+    </script>
+
+        <!--[if lte IE 8]>
+            <script>
+                (function(){
+                    var e="abbr,article,aside,audio,canvas,datalist,details,dialog,eventsource,figure,footer,header,hgroup,mark,menu,meter,nav,output,progress,section,time,video".split(","),
+                    i=e.length;
+                    while(i--){document.createElement(e[i])}
+                 })();
+            </script>
+        <![endif]-->
+	<link rel="stylesheet" type="text/css" href="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/common/pkg/common_ad30a18.css" /><link rel="stylesheet" type="text/css" href="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/question/pkg/aio_3081ab1.css" /><link rel="stylesheet" type="text/css" href="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/common/widget/userbar-renew/userbar-renew_55ab471.css" /><link rel="stylesheet" type="text/css" href="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/common/widget/search-box-new/search-box-new_4de721e.css" /><link rel="stylesheet" type="text/css" href="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/question/widget/top-nav-bar/top-nav-bar_21267b2.css" /><link rel="stylesheet" type="text/css" href="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/question/widget/read-opt/img-preview/preview_c4405d5.css" /><link rel="stylesheet" type="text/css" href="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/question/widget/bottom-union/bottom-union_d935508.css" /></head>
+    
+    
+    <script> alog('speed.set', 'ht', +new Date); </script>
+
+
+	<body class="layout-center has-menu">
+		
+
+<div id="userbar" class="userbar userbar-renew" data="">
+            <ul class="aside-list">
+            <li>
+                <a href="http://www.baidu.com/" class="toindex">百度首页</a>
+            </li>
+            <li>
+                            <a href="/usercenter?uid=28f24069236f25705e790c04" class="user-name" target="_blank" id="user-name">wanjochan<i class="i-arrow-down"></i></a></li>
+                        </li>
+                        <li alog-alias="userbar-msg" id="userbar-msg"><a href="/ihome/notice/all" target="_blank" target="_self">消息<span class="orange-num"><i></i></span></a></li>
+            <li alog-alias="baidu-msg" id="baidu-msg"><a href="/ichat/chatlist">私信<i class="bd-msg"></i></a></li>
+            <li class="shop-entrance">
+                <a href="/shop" title="知道商城">商城<i class="i-house" style="display: none;"></i></a>
+                                    <span class="lucky-try"></span>
+                            </li>
+        </ul>
+        <div class="sublist-container username-sublist" style="display:none" id="username-sublist">
+            <div class="sublist-arrow-up"></div>
+            <ul class="sub-list">
+                                <li><a id="userbar-myinfo" href="/usercenter?uid=28f24069236f25705e790c04" target="_blank">我的主页</a></li>
+                                <li><a id="userbar-my-ask" href="http://zhidao.baidu.com/ihome/ask?tab=1" target="_blank">我的提问</a></li>
+                <li><a id="userbar-my-answer" href="http://zhidao.baidu.com/ihome/answer?tab=1" target="_blank">我的回答</a></li>
+                <li><a id="userbar-my-task" href="http://zhidao.baidu.com/ihome/task/index?tab=1" target="_blank">我的任务</a></li><li><a id="userbar-account" href="http://passport.baidu.com/center" target="_blank">帐号设置</a></li>
+                <li class="last"><a href="http://passport.baidu.com/?logout&amp;aid=7&amp;u=http%3A//zhidao.baidu.com" id="userbar-logout">退出帐号</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+
+        
+		
+<div class="head-wrap">
+<hr class="divider">
+<header id="header" class="container">
+
+<div id="search-box" class="search-box-new line">
+    <ul class="channel grid">
+        <li><a log="sc_pos:c_baidu" rel="nofollow" href="http://www.baidu.com/">网页</a></li>
+        <li><a log="sc_pos:c_news" rel="nofollow" href="http://news.baidu.com/">新闻</a></li>
+        <li><a log="sc_pos:c_tieba" rel="nofollow" href="http://tieba.baidu.com/">贴吧</a></li> 
+        <li><strong>知道</strong></li> 
+        <li><a log="sc_pos:c_mp3" rel="nofollow" href="http://music.baidu.com/">音乐</a></li> 
+        <li><a log="sc_pos:c_pic" rel="nofollow" href="http://image.baidu.com/">图片</a></li>
+        <li><a log="sc_pos:c_video" rel="nofollow" href="http://v.baidu.com/">视频</a></li> 
+        <li><a log="sc_pos:c_map" rel="nofollow" href="http://map.baidu.com/">地图</a></li> 
+                <li><a log="sc_pos:c_doc" rel="nofollow" href="http://wenku.baidu.com/">文库</a></li>
+        <li><a log="sc_pos:c_more" href="http://www.baidu.com/more/">更多&raquo;</a></li>
+            </ul>
+    <div class="search-block clearfix">
+      <div class="search-cont clearfix">
+        <a class="logo" href="/" title="百度知道"></a>
+        <form action="/search" name="search-form" method="get" id="search-form-new" class="search-form">
+            <input class="hdi" id="kw" maxlength="256" tabindex="1" size="46" name="word" value="" autocomplete="off" />
+            <button alog-action="g-search-anwser" type="submit" id="search-btn" hidefocus="true"  tabindex="2" class="btn-global">搜索答案</button>
+            <a href="#" alog-action="g-i-ask" class="i-ask-link" id="ask-btn-new">我要提问</a>
+        </form>
+      </div>
+    </div>
+</div>
+<script>
+                    // 搜索框可用时间打点
+                    alog && alog('speed.set', 'c_sbox', +new Date); alog.fire && alog.fire("mark");
+                </script>
+
+</header>
+</div>
+
+<div class="nav-menu-container" id="j-nav-menu-container">
+    <div class="nav-show-control">
+        <div class="nav-menu-layout">
+            <div class="nav-menu line">
+                <div class="nav-menu-content container">
+                    <div class="content-box">
+                        <div class="menu-item menu-item-index">
+                            <a class="menu-title " href="/">
+                                首页
+                            </a>
+                        </div>
+                        <div class="menu-item-box">
+                            <div class="menu-item menu-item-cat">
+                                <a class="menu-title " href="/list?fr=daohang" target="_blank">
+                                    问题
+                                </a>
+                                <div class="menu-content">
+                                    <ul class="menu-sub-list">
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/list?fr=daohang" target="_blank" target="_blank">
+                                                全部问题
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/list?cid=101?fr=daohang" target="_blank" target="_blank">
+                                                经济金融
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/list?cid=102?fr=daohang" target="_blank" target="_blank">
+                                                企业管理
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/list?cid=103?fr=daohang" target="_blank" target="_blank">
+                                                法律法规
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/list?cid=104?fr=daohang" target="_blank" target="_blank">
+                                                社会民生
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/list?cid=105?fr=daohang" target="_blank" target="_blank">
+                                                科学教育
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/list?cid=106?fr=daohang" target="_blank" target="_blank">
+                                                健康生活
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/list?cid=107?fr=daohang" target="_blank" target="_blank">
+                                                体育运动
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/list?cid=108?fr=daohang" target="_blank" target="_blank">
+                                                文化艺术
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/list?cid=109?fr=daohang" target="_blank" target="_blank">
+                                                电子数码
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/list?cid=110" target="_blank" target="_blank">
+                                                电脑网络
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/list?cid=111?fr=daohang" target="_blank" target="_blank">
+                                                娱乐休闲
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/list?cid=113?fr=daohang" target="_blank" target="_blank">
+                                                行政地区
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/list?cid=114?fr=daohang" target="_blank" target="_blank">
+                                                心理分析
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/list?cid=115?fr=daohang" target="_blank" target="_blank">
+                                                医疗卫生
+                                            </a>
+                                        </li>
+                                        <!-- <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/list?cid=116?fr=daohang" target="_blank" target="_blank">
+                                                资源共享
+                                            </a>
+                                        </li> -->
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="menu-item menu-item-lanmu">
+                                <a class="menu-title" href="javascript:;">
+                                    专栏
+                                </a>
+                                <div class="menu-content">
+                                    <ul class="menu-sub-list">
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/daily?fr=daohang" target="_blank">
+                                                知道日报
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/liuyan?fr=daohang" target="_blank">
+                                                真相问答机
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/bigdata/view" target="_blank">
+                                                知道大数据
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/special/home?fr=daohang" target="_blank">
+                                                知道多世界
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/culture/index?fr=daohang" target="_blank">
+                                                知道非遗
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="menu-item menu-item-user">
+                                <a class="menu-title" href="javascript:;">
+                                    用户
+                                </a>
+                                <div class="menu-content">
+                                    <ul class="menu-sub-list">
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/zhima/" target="_blank">
+                                                知道芝麻
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/misc/nowshowstar?fr=daohang" target="_blank">
+                                                知道之星
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/user/admin?fr=daohang" target="_blank">
+                                                芝麻将
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/uteam?fr=daohang" target="_blank">
+                                                芝麻团
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/hangjia?fr=daohang" target="_blank">
+                                                知道行家
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/daily/authorcenter?fr=daohang" target="_blank">
+                                                日报作者
+                                            </a>
+                                        </li>
+                                        <div class="menu-item-user-list">机构合作<div class="line-bar"></div></div>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/hangjia?fr=daohang" target="_blank">
+                                                机构行家
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/opendev?fr=daohang" target="_blank">
+                                                开放平台
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/special/view/cooperation?fr=daohang" target="_blank">
+                                                品牌合作
+                                            </a>
+                                        </li>
+                                        <div class="menu-item-user-list">知道福利<div class="line-bar"></div></div>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/shop?fr=daohang" target="_blank">
+                                                财富商城
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item" href="/s/activity/index.html?fr=daohang" target="_blank">
+                                                知道活动
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="menu-item menu-item-expert">
+                                <a class="menu-title" href="javascript:;">
+                                    特色
+                                </a>
+                                <div class="menu-content">
+                                    <ul class="menu-sub-list">
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item menu-sub-item-expert" href="http://jingyan.baidu.com/" target="_blank">
+                                                <span class="expert-icon expert-icon-jy"></span>
+                                                <span>经验</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item menu-sub-item-expert" href="https://p.baidu.com" target="_blank">
+                                                <span class="expert-icon expert-icon-pi"></span>
+                                                <span>百度派</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item menu-sub-item-expert" href="http://wenka.baidu.com" target="_blank">
+                                                <span class="expert-icon expert-icon-ka"></span>
+                                                <span>问咖</span><i class="i-new ml-5"></i>
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item menu-sub-item-expert" href="http://baobao.baidu.com" target="_blank">
+                                                <span class="expert-icon expert-icon-baby"></span>
+                                                <span>宝宝知道</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item menu-sub-item-expert" href="http://muzhi.baidu.com?from=submenu" target="_blank">
+                                                <span class="expert-icon expert-icon-doctor"></span>
+                                                <span>拇指医生</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item menu-sub-item-expert" href="http://zuoye.baidu.com" target="_blank">
+                                                <span class="expert-icon expert-icon-zuoye"></span>
+                                                <span>作业帮</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-sub-item-wp">
+                                            <a class="menu-sub-item menu-sub-item-expert" href="http://ciyuanfan.baidu.com/?ref=pcsyts" target="_blank">
+                                                <span class="expert-icon expert-icon-ciyuanfan"></span>
+                                                <span>次元饭</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-right-section">
+                            <ul class="menu-right-list">
+                                <li class="menu-right-list-item zhidao-app">
+                                    <a href="/zt/ikapp/index.html?fr=home" class="menu-right-list-link" target="_blank">
+                                        <span class="item-icon">
+                                            
+                                        </span>
+                                        <span class="item-name">
+                                            手机版
+                                        </span>
+                                    </a>
+                                    <span class="right-list-item-devide">
+                                        
+                                    </span>
+                                </li>
+                                <li class="menu-right-list-item user-center">
+                                    <a href="/ihome" class="menu-right-list-link" target="_blank">
+                                        <span class="item-icon">
+                                            
+                                        </span>
+                                        <span class="item-name">
+                                            我的知道
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+        // 导航可用时间
+        alog && alog('speed.set', 'c_menu', +new Date); alog.fire && alog.fire("mark");
+    </script>
+
+<div id="body" class="container">
+
+<div class="layout-wrap">
+<div id="top-nav-bar" class="top-nav-bar">
+<div class="container2">
+<a class="toplogo" href="http://zhidao.baidu.com" title="百度知道"></a>
+<div class="topsearch">
+<form action="/search" name="search-nav-form" id="search-nav-form" method="get">
+<input class="hdi" id="nav-kw" maxlength="256" tabindex="1" size="46" name="word" value="" autocomplete="off" />
+<button alog-action="g-search-anwser" type="submit" id="search-btn-nav" hidefocus="true"  tabindex="2" class="i-search-link">搜索答案</button>
+</form>
+</div>
+</div>
+</div>
+<div style="display:none">
+<nav class="wgt-nav f-12" alog-group="qb-cate-nav">
+<a href="/">百度知道</a>
+&gt;<a href="/browse/74">电脑/网络</a>
+&gt;<a href="/browse/1073">编程语言</a>
+&gt;<a href="/browse/866">C/C++</a>
+</nav>
+</div>
+<section class="line qb-section">
+<article class="grid qb-content" id="qb-content">
+<div class="wgt-ask accuse-response line mod-shadow " id="wgt-ask">
+<h1 accuse="qTitle">
+<i class="iknow-qb_home_icons i-status-being grid mr-10"></i>
+<span class="ask-title ">c++中，可以用delete释放一个数组的空间吗？</span>
+</h1>
+<div class="line mt-5 q-content" accuse="qContent">
+<span class="con">数组是这样定义的：<br /><br />char  aa[100];<br /><br />那用完之后如何释放这100个字节的空间呢？我记得delete只能释放指针空间。</span>
+</div>
+<div class="line f-aid ask-info ff-arial" id="ask-info">
+<span class="grid-r ask-time">
+<ins class="share-area">
+</ins>
+</span>
+<a class="" alog-action="qb-ask-uname" rel="nofollow" href="/usercenter?uid=65d14069236f25705e798500" target="_blank">yuweiming314</a>
+<span id="v-times" class="f-pipe" style="display: none"></span>
+<ins class="accuse-area"></ins>
+</div>
+</div>
+<script>
+    // 提问区域可用时间
+    alog && alog('speed.set', 'c_ask', +new Date); alog.fire && alog.fire("mark");
+</script>
+<script type="text/javascript">
+        F.context('answers')['2329697249'] = {uid:"811212094",imId:"3e1d6d6f6e6b65796c6565686f755a30",passPhoto:"1",id:"2329697249",userName:"monkeyleehou",userNameEnc:"monkeyleehou",user:{sex:"1",iconType:"7",gradeIndex:"12",grAnswerNum:"918",carefield: [{cid:"866",cname:"C/C++"},{cid:"1078",cname:"手机/通讯"},{cid:"1281",cname:"苹果iPad"}],isFromTeam:"1",teamName:"c++",teamId:"90294",isAuth:"0",authTitle:"",isUserAdmin:"0",userAdminLevel:"",userAdminTitle:"",userAdminType:"",isFamous:"0",isMaster:"0",goodRate:"94"},isAnonymous:"0",isCurrentUser:"0",mapUrl:"",refer:"",replyAskNum:"",threadId:"9318788997",hasComment:"0",qid:"61066086",raid:"",recommendCanceled:"0"};
+        F.context('answers')['2329697249'].encodeUid = '3e1d4069236f25705e795a30';
+            </script>
+<div class="wgt-best mod-shadow  " id="best-answer-2329697249">
+<div class="hd line ">
+<span class="grid-r f-aid pos-time answer-time f-pening">
+推荐于2016-06-03 05:59:20
+</span>
+<div id="act-link-banner-wp" class="grid-r"></div>
+<span class="iknow-qb_home_icons answer-type answer-best grid"></span>
+<span class="answer-title h2 grid">
+最佳答案</span>
+</div>
+<div class="bd answer" id="answer-2329697249">
+<div class="line info f-aid">
+</div>
+<div class="line content">
+<pre id="best-content-2329697249" accuse="aContent" class="best-text mb-10" style="min-height: 55px;">用delete释放的只能是用new动态分配的数组空间，若数组不是动态分配的则不能用delete释放。<br />举两个例子详细说明一下：<br />int a[100];<br />这个数组a是不能用delete释放空间的，因为这个数组a在声明时就已经说明了空间的大小，在最后程序会自动释放这个空间。<br />int *b;<br />b=new int[100];<br />这个要在最后用delete []b; 语句来动态释放，因为数组b是一个动态数组，数组空间是动态分配的，程序是不能自动释放的，所以要自己用delete来释放。</pre>
+<div class="quality-content-view-more mb-15">
+</div><div class="newbest-content-meta line mt-15 ff-arial">
+<div class="ft-info grid">
+<i class="i-quality-icon"></i>
+本回答由<span>电脑网络分类达人 系统</span>推荐</div>
+<div class="grid-r f-aid ">
+<ins class="accuse-area" alog-alias="qb-accuse-link-best"></ins>
+<span alog-action="qb-comment-btnbestbox" class="comment f-black cursor" id="comment-2329697249"><i class="iknow-qb_home_icons i-icon-comment mr-5"></i>评论</span>
+<div class="qb-zan-eva">
+<span 
+		alog-action="qb-zan-btnbestbox" 
+		class="iknow-qb_home_icons evaluate evaluate-32
+						" 
+		id="evaluate-2329697249" 
+		data-evaluate="1" 
+		>
+</span>
+<span 
+		alog-action="qb-evaluate-outer" 
+		class="iknow-qb_home_icons evaluate evaluate-bad evaluate-32 
+						" 
+		id="evaluate-bad-2329697249" 
+		data-evaluate="1" 
+		>
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="line wgt-replyer-best wgt-replyer-special-bg " >
+<div class="replyer-best-box">
+<div class="grid mr-15">
+<p class="avatar-70 avatar-static">
+<a alog-action="qb-username" log="pms:newqb,pos:bestreplyer" class="avatar-normal-a" rel="nofollow" href="/usercenter?uid=3e1d4069236f25705e795a30" target="_blank" data-img="
+                                    https://gss0.bdstatic.com/7Ls0a8Sm1A5BphGlnYG/sys/portrait/item/3e1d6d6f6e6b65796c6565686f755a30.jpg
+                                ">
+</a>
+</p>
+</div>
+<div class="grid f-aid ff-arial">
+<p class="mb-5">
+<a alog-action="qb-username" log="pms:newqb,pos:bestreplyer" class="user-name" rel="nofollow" href="/usercenter?uid=3e1d4069236f25705e795a30" target="_blank">
+monkeyleehou
+</a>
+<a class="i-gradeIndex i-gradeIndex-12 mr-10" href="http://www.baidu.com/search/zhidao_help.html#如何选择头衔" target="_blank"></a>
+</p>
+<p class="carefield">
+<span class="mr-15">采纳率：94%</span>
+<span>来自团队：</span><a class="f-aid mr-15" href="/uteam/view?fr=qb&teamId=90294" title="" target="_blank">c++</a>
+<span>擅长：</span>
+<a class="mr-5 f-aid" href="/browse/866" target="_blank">C/C++</a>
+<a class="mr-5 f-aid" href="/browse/1078" target="_blank">手机/通讯</a>
+<a class="mr-5 f-aid" href="/browse/1281" target="_blank">苹果iPad</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+<script>
+                    // 高质or满意or特型or推荐答案打点时间
+                    alog && alog('speed.set', 'c_best', +new Date); alog.fire && alog.fire("mark");
+                </script>
+<script>
+                    // 首屏时间打点
+                    void function(e,t){for(var n=t.getElementsByTagName("img"),a=+new Date,i=[],o=function(){this.removeEventListener&&this.removeEventListener("load",o,!1),i.push({img:this,time:+new Date})},s=0;s< n.length;s++)!function(){var e=n[s];e.addEventListener?!e.complete&&e.addEventListener("load",o,!1):e.attachEvent&&e.attachEvent("onreadystatechange",function(){"complete"==e.readyState&&o.call(e,o)})}();alog("speed.set",{fsItems:i,fs:a})}(window,document);
+                </script>
+<div class="wgt-answers has-other  " id="wgt-answers">
+<div class="hd line other-hd"><h2>其他回答</h2>
+</div>
+<div class="bd-wrap">
+<script type="text/javascript">
+                    F.context('answers')['208297492'] = {uid:"35842968",imId:"98eb646f6e676265696c616964692202",isBest:"1",id:"208297492",userName:"dongbeilaidi",userNameEnc:"dongbeilaidi",user:{sex:"1",iconType:"6",gradeIndex:"4",grAnswerNum:"10",carefield: [{cid:"866",cname:"C/C++"},{cid:"868",cname:"VC++"},{cid:"1257",cname:"数据结构及算法"}],isAuth:"0",authTitle:"",isUserAdmin:"0",userAdminLevel:"",userAdminTitle:"",userAdminType:"",isFamous:"0",isMaster:"0",goodRate:"30",applyExcType:"4"},isAnonymous:"0",isCurrentUser:"0",mapUrl:"",refer:"",replyAskNum:"",threadId:"833189969",hasComment:"1",qid:"61066086",raid:"",recommendCanceled:"0"};
+                    F.context('answers')['208297492']['c_timestamp'] = '1216558785';
+                    F.context('answers')['208297492'].encodeUid = '98eb4069236f25705e792202';
+                                            F.context('relateWords')['answer-content-'+'208297492'] = ["\u4f5c\u7528\u57df","\u64cd\u4f5c\u7b26"];
+                                                                F.context('user')['highQualityNum'] = '0';
+                                    </script>
+<div class="bd answer answer-first    " id="answer-208297492">
+<div class="line">
+<a id="here" name="here"></a><div class="line content">
+<div id="answer-content-208297492" accuse="aContent" class="answer-text line">
+<span class="con">这样定义数组的话是在栈上分配内存，超过作用域范围的时候会自动释放掉，使用new操作符分配的内存，是在堆上，需要使用delete释放，因此如果像你那样定义数组的话，不必释放内存</span>
+</div>
+<div class="line f-light-gray f-12 mt-10 ff-arial" >
+<i class="i-quality-icon"></i>
+本回答被提问者采纳</div>
+<div class="line info f-light-gray mt-10 mb-5 f-12">
+<div class="grid pt-5">
+<a alog-action="qb-username"  class="user-name" rel="nofollow" href="/usercenter?uid=98eb4069236f25705e792202" target="_blank">
+dongbeilaidi
+</a>
+<span class="i-gradeIndex i-gradeIndex-4"></span>
+<span class="f-pipe">|</span>
+<span class="pos-time">
+推荐于2016-06-16 04:58:35
+</span>
+</div>
+<div class="grid-r f-aid pos-relative">
+<ins class="accuse-area" alog-action="qb-accuse-link"></ins>
+<span alog-action="qb-comment-btn" class="comment f-black cursor" id="comment-208297492"><i class="iknow-qb_home_icons i-icon-comment mr-5"></i>评论</span>
+<div class="qb-zan-eva">
+<span 
+		alog-action="qb-zan-btn" 
+		class="iknow-qb_home_icons evaluate evaluate-32
+						" 
+		id="evaluate-208297492" 
+		data-evaluate="17" 
+		>
+</span>
+<span 
+		alog-action="qb-evaluate-outer" 
+		class="iknow-qb_home_icons evaluate evaluate-bad evaluate-32 
+						" 
+		id="evaluate-bad-208297492" 
+		data-evaluate="1" 
+		>
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+                    F.context('answers')['208320635'] = {uid:"34835859",imId:"938de79a87e5aeb6e69591e6989f313938351302",passPhoto:"1",id:"208320635",userName:"皇家救星1985",userNameEnc:"%BB%CA%BC%D2%BE%C8%D0%C71985",user:{sex:"1",iconType:"6",gradeIndex:"11",grAnswerNum:"620",carefield: [{cid:"74",cname:"电脑/网络"}],isAuth:"0",authTitle:"",isUserAdmin:"0",userAdminLevel:"",userAdminTitle:"",userAdminType:"",isFamous:"0",isMaster:"0",goodRate:"37"},isAnonymous:"0",isCurrentUser:"0",mapUrl:"",refer:"",replyAskNum:"",threadId:"833282541",hasComment:"0",qid:"61066086",raid:"",recommendCanceled:"0"};
+                    F.context('answers')['208320635']['c_timestamp'] = '1216562314';
+                    F.context('answers')['208320635'].encodeUid = '938d4069236f25705e791302';
+                                                                F.context('user')['highQualityNum'] = '0';
+                                    </script>
+<div class="bd answer     " id="answer-208320635">
+<div class="line">
+<a id="here" name="here"></a><div class="line content">
+<div id="answer-content-208320635" accuse="aContent" class="answer-text line">
+<span class="con">只有通过new申请的内存块才需要用delete释放<br /><br />如char *p = new char[10]; <br /><br />要用delete []p;释放<br /><br />而其它的不用(如LZ举的例子 char aa[100])</span>
+</div>
+<div class="line info f-light-gray mt-10 mb-5 f-12">
+<div class="grid pt-5">
+<a alog-action="qb-username"  class="user-name" rel="nofollow" href="/usercenter?uid=938d4069236f25705e791302" target="_blank">
+皇家救星1985
+</a>
+<span class="i-gradeIndex i-gradeIndex-11"></span>
+<span class="f-pipe">|</span>
+<span class="pos-time">
+发布于2008-07-20 21:58
+</span>
+</div>
+<div class="grid-r f-aid pos-relative">
+<ins class="accuse-area" alog-action="qb-accuse-link"></ins>
+<span alog-action="qb-comment-btn" class="comment f-black cursor" id="comment-208320635"><i class="iknow-qb_home_icons i-icon-comment mr-5"></i>评论</span>
+<div class="qb-zan-eva">
+<span 
+		alog-action="qb-zan-btn" 
+		class="iknow-qb_home_icons evaluate evaluate-32
+						" 
+		id="evaluate-208320635" 
+		data-evaluate="0" 
+		>
+</span>
+<span 
+		alog-action="qb-evaluate-outer" 
+		class="iknow-qb_home_icons evaluate evaluate-bad evaluate-32 
+						" 
+		id="evaluate-bad-208320635" 
+		data-evaluate="0" 
+		>
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+                    F.context('answers')['208243133'] = {uid:"81815545",imId:"f9676368656e79616f5f31393839e004",id:"208243133",userName:"chenyao_1989",userNameEnc:"chenyao_1989",user:{sex:"1",iconType:"6",gradeIndex:"1",grAnswerNum:"1",isAuth:"0",authTitle:"",isUserAdmin:"0",userAdminLevel:"",userAdminTitle:"",userAdminType:"",isFamous:"0",isMaster:"0",goodRate:"25"},isAnonymous:"0",isCurrentUser:"0",mapUrl:"",refer:"",replyAskNum:"",threadId:"832972533",hasComment:"0",qid:"61066086",raid:"",recommendCanceled:"0"};
+                    F.context('answers')['208243133']['c_timestamp'] = '1216549764';
+                    F.context('answers')['208243133'].encodeUid = 'f9674069236f25705e79e004';
+                                            F.context('relateWords')['answer-content-'+'208243133'] = ["\u8fd0\u7b97\u7b26"];
+                                                                F.context('user')['highQualityNum'] = '0';
+                                    </script>
+<div class="bd answer   answer-hide answer-fold " id="answer-208243133">
+<div class="line">
+<a id="here" name="here"></a><div class="line content">
+<div id="answer-content-208243133" accuse="aContent" class="answer-text line">
+<span class="con">不行<br />运算符delete必须用于先前new分配的有效指针，如果用delete释放的内存空间不是用new申请的，可能会引起程序运行错误。<br />char aa[100];<br />这样定义的，不用手动释放内存空间 。<br />如果是<br />char *aa;<br />aa=new char[100];<br />.<br />.<br />.<br />.<br />delete []aa;</span>
+</div>
+<div class="line info f-light-gray mt-10 mb-5 f-12">
+<div class="grid pt-5">
+<a alog-action="qb-username"  class="user-name" rel="nofollow" href="/usercenter?uid=f9674069236f25705e79e004" target="_blank">
+chenyao_1989
+</a>
+<span class="i-gradeIndex i-gradeIndex-1"></span>
+<span class="f-pipe">|</span>
+<span class="pos-time">
+发布于2008-07-20 18:29
+</span>
+</div>
+<div class="grid-r f-aid pos-relative">
+<ins class="accuse-area" alog-action="qb-accuse-link"></ins>
+<span alog-action="qb-comment-btn" class="comment f-black cursor" id="comment-208243133"><i class="iknow-qb_home_icons i-icon-comment mr-5"></i>评论</span>
+<div class="qb-zan-eva">
+<span 
+		alog-action="qb-zan-btn" 
+		class="iknow-qb_home_icons evaluate evaluate-32
+						" 
+		id="evaluate-208243133" 
+		data-evaluate="0" 
+		>
+</span>
+<span 
+		alog-action="qb-evaluate-outer" 
+		class="iknow-qb_home_icons evaluate evaluate-bad evaluate-32 
+						" 
+		id="evaluate-bad-208243133" 
+		data-evaluate="0" 
+		>
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+                    F.context('answers')['208150170'] = {uid:"4883561",imId:"698468616875676f38384a00",id:"208150170",userName:"hahugo88",userNameEnc:"hahugo88",user:{sex:"1",iconType:"6",gradeIndex:"14",grAnswerNum:"1821",carefield: [{cid:"866",cname:"C/C++"},{cid:"868",cname:"VC++"},{cid:"867",cname:"VB"}],isAuth:"0",authTitle:"",isUserAdmin:"0",userAdminLevel:"",userAdminTitle:"",userAdminType:"",isFamous:"0",isMaster:"0",goodRate:"38"},isAnonymous:"0",isCurrentUser:"0",mapUrl:"",refer:"",replyAskNum:"",threadId:"832600681",hasComment:"0",qid:"61066086",raid:"",recommendCanceled:"0"};
+                    F.context('answers')['208150170']['c_timestamp'] = '1216535296';
+                    F.context('answers')['208150170'].encodeUid = '69844069236f25705e794a00';
+                                                                F.context('user')['highQualityNum'] = '0';
+                                    </script>
+<div class="bd answer   answer-hide  " id="answer-208150170">
+<div class="line">
+<a id="here" name="here"></a><div class="line content">
+<div id="answer-content-208150170" accuse="aContent" class="answer-text line">
+<span class="con">这样定义的，不需要手动释放，也不可以手动释放，会出错<br /><br />如果是这样的才可以<br />char *aa;<br />aa=new char[100];<br /><br />//...<br /><br />delete [] aa;</span>
+</div>
+<div class="line info f-light-gray mt-10 mb-5 f-12">
+<div class="grid pt-5">
+<a alog-action="qb-username"  class="user-name" rel="nofollow" href="/usercenter?uid=69844069236f25705e794a00" target="_blank">
+hahugo88
+</a>
+<span class="i-gradeIndex i-gradeIndex-14"></span>
+<span class="f-pipe">|</span>
+<span class="pos-time">
+发布于2008-07-20 14:28
+</span>
+</div>
+<div class="grid-r f-aid pos-relative">
+<ins class="accuse-area" alog-action="qb-accuse-link"></ins>
+<span alog-action="qb-comment-btn" class="comment f-black cursor" id="comment-208150170"><i class="iknow-qb_home_icons i-icon-comment mr-5"></i>评论</span>
+<div class="qb-zan-eva">
+<span 
+		alog-action="qb-zan-btn" 
+		class="iknow-qb_home_icons evaluate evaluate-32
+						" 
+		id="evaluate-208150170" 
+		data-evaluate="3" 
+		>
+</span>
+<span 
+		alog-action="qb-evaluate-outer" 
+		class="iknow-qb_home_icons evaluate evaluate-bad evaluate-32 
+						" 
+		id="evaluate-bad-208150170" 
+		data-evaluate="0" 
+		>
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+                    F.context('answers')['208064494'] = {uid:"82661700",imId:"445166616e736b79647265616ded04",id:"208064494",userName:"fanskydream",userNameEnc:"fanskydream",user:{sex:"1",iconType:"6",gradeIndex:"5",grAnswerNum:"25",carefield: [{cid:"868",cname:"VC++"},{cid:"866",cname:"C/C++"},{cid:"1031",cname:"娱乐休闲"}],isAuth:"0",authTitle:"",isUserAdmin:"0",userAdminLevel:"",userAdminTitle:"",userAdminType:"",isFamous:"0",isMaster:"0",goodRate:"19"},isAnonymous:"0",isCurrentUser:"0",mapUrl:"",refer:"",replyAskNum:"",threadId:"832257977",hasComment:"0",qid:"61066086",raid:"",recommendCanceled:"0"};
+                    F.context('answers')['208064494']['c_timestamp'] = '1216521749';
+                    F.context('answers')['208064494'].encodeUid = '44514069236f25705e79ed04';
+                                                                F.context('user')['highQualityNum'] = '0';
+                                    </script>
+<div class="bd answer   answer-hide  " id="answer-208064494">
+<div class="line">
+<a id="here" name="here"></a><div class="line content">
+<div id="answer-content-208064494" accuse="aContent" class="answer-text line">
+<span class="con">可以的。<br />如果这个数据是在堆上分配的内存可以用 delete来释放 <br /><br />delete []aa;<br />这样就可以了。</span>
+</div>
+<div class="line info f-light-gray mt-10 mb-5 f-12">
+<div class="grid pt-5">
+<a alog-action="qb-username"  class="user-name" rel="nofollow" href="/usercenter?uid=44514069236f25705e79ed04" target="_blank">
+fanskydream
+</a>
+<span class="i-gradeIndex i-gradeIndex-5"></span>
+<span class="f-pipe">|</span>
+<span class="pos-time">
+发布于2008-07-20 10:42
+</span>
+</div>
+<div class="grid-r f-aid pos-relative">
+<ins class="accuse-area" alog-action="qb-accuse-link"></ins>
+<span alog-action="qb-comment-btn" class="comment f-black cursor" id="comment-208064494"><i class="iknow-qb_home_icons i-icon-comment mr-5"></i>评论</span>
+<div class="qb-zan-eva">
+<span 
+		alog-action="qb-zan-btn" 
+		class="iknow-qb_home_icons evaluate evaluate-32
+						" 
+		id="evaluate-208064494" 
+		data-evaluate="0" 
+		>
+</span>
+<span 
+		alog-action="qb-evaluate-outer" 
+		class="iknow-qb_home_icons evaluate evaluate-bad evaluate-32 
+						" 
+		id="evaluate-bad-208064494" 
+		data-evaluate="2" 
+		>
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+                    F.context('answers')['2625408547'] = {uid:"200066161",imId:"71c4d0a1d2b9c7fa30ec0b",id:"2625408547",userName:"小夜曲0",userNameEnc:"%D0%A1%D2%B9%C7%FA0",user:{sex:"1",iconType:"6",gradeIndex:"20",grAnswerNum:"601088",isAuth:"0",authTitle:"",isUserAdmin:"0",userAdminLevel:"",userAdminTitle:"",userAdminType:"",isFamous:"0",isMaster:"0",goodRate:"44"},isAnonymous:"1",isCurrentUser:"0",mapUrl:"",refer:"",replyAskNum:"",threadId:"10501634189",hasComment:"0",qid:"61066086",raid:"",recommendCanceled:"0"};
+                    F.context('answers')['2625408547']['c_timestamp'] = '1216521724';
+                    F.context('answers')['2625408547'].encodeUid = '71c44069236f25705e79ec0b';
+                                                                F.context('user')['highQualityNum'] = '0';
+                                    </script>
+<div class="bd answer  answer-last answer-hide answer-fold " id="answer-2625408547">
+<div class="line">
+<a id="here" name="here"></a><div class="line content">
+<div id="answer-content-2625408547" accuse="aContent" class="answer-text mb-10">
+<p><a href="https://gss0.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/e1fe9925bc315c60c5a1fc0b85b1cb134954771a.jpg" target="_blank" title="点击查看大图" class="ikqb_img_alink"><img class="ikqb_img" src="https://gss0.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/zhidao/wh%3D600%2C800/sign=70c29b0fbefd5266a77e34129b28bb13/e1fe9925bc315c60c5a1fc0b85b1cb134954771a.jpg" esrc="https://gss0.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/zhidao/wh%3D450%2C600/sign=f82d09cc9f2bd4074292dbf94eb9b267/e1fe9925bc315c60c5a1fc0b85b1cb134954771a.jpg" /></a></p>
+</div>
+<div class="line info f-light-gray mt-10 mb-5 f-12">
+<div class="grid pt-5">
+<span></span>
+<span>网友贡献</span>
+<span class="f-pipe">|</span>
+<span class="pos-time">
+发布于2008-07-20 10:42
+</span>
+</div>
+<div class="grid-r f-aid pos-relative">
+<ins class="accuse-area" alog-action="qb-accuse-link"></ins>
+<span alog-action="qb-comment-btn" class="comment f-black cursor" id="comment-2625408547"><i class="iknow-qb_home_icons i-icon-comment mr-5"></i>评论</span>
+<div class="qb-zan-eva">
+<span 
+		alog-action="qb-zan-btn" 
+		class="iknow-qb_home_icons evaluate evaluate-32
+						" 
+		id="evaluate-2625408547" 
+		data-evaluate="0" 
+		>
+</span>
+<span 
+		alog-action="qb-evaluate-outer" 
+		class="iknow-qb_home_icons evaluate evaluate-bad evaluate-32 
+						" 
+		id="evaluate-bad-2625408547" 
+		data-evaluate="0" 
+		>
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div alog-group="qb-ans-pager" class="wgt-pager pager h-center line pb-20 pt-20" style="display: none;">
+<b>1</b><a href="/question/61066086.html?sort=9&rn=5&pn=5#wgt-answers">2</a><a class="pager-next" href="/question/61066086.html?sort=9&rn=5&pn=5#wgt-answers">下一页&gt;</a>
+</div>
+<div id="show-hide-container" >
+<div id="show-answer-hide" class="">
+<span style="display: none">收起</span>其他6条回答<i class="i-incline-down ml-5"></i>
+</div>
+</div>
+</div>
+</div>
+<div class="wgt-bottom-union mod-shadow line">
+<h2><i class="iknow-qb_home_icons"></i>为您推荐：</h2>
+<script>
+        var cpro_psid = "u2115503";
+    
+    var cpro_pswidth = "450";
+    var cpro_psheight = "25";
+    var cpro_psdata = {
+        titff:'微软雅黑',
+        titfs: '14',
+        rss2: "#333",
+                rss3:'#34b458'
+    }
+    </script>
+<script type="text/javascript">
+        // 广告拦截打点
+        F.context('ads_log_bottomrequest', 1);
+        // 广告同步加载
+        if (typeof BAIDU_SS_HHRUN!='function'){with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//su.bdimg.com/static/dspui/js/ue.js?v='+~(-new Date()/5600e5)]}else {BAIDU_SS_HHRUN()}
+    </script>
+</div>
+<div class="wgt-related mt-5 mod-shadow" id="wgt-related">
+<h2><i class="iknow-qb_home_icons"></i>其他类似问题</h2>
+<div class="related-list line">
+<ul class="list-34 related-ul" alog-group="qb-relative-que">
+<li >
+<span class="grid-r f-aid ff-arial">2012-03-15</span>
+<a href="/question/387155528.html?qbl=relate_question_0" target="_blank" 
+                    log="fr:qrl,pms:newqb,page:qb-new,pos:relative_title,index:1,cid:866" class="related-link" data-qid="387155528">c++中用delete释放掉一个数组元素的空间相当于删除该元...</a>
+</li>
+<li >
+<span class="grid-r f-aid ff-arial">2013-08-10</span>
+<a href="/question/573894146.html?qbl=relate_question_1" target="_blank" 
+                    log="fr:qrl,pms:newqb,page:qb-new,pos:relative_title,index:2,cid:866" class="related-link" data-qid="573894146">在c++中，释放new分配的内存空间时，使用delete和d...<em class="praise-num ml-5" title="所有回答获得2个赞同">
+<i class="iknow-qb_home_icons i-evaluate"></i><span class="ml-5 ff-arial">2</span>
+</em>
+</a>
+</li>
+<li >
+<span class="grid-r f-aid ff-arial">2014-12-12</span>
+<a href="/question/1495579984751565179.html?qbl=relate_question_2" target="_blank" 
+                    log="fr:qrl,pms:newqb,page:qb-new,pos:relative_title,index:3,cid:866" class="related-link" data-qid="1495579984751565179">C++中静态数组不用释放内存吗<em class="praise-num ml-5" title="所有回答获得25个赞同">
+<i class="iknow-qb_home_icons i-evaluate"></i><span class="ml-5 ff-arial">25</span>
+</em>
+</a>
+</li>
+<li >
+<span class="grid-r f-aid ff-arial">2014-07-26</span>
+<a href="/question/744592787069858012.html?qbl=relate_question_3" target="_blank" 
+                    log="fr:qrl,pms:newqb,page:qb-new,pos:relative_title,index:4,cid:866" class="related-link" data-qid="744592787069858012">C++怎么用new建立的二维数组怎么用delete释放</a>
+</li>
+<li >
+<span class="grid-r f-aid ff-arial">2013-04-24</span>
+<a href="/question/485480899.html?qbl=relate_question_4" target="_blank" 
+                    log="fr:qrl,pms:newqb,page:qb-new,pos:relative_title,index:5,cid:866" class="related-link" data-qid="485480899">C++中如何释放堆空间?请问我的代码中delete为什么释放...</a>
+</li>
+</ul>
+</div>
+<div class="related-more clearfix">
+<a log="fr:qrl,pms:newqb,pos:relative_more" alog-action="qb-relative-more" target="_blank" rel="nofollow" href="/search?word=c++中，可以用delete释放一个数组的空间吗？&ie=gbk&fr=qrl&cid=866&qbl=relate_question_more" class="line f-14 mt-5">
+更多类似问题<span class="ff-arial">&nbsp;&gt;</span>
+</a>
+</div>
+</div>
+<div class="wgt-topic mod-shadow" id="wgt-topic">
+<h2><i class="iknow-qb_home_icons"></i><em>delete</em>的相关知识</h2>
+<ul class="topic-list list-34" alog-group="qb-relative-title">
+<li>
+<span class="grid-r f-aid ff-arial">2010-04-15</span>
+<a href="/question/146910957.html?fr=qrl&index=0&qbl=topic_question_0" log="pos:exttitle,topic:1,index:1" target="_blank" data-qid="146910957">
+c++ delete动态数组的问题
+<i class="iknow-qb_home_icons i-evaluate ml-5"></i><span class="ml-5 f-red f-12 ff-arial" title="回答获得2个赞同">2</span>
+</a>
+</li>
+<li>
+<span class="grid-r f-aid ff-arial">2009-11-28</span>
+<a href="/question/126236494.html?fr=qrl&index=1&qbl=topic_question_1" log="pos:exttitle,topic:1,index:2" target="_blank" data-qid="126236494">
+delete释放内存
+<i class="iknow-qb_home_icons i-has-img" title="该问题包含图片"></i>
+<i class="iknow-qb_home_icons i-evaluate ml-5"></i><span class="ml-5 f-red f-12 ff-arial" title="回答获得5个赞同">5</span>
+</a>
+</li>
+<li>
+<span class="grid-r f-aid ff-arial">2010-07-03</span>
+<a href="/question/164292511.html?fr=qrl&index=2&qbl=topic_question_2" log="pos:exttitle,topic:1,index:3" target="_blank" data-qid="164292511">
+delete什么意思
+<i class="iknow-qb_home_icons i-evaluate ml-5"></i><span class="ml-5 f-red f-12 ff-arial" title="回答获得31个赞同">31</span>
+</a>
+</li>
+<li>
+<span class="grid-r f-aid ff-arial">2009-08-06</span>
+<a href="/question/109159657.html?fr=qrl&index=3&qbl=topic_question_3" log="pos:exttitle,topic:1,index:4" target="_blank" data-qid="109159657">
+`shift+delete文件恢复
+<i class="iknow-qb_home_icons i-evaluate ml-5"></i><span class="ml-5 f-red f-12 ff-arial" title="回答获得6个赞同">6</span>
+</a>
+</li>
+<li>
+<span class="grid-r f-aid ff-arial">2013-07-11</span>
+<a href="/question/569133226.html?fr=qrl&index=4&qbl=topic_question_4" log="pos:exttitle,topic:1,index:5" target="_blank" data-qid="569133226">
+C++ delete指针数组的问题
+<i class="iknow-qb_home_icons i-evaluate ml-5"></i><span class="ml-5 f-red f-12 ff-arial" title="回答获得4个赞同">4</span>
+</a>
+</li>
+</ul>
+<div class="topic-more clearfix">
+<a log="pos:extmore,topic:1" class="mt-5" alog-alias="qb-relgrup-more" target="_blank" rel="nofollow" href="/search?word=delete&ie=gbk&fr=qrl&cid=866&qbl=topic_question_more">
+更多关于<em>delete</em>的知识<span class="ff-arial">&nbsp;&gt;</span>
+</a>
+</div>
+</div>
+<div class="wgt-relate-search mod-shadow line">
+<h2><i class="iknow-qb_home_icons"></i>网友都在找：</h2>
+<a href="/search?word=C%20%20%20%CA%CD%B7%C5%CA%FD%D7%E9&qbl=related_search_0&fr=qb_relate_search_exp&ie=gbk" target="_blank" rel="nofollow" log="page:qb-new,pos:related_search,action:click">C   释放数组</a>
+<a href="/search?word=c%20%20%20%CA%CD%B7%C5%CA%FD%D7%E9&qbl=related_search_1&fr=qb_relate_search_exp&ie=gbk" target="_blank" rel="nofollow" log="page:qb-new,pos:related_search,action:click">c   释放数组</a>
+<a href="/search?word=vc%20%B6%AF%CC%AC%CA%FD%D7%E9&qbl=related_search_2&fr=qb_relate_search_exp&ie=gbk" target="_blank" rel="nofollow" log="page:qb-new,pos:related_search,action:click">vc 动态数组</a>
+<a href="/search?word=C%2B%2B%CA%CD%B7%C5%C4%DA%B4%E6&qbl=related_search_3&fr=qb_relate_search_exp&ie=gbk" target="_blank" rel="nofollow" log="page:qb-new,pos:related_search,action:click">C++释放内存</a>
+</div>
+<div class="wgt-push mod-shadow last ">
+<h2 class="hd line"><i class="iknow-qb_home_icons"></i>等待您来回答</h2>
+<ul alog-group="qb-push-que" class="bd list-34 line push-ul">
+<li>
+<span class="grid-r f-aid ff-arial">2回答</span>
+<a class="media-980" log="pms:newqb,pos:pushlist,page:qb-new" href="/question/685421680513134532.html?push=ql&group=0&qbl=push_question_0&rpRecommand=c&entry=qb_qb_view" target="_blank">身份证掉了，生孩子怎么办出生证明呢</a>
+</li>
+<li>
+<span class="grid-r f-aid ff-arial">2回答</span>
+<a class="media-980" log="pms:newqb,pos:pushlist,page:qb-new" href="/question/2015096161095856068.html?push=ql&group=0&qbl=push_question_1&rpRecommand=c&entry=qb_qb_view" target="_blank">信用卡怎样办、理</a>
+</li>
+<li>
+<span class="grid-r f-aid ff-arial">4回答</span>
+<a class="media-980" log="pms:newqb,pos:pushlist,page:qb-new" href="/question/1707137555221945020.html?push=ql&group=0&qbl=push_question_2&rpRecommand=c&entry=qb_qb_view" target="_blank">离了婚的老公对我说：叫我别胡思乱想，我以后会好的，会有人...</a>
+</li>
+<li>
+<span class="grid-r f-aid ff-arial">3回答</span>
+<a class="media-980" log="pms:newqb,pos:pushlist,page:qb-new" href="/question/2015096161094668508.html?push=ql&group=0&qbl=push_question_3&rpRecommand=c&entry=qb_qb_view" target="_blank">为什么湖北人那么强势</a>
+</li>
+<li>
+<span class="grid-r f-aid ff-arial">4回答</span>
+<a class="media-980" log="pms:newqb,pos:pushlist,page:qb-new" href="/question/500920432177609404.html?push=ql&group=0&qbl=push_question_4&rpRecommand=c&entry=qb_qb_view" target="_blank">我卖衣服的看见一个帅哥跟他女朋友买衣服，后来我脸特别红，...</a>
+</li>
+<li>
+<span class="grid-r f-aid ff-arial">3回答</span>
+<a class="media-980" log="pms:newqb,pos:pushlist,page:qb-new" href="/question/500920368560584724.html?push=ql&group=0&qbl=push_question_5&rpRecommand=c&entry=qb_qb_view" target="_blank">这样的情况，还要追吗？ 她发了说说，女孩心里如果真的没有你...</a>
+</li>
+<li>
+<span class="grid-r f-aid ff-arial">2回答</span>
+<a class="media-980" log="pms:newqb,pos:pushlist,page:qb-new" href="/question/1865160442506252267.html?push=ql&group=0&qbl=push_question_6&rpRecommand=c&entry=qb_qb_view" target="_blank">梦见自己让别人拿四估插插了</a>
+</li>
+<li>
+<span class="grid-r f-aid ff-arial">3回答</span>
+<a class="media-980" log="pms:newqb,pos:pushlist,page:qb-new" href="/question/1865160442441719387.html?push=ql&group=0&qbl=push_question_7&rpRecommand=c&entry=qb_qb_view" target="_blank">去做人事第一天，公司要我约人来面试，可是公司都没电话，要...</a>
+</li>
+<li>
+<span class="grid-r f-aid ff-arial">2回答</span>
+<a class="media-980" log="pms:newqb,pos:pushlist,page:qb-new" href="/question/500920368238823444.html?push=ql&group=0&qbl=push_question_8&rpRecommand=c&entry=qb_qb_view" target="_blank">2O18年几月生孩子好？</a>
+</li>
+<li>
+<span class="grid-r f-aid ff-arial">2回答</span>
+<a class="media-980" log="pms:newqb,pos:pushlist,page:qb-new" href="/question/685421616316485892.html?push=ql&group=0&qbl=push_question_9&rpRecommand=c&entry=qb_qb_view" target="_blank">关于春游500</a>
+</li>
+<li>
+<span class="grid-r f-aid ff-arial">3回答</span>
+<a class="media-980" log="pms:newqb,pos:pushlist,page:qb-new" href="/question/1243379549324708099.html?push=ql&group=0&qbl=push_question_10&rpRecommand=c&entry=qb_qb_view" target="_blank">2017年小额贷款 最近想上班没钱想贷5000找不到门路 求大神给...</a>
+</li>
+<li>
+<span class="grid-r f-aid ff-arial">2回答</span>
+<a class="media-980" log="pms:newqb,pos:pushlist,page:qb-new" href="/question/1865160442184347747.html?push=ql&group=0&qbl=push_question_11&rpRecommand=c&entry=qb_qb_view" target="_blank">现在家具厂面漆工多少钱一个月？</a>
+<i class="iknow-qb_home_icons i-new-wealth"></i>
+<span class="f-red mr-5 f-12">10</span>
+</li>
+<li>
+<span class="grid-r f-aid ff-arial">8回答</span>
+<a class="media-980" log="pms:newqb,pos:pushlist,page:qb-new" href="/question/685421616059543132.html?push=ql&group=0&qbl=push_question_12&rpRecommand=c&entry=qb_qb_view" target="_blank">我有一个微信网友，他几乎每天早上六点钟都会发早安图片，每...</a>
+</li>
+<li>
+<span class="grid-r f-aid ff-arial">2回答</span>
+<a class="media-980" log="pms:newqb,pos:pushlist,page:qb-new" href="/question/685421552570622372.html?push=ql&group=0&qbl=push_question_13&rpRecommand=c&entry=qb_qb_view" target="_blank">每天坚持快走7到8公里一个月能减多少斤</a>
+</li>
+<li>
+<span class="grid-r f-aid ff-arial">3回答</span>
+<a class="media-980" log="pms:newqb,pos:pushlist,page:qb-new" href="/question/1243379485128284059.html?push=ql&group=0&qbl=push_question_14&rpRecommand=c&entry=qb_qb_view" target="_blank">现在在一家中医门诊部上班收银，可是工作环境我不喜欢。刚去...</a>
+</li>
+</ul>
+<div class="ft line more-push clearfix">
+<a alog-action="qb-push-more" log="pms:newqb,pos:pushlist,page:question" target="_blank" href="/browse/?lm=8&push=ql&qbl=push_question_more">更多等待您来回答的问题<span class="ff-arial">&nbsp;&gt;</span></a>
+</div>
+</div>
+</article>
+<aside class="grid-r qb-side" id="qb-side">
+<div></div>
+<div class="wgt-user mod-shadow mb-5" id="wgt-user">
+<div class="line user-info">
+<div id="user-avarta" class="avarta grid mr-10">
+<a alog-action="qb-enter-uc" href="/ihome/" target="_blank"><img class="user-head-img" width="50" height="50" src="https://gss0.bdstatic.com/70cFsj3f_gcX8t7mm9GUKT-xh_/avatar/100/r6s1g2.gif" /></a>
+</div>
+<div class="info grid f-12">
+<p class="line">
+<a href="http://zhidao.baidu.com/ihome" target="_blank" class="user-name">wanjochan</a>
+</p>
+<p">
+                            <a class="f-aid iknow-qb_grade_icons i-gradeIndex-2" title="采纳率：0%" target="_blank" href="http://help.baidu.com/question?prod_en=zhidao&class=242&id=1000776"></a>
+                    </p>
+                    <a href="#" class="grid-l go-sign-in" data-log="type:2060,action:click,area:sign-in-area,page:qb">签到</a>
+            </div>
+</div>
+<div class="qbside-top-line"></div>
+</div>
+<div class="wgt-daily mod-shadow">
+<div class="daily-line mb-10 pt-10">
+<h3 class="grid">知道日报</h3>
+<span class="grid"></span>
+<a href="http://zhidao.baidu.com/daily/square/" target="_blank" alog-action="qb-daily-review" class="grid-r f-aid f-yahei">全部文章</a>
+</div>
+<div id="daily-carousel"></div>
+<div class="wgt-daily-wall"><em></em><s></s></div>
+</div>
+<div class="qbside-top-line"></div>
+<div class="widget-new-graphic">
+<style>.ec-ad {margin-left: -10px;padding-top: 5px;padding-bottom: 12px;}.ec-ad .ec-row-title .ec-title {font: normal 14px/34px 'Microsoft YaHei';padding-left: 10px;color: #666;}.ec-ad .ec-img-list {font-size: 0;}.ec-ad .ec-img-list .ec-img-item {width: 83px;display: inline-block;font-size: 12px;margin-left: 10px;vertical-align: top;}.ec-ad .ec-img {vertical-align: top;}.ec-ad .ec-img-desc {margin-top: 7px;text-align: center;color: #2d64b3;display: block;font-size: 12px;line-height: 18px;}</style><div class="ec-ad"><div class="ec-row-title"><h3 class="ec-title">相关搜索</h3></div><div class="ec-row-desc"><div class="ec-img-list"><a href="https://www.baidu.com/s?wd=%B5%BD%D2%BD%D4%BA%D6%CE%F0%EE%B4%AF%B5%C4%C1%F7%B3%CC&tn=SE_pczhidaotuwenqb_bvf4ih05&lqsource=2&dmaseid=dmaseid303&qid=f9f29614392d21e6" class="ec-img-item" target="_blank"><img src="https://gss0.baidu.com/7LsWdDW5_xN3otqbppnN2DJv/dmas/pic/item/da389b504fc2d562a08b1278ef1190ef77c66ca0.jpg" class="ec-img" width="83" height="83" alt=""><span class="ec-img-desc">到医院治痤疮的流程</span></a><a href="https://www.baidu.com/s?wd=%D7%F6%C8%CB%C1%F7%C8%A5%D2%BD%D4%BA%C1%F7%B3%CC&tn=SE_pczhidaotuwenqb_bvf4ih05&lqsource=2&dmaseid=dmaseid303&qid=f9f29614392d21e6" class="ec-img-item" target="_blank"><img src="https://gss0.baidu.com/7LsWdDW5_xN3otqbppnN2DJv/dmas/pic/item/ccc379310a55b3191cb92de04ba98226cefc17e7.jpg" class="ec-img" width="83" height="83" alt=""><span class="ec-img-desc">做人流去医院流程</span></a><a href="https://www.baidu.com/s?wd=xp%CF%B5%CD%B3%CF%C2%D4%D8&tn=SE_pczhidaotuwenqb_bvf4ih05&lqsource=-1&dmaseid=dmaseid303&qid=f9f29614392d21e6" class="ec-img-item" target="_blank"><img src="https://gss0.baidu.com/7LsWdDW5_xN3otqbppnN2DJv/dmas/pic/item/db0e7bec54e736d17444059d93504fc2d46269d4.jpg" class="ec-img" width="83" height="83" alt=""><span class="ec-img-desc">xp系统下载</span></a></div></div></div>
+</div>
+<style type="text/css">
+    .ec-ad .ec-row-title .ec-title {
+    	padding-left: 0;
+    }
+    .ec-ad .ec-img-list {
+    	width: 290px;
+    }
+    .ec-ad .ec-img-list .ec-img-item {
+    	margin-left: 0;
+    	margin-right: 10px;
+    }
+    </style>
+<div style="display:none">
+1
+2
+3
+</div>
+<div id="union-asplu" class="union-asplu line mod-noshadow wgt-ads"></div>
+<div style="padding: 20px 9px 20px 10px;widget:250px;height:250px;">
+    <script src="//dup.baidustatic.com/js/ds.js"></script>
+    
+<script>
+    (function() {
+        var s = "_" + Math.random().toString(36).slice(2);
+        document.write('<div id="' + s + '"></div>');
+        (window.slotbydup=window.slotbydup || []).push({
+            id: '2598853',
+            container: s,
+            size: '250,250',
+            display: 'inlay-fix'
+        });
+    })();
+</script>
+</div>
+<div class="cms-slide cms-slide-lazy mod-noshadow">
+<script type="text/javascript">
+		F.context('cmsRight', [
+															
+							{
+					'url':'http://ciyuanfan.baidu.com/?ref=pcqbyc',
+					'src':'https://gss0.bdstatic.com/7051cy89RsgCncy6lo7D0j9wexYrbOWh7c50/zhidaoziyuanwei/ciyuanfan270.jpeg?t=1488535294'
+				},																		
+							{
+					'url':'https://zhidao.baidu.com/special/view/jianfei',
+					'src':'https://gss0.bdstatic.com/7051cy89RcgCncy6lo7D0j9wexYrbOWh7c50/duoshijie/jianfei/tui/270x170.jpg?t=1488535294'
+				},																		
+							{
+					'url':'',
+					'src':''
+				}							]);
+	</script>
+<div class="cms-scroll" id="cms-scroll">
+<div class="cms-mask" id="cms-mask"></div>
+</div>
+<p class="mt-15" id="cms-company">
+<a rel="nofollow" href="http://zhidao.baidu.com/liuyan" target="_blank" data-img="https://gss0.bdstatic.com/70cFsjip0QIZ8tyhnq/img/iknow/sula2015chunjie/zhenxiangwendaji116.jpg?t=1488535294">
+</a>
+</p>
+</div>
+<div class="cms-slide mod-noshadow">
+<div class="cms-inner">
+<p class="cms-link-title">精彩知识在知道</p>
+<ul class="pb-5 mt-5" id="cms-link">
+<li><a alog-action="qb-inner-link" href="http://zhidao.baidu.com/special/view/cooperation" target="_blank">百度知道品牌合作指南</a></li>
+<li><a alog-action="qb-inner-link" href="https://zhidao.baidu.com/liuyan" target="_blank">【真相问答机】，揭穿流言！</a></li>
+<li><a alog-action="qb-inner-link" href="http://yuedu.baidu.com/partner/browse/profile?id=0b0a8f77168884868762d627" target="_blank">免费领取《知道日报》主题专刊</a></li>
+<li><a alog-action="qb-inner-link" href="http://zhidao.baidu.com/bigdata/list" target="_blank">知道大数据，用数据解读生活点滴</a></li>
+</ul>
+</div>
+</div>
+</aside>
+</section>
+<div style="margin: 30px 0;width: 960px;height:90px;">
+
+<script>
+    (function() {
+        var s = "_" + Math.random().toString(36).slice(2);
+        document.write('<div id="' + s + '"></div>');
+        (window.slotbydup=window.slotbydup || []).push({
+            id: '2598845',
+            container: s,
+            size: '960,90',
+            display: 'inlay-fix'
+        });
+    })();
+</script>
+</div>
+</div>
+<script type="text/javascript">
+window.baidu_hh_hotword={
+    id: [],
+    page_url: 'http://zhidao.' + 'baidu.com/question/61066086',
+    di: "u2146910",
+    maxword: 10,
+    frequency: 3
+}
+window.baidu_hh_hotword.id.push("best-content-2329697249");
+window.baidu_hh_hotword.id.push("answer-content-208297492");
+window.baidu_hh_hotword.id.push("answer-content-208320635");
+window.baidu_hh_hotword.id.push("answer-content-208243133");
+window.baidu_hh_hotword.id.push("answer-content-208150170");
+window.baidu_hh_hotword.id.push("answer-content-208064494");
+window.baidu_hh_hotword.id.push("answer-content-2625408547");
+</script>
+<script src="//su.bdimg.com/static/dspui/js/w.js?v=1"></script></div>
+
+
+		
+<div class="wgt-footer-new">
+    <div class="footer-wp">
+        <ul class="footer-list clearfix">
+            <li class="footer-list-item footer-list-guide">
+                <div class="footer-title"><span class="icon-guide"></span>新手帮助</div>
+                <ul class="footer-link clearfix">
+                    <li><a href="http://tieba.baidu.com/p/3615879106" target="_blank">如何答题</a></li>
+                    <li><a href="http://tieba.baidu.com/p/3615829242" target="_blank">获取采纳</a></li>
+                    <li><a href="http://tieba.baidu.com/p/3615827221" target="_blank">使用财富值</a></li>
+                </ul>
+            </li>  
+            <li class="footer-list-item footer-list-intro">
+                <div class="footer-title"><span class="icon-intro"></span>玩法介绍</div>
+                <ul class="footer-link clearfix">
+                    <li><a href="/shop" target="_blank">知道商城</a></li>
+                    <li><a href="/uteam" target="_blank">知道团队</a></li>
+                    <li><a href="/hangjia" target="_blank">行家认证</a></li>
+                    <li><a href="http://zhidao.baidu.com/s/hi-quality/index.html" target="_blank">高质量问答</a></li>
+                </ul>
+            </li>  
+            <li class="footer-list-item footer-list-sug">
+                <div class="footer-title"><span class="icon-sug"></span>投诉建议</div>
+                <ul class="footer-link clearfix">
+                    <li><a href="http://tousu.baidu.com/zhidao" target="_blank">举报不良信息</a></li>
+                    <li><a href="http://ikefu.baidu.com/web/zhishisousuo#" target="_blank">意见反馈</a></li>
+                    <li><a href="http://tousu.baidu.com/zhidao#3" target="_blank">投诉侵权信息</a></li>
+                    <!-- <li><a href="http://ikefu.baidu.com/web/zhishisousuo#" target="_blank">机器人道道</a></li>-->
+                </ul>
+            </li> 
+        </ul>
+    </div>
+    <div class="footer-new">
+        <p class="jt1128">
+         &copy;2017 Baidu&nbsp;&nbsp; <a rel="nofollow" href="http://www.baidu.com/duty/" target="_blank">使用百度前必读</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a rel="nofollow" href="http://help.baidu.com/question?prod_en=zhidao&class=597&id=1001104" target="_blank">知道协议</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a rel="nofollow" href="/special/view/cooperation" target="_blank">百度知道品牌合作</a>
+        </p>
+    </div>
+</div>
+
+
+	    
+<div id="anttongji"></div>
+
+        
+        
+<script type="text/javascript">
+            try {
+                (function() {var param_a = 79;var param_b = 5;var param_c = 144;var param_d = 207;param_a = param_a%3;param_b = param_b%3;param_c = param_c%3;var result = 0;if (param_a == param_b) {result = param_d + 100;} else if(param_b > param_c){result = param_d + 200;} else {result = param_d + 300;}var xhr = null;if (window.XMLHttpRequest) {xhr = new XMLHttpRequest(); } else if (window.ActiveXObject) {xhr = new ActiveXObject("Microsoft.XMLHTTP");}if(xhr) {xhr.open("POST", "/question/api/replynum?t=" + new Date().getTime(), true);xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");xhr.onload = function(){};var qid = "61066086";var logid = 1737953780;xhr.send("qid=" + qid + "&replyT=" + result + "&logid=" + logid);}})();
+            } catch (e) {
+                //...
+            }
+        </script>
+
+        
+                    
+
+        
+    <script>
+    void function(a,b,c,d,e,f){function g(b){a.attachEvent?a.attachEvent("onload",b,!1):a.addEventListener&&a.addEventListener("load",b)}function h(a,c,d){d=d||15;var e=new Date;e.setTime((new Date).getTime()+1e3*d),b.cookie=a+"="+escape(c)+";path=/;expires="+e.toGMTString()}function i(a){var c=b.cookie.match(new RegExp("(^| )"+a+"=([^;]*)(;|$)"));return null!=c?unescape(c[2]):null}function j(){var a=i("PMS_JT");if(a){h("PMS_JT","",-1);try{a=a.match(/{["']s["']:(\d+),["']r["']:["']([\s\S]+)["']}/),a=a&&a[1]&&a[2]?{s:parseInt(a[1]),r:a[2]}:{}}catch(c){a={}}a.r&&b.referrer.replace(/#.*/,"")!=a.r||alog("speed.set","wt",a.s)}}if(a.alogObjectConfig){var k=a.alogObjectConfig.sample,l=a.alogObjectConfig.rand;d="https:"===a.location.protocol?"https://fex.bdstatic.com"+d:"http://fex.bdstatic.com"+d,k&&l&&l>k||(g(function(){alog("speed.set","lt",+new Date),e=b.createElement(c),e.async=!0,e.src=d+"?v="+~(new Date/864e5)+~(new Date/864e5),f=b.getElementsByTagName(c)[0],f.parentNode.insertBefore(e,f)}),j())}}(window,document,"script","/hunter/alog/dp.min.js");
+    </script>
+		
+			<script>
+				var _hmt = _hmt || [];
+				(function() {
+					var hm = document.createElement("script");
+					hm.src = "https://hm.baidu.com/hm.js?6859ce5aaf00fb00387e6434e4fcc925";
+					var s = document.getElementsByTagName("script")[0];
+					s.parentNode.insertBefore(hm, s);
+				})();
+			</script>
+		
+
+	</body><script type="text/javascript" src="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/common/lib/mod_96dd55b.js"></script><script type="text/javascript">require.resourceMap({"res":{"common:widget\/lib\/swfupload\/swfupload.js":{"url":"https:\/\/gss0.bdstatic.com\/7051cy792sgCpNKfpU_Y_D3\/static\/common\/widget\/lib\/swfupload\/swfupload_b24a26d.js"},"common:widget\/js\/ui\/suggestion-new\/suggestion-new.js":{"url":"https:\/\/gss0.bdstatic.com\/7051cy792sgCpNKfpU_Y_D3\/static\/common\/widget\/js\/ui\/suggestion-new\/suggestion-new_0d26480.js","deps":["common:widget\/js\/util\/tangram\/tangram.js","common:widget\/lib\/jquery.ui\/jquery.ui.autocomplete.js","common:widget\/js\/ui\/base\/base.js"]},"common:widget\/js\/logic\/search-box-new\/search-box-new.js":{"url":"https:\/\/gss0.bdstatic.com\/7051cy792sgCpNKfpU_Y_D3\/static\/common\/widget\/js\/logic\/search-box-new\/search-box-new_c6b0786.js","deps":["common:widget\/js\/util\/tangram\/tangram.js","common:widget\/js\/ui\/suggestion-new\/suggestion-new.js","common:widget\/js\/util\/event\/event.js","common:widget\/js\/util\/form\/form.js","common:widget\/js\/util\/log\/log.js","common:widget\/js\/ui\/dialog\/dialog.js","common:widget\/lib\/jquery.placeholder\/jquery.placeholder.js"]},"common:widget\/js\/ui\/clipboard\/clipboard.js":{"url":"https:\/\/gss0.bdstatic.com\/7051cy792sgCpNKfpU_Y_D3\/static\/common\/widget\/js\/ui\/clipboard\/clipboard_581e531.js"},"question:widget\/read-opt\/img-preview\/preview.js":{"url":"https:\/\/gss0.bdstatic.com\/7051cy792sgCpNKfpU_Y_D3\/static\/question\/widget\/read-opt\/img-preview\/preview_22279e0.js","deps":["common:widget\/lib\/jquery\/jquery.js","common:widget\/js\/ui\/dialog\/dialog.js","common:widget\/js\/logic\/category\/category.js","common:widget\/js\/util\/log\/log.js"]},"question:widget\/ask\/pc-exp\/ask-img.js":{"url":"https:\/\/gss0.bdstatic.com\/7051cy792sgCpNKfpU_Y_D3\/static\/question\/widget\/ask\/pc-exp\/ask-img_2de3204.js","deps":["common:widget\/lib\/jquery\/jquery.js","common:widget\/js\/ui\/dialog\/dialog.js","common:widget\/js\/logic\/category\/category.js","common:widget\/js\/util\/log\/log.js","question:widget\/read-opt\/img-preview\/preview.js"]},"common:widget\/js\/logic\/editor\/editor.js":{"pkg":"common:p3","deps":["common:widget\/js\/util\/tangram\/tangram.js","common:widget\/js\/util\/store\/store.js","common:widget\/js\/logic\/editor\/config\/config.js","common:widget\/js\/logic\/editor\/lang\/lang.js","common:widget\/js\/ui\/dialog\/dialog.js","common:widget\/js\/util\/event\/event.js","common:widget\/js\/ui\/tip\/tip.js","common:widget\/js\/util\/https\/https.js","common:widget\/js\/util\/log\/log.js","common:widget\/js\/util\/webuploader\/webuploader.js","common:widget\/js\/logic\/editor\/fileUploader\/fileUploader.js"]},"common:widget\/js\/logic\/editor\/addon\/addon.js":{"pkg":"common:p3","deps":["common:widget\/lib\/jquery\/jquery.js","common:widget\/js\/logic\/authcode\/authcode.js"]},"common:widget\/js\/logic\/editor\/config\/config.js":{"pkg":"common:p3","deps":["common:widget\/lib\/jquery\/jquery.js","common:widget\/js\/util\/uri\/uri.js"]},"common:widget\/js\/logic\/editor\/fileUploader\/fileUploader.js":{"pkg":"common:p3","deps":["common:widget\/js\/util\/tangram\/tangram.js","common:widget\/js\/ui\/dialog\/dialog.js","common:widget\/lib\/swfupload\/swfupload.js"]},"common:widget\/js\/logic\/editor\/lang\/lang.js":{"pkg":"common:p3"},"common:widget\/js\/logic\/editor\/prototype\/prototype.js":{"pkg":"common:p3","deps":["common:widget\/js\/util\/tangram\/tangram.js","common:widget\/js\/ui\/dialog\/dialog.js","common:widget\/js\/util\/event\/event.js","common:widget\/js\/util\/log\/log.js"]},"question:widget\/js\/app-guide\/app-guide.js":{"url":"https:\/\/gss0.bdstatic.com\/7051cy792sgCpNKfpU_Y_D3\/static\/question\/widget\/js\/app-guide\/app-guide_e973e23.js","deps":["common:widget\/js\/util\/tangram\/tangram.js","common:widget\/js\/util\/event\/event.js","common:widget\/js\/util\/log\/log.js"]},"question:widget\/js\/editor\/config\/config.js":{"pkg":"question:p4","deps":["common:widget\/js\/util\/tangram\/tangram.js","common:widget\/js\/util\/uri\/uri.js"]},"question:widget\/js\/editor\/editor.js":{"pkg":"question:p4","deps":["common:widget\/js\/util\/tangram\/tangram.js","common:widget\/js\/logic\/editor\/editor.js","common:widget\/js\/logic\/editor\/prototype\/prototype.js","common:widget\/js\/logic\/editor\/addon\/addon.js","question:widget\/js\/editor\/config\/config.js","common:widget\/js\/ui\/tip\/tip.js","common:widget\/js\/ui\/dialog\/dialog.js","common:widget\/js\/util\/event\/event.js","common:widget\/js\/ui\/base\/base.js","common:widget\/lib\/jquery.placeholder\/jquery.placeholder.js"]},"question:widget\/ask\/replyer\/replyer.js":{"pkg":"question:p4","deps":["common:widget\/js\/util\/tangram\/tangram.js","question:widget\/js\/editor\/editor.js","common:widget\/js\/util\/log\/log.js","common:widget\/js\/util\/event\/event.js","common:widget\/js\/logic\/submit\/submit.js","question:widget\/js\/app-guide\/app-guide.js"]},"question:widget\/newbest\/asker.js":{"url":"https:\/\/gss0.bdstatic.com\/7051cy792sgCpNKfpU_Y_D3\/static\/question\/widget\/newbest\/asker_9672751.js","deps":["common:widget\/js\/util\/tangram\/tangram.js","question:widget\/js\/editor\/editor.js","common:widget\/js\/logic\/mini-editor\/mini-editor.js","common:widget\/js\/util\/event\/event.js","common:widget\/js\/logic\/submit\/submit.js","common:widget\/js\/ui\/dialog\/dialog.js","common:widget\/js\/util\/log\/log.js","common:widget\/js\/ui\/tip\/tip.js"]},"question:widget\/js\/video\/video.js":{"url":"https:\/\/gss0.bdstatic.com\/7051cy792sgCpNKfpU_Y_D3\/static\/question\/widget\/js\/video\/video_bad5396.js","deps":["common:widget\/js\/util\/tangram\/tangram.js","common:widget\/js\/util\/suffix-str\/suffix-str.js","common:widget\/js\/util\/log\/log.js"]},"question:widget\/js\/psask-bindsms\/psask-bindsms.js":{"url":"https:\/\/gss0.bdstatic.com\/7051cy792sgCpNKfpU_Y_D3\/static\/question\/widget\/js\/psask-bindsms\/psask-bindsms_8c99828.js","deps":["common:widget\/js\/util\/tangram\/tangram.js","common:widget\/js\/util\/log\/log.js","common:widget\/js\/util\/event\/event.js","common:widget\/js\/ui\/dialog\/dialog.js","common:widget\/js\/logic\/phone-bind\/phone-bind.js"]},"question:widget\/js\/admin\/officialAdmin\/officialAdmin.js":{"url":"https:\/\/gss0.bdstatic.com\/7051cy792sgCpNKfpU_Y_D3\/static\/question\/widget\/js\/admin\/officialAdmin\/officialAdmin_2986824.js","deps":["common:widget\/js\/util\/tangram\/tangram.js","common:widget\/js\/ui\/dialog\/dialog.js","common:widget\/js\/logic\/category\/category.js","common:widget\/js\/util\/event\/event.js"]},"question:widget\/js\/set-tag\/set-tag.js":{"url":"https:\/\/gss0.bdstatic.com\/7051cy792sgCpNKfpU_Y_D3\/static\/question\/widget\/js\/set-tag\/set-tag_bcfade4.js","deps":["common:widget\/js\/util\/tangram\/tangram.js","common:widget\/js\/util\/event\/event.js","common:widget\/js\/ui\/base\/base.js","common:widget\/js\/util\/template\/template.js","common:widget\/js\/ui\/dialog\/dialog.js","common:widget\/js\/ui\/scrollbar\/scrollbar.js","common:widget\/js\/util\/tangram\/string.js"]},"question:widget\/js\/admin\/userAdmin\/userAdmin.js":{"url":"https:\/\/gss0.bdstatic.com\/7051cy792sgCpNKfpU_Y_D3\/static\/question\/widget\/js\/admin\/userAdmin\/userAdmin_b2c685f.js","deps":["common:widget\/js\/util\/tangram\/tangram.js","common:widget\/js\/util\/event\/event.js","common:widget\/js\/ui\/dialog\/dialog.js","common:widget\/js\/logic\/category\/category.js","question:widget\/js\/set-tag\/set-tag.js","common:widget\/lib\/jquery.placeholder\/jquery.placeholder.js"]},"question:widget\/js\/unloginask-bindsms\/unloginask-bindsms.js":{"url":"https:\/\/gss0.bdstatic.com\/7051cy792sgCpNKfpU_Y_D3\/static\/question\/widget\/js\/unloginask-bindsms\/unloginask-bindsms_9960dc1.js","deps":["common:widget\/js\/util\/tangram\/tangram.js","common:widget\/js\/util\/log\/log.js","common:widget\/js\/util\/event\/event.js","common:widget\/js\/ui\/dialog\/dialog.js"]},"question:widget\/js\/audio\/jplayer\/jplayer.js":{"url":"https:\/\/gss0.bdstatic.com\/7051cy792sgCpNKfpU_Y_D3\/static\/question\/widget\/js\/audio\/jplayer\/jplayer_058fa6c.js","deps":["common:widget\/lib\/jquery\/jquery.js"]},"question:widget\/js\/audio\/audio.js":{"url":"https:\/\/gss0.bdstatic.com\/7051cy792sgCpNKfpU_Y_D3\/static\/question\/widget\/js\/audio\/audio_cae7476.js","deps":["common:widget\/js\/util\/tangram\/tangram.js","common:widget\/js\/util\/log\/log.js","question:widget\/js\/audio\/jplayer\/jplayer.js"]},"question:widget\/js\/mavin-msg\/mavin-msg.js":{"pkg":"question:p8","deps":["common:widget\/lib\/jquery\/jquery.js","common:widget\/js\/util\/event\/event.js","common:widget\/js\/ui\/base\/base.js","common:widget\/js\/logic\/msg\/msg.js"]},"question:widget\/user\/mavin\/mavin.js":{"pkg":"question:p8","deps":["common:widget\/js\/util\/tangram\/tangram.js","common:widget\/js\/util\/log\/log.js","common:widget\/js\/ui\/carousel\/carousel.js"]},"question:widget\/js\/weather\/weather.js":{"url":"https:\/\/gss0.bdstatic.com\/7051cy792sgCpNKfpU_Y_D3\/static\/question\/widget\/js\/weather\/weather_48530fb.js","deps":["common:widget\/js\/util\/tangram\/tangram.js","common:widget\/js\/util\/log\/log.js","common:widget\/lib\/jquery.placeholder\/jquery.placeholder.js"]}},"pkg":{"common:p3":{"url":"https:\/\/gss0.bdstatic.com\/7051cy792sgCpNKfpU_Y_D3\/static\/common\/pkg\/editor_142ac90.js","has":["common:widget\/js\/logic\/editor\/editor.js","common:widget\/js\/logic\/editor\/addon\/addon.js","common:widget\/js\/logic\/editor\/config\/config.js","common:widget\/js\/logic\/editor\/fileUploader\/fileUploader.js","common:widget\/js\/logic\/editor\/lang\/lang.js","common:widget\/js\/logic\/editor\/prototype\/prototype.js"]},"question:p4":{"url":"https:\/\/gss0.bdstatic.com\/7051cy792sgCpNKfpU_Y_D3\/static\/question\/pkg\/editor_142ebb8.js","has":["question:widget\/js\/editor\/config\/config.js","question:widget\/js\/editor\/editor.js","question:widget\/ask\/replyer\/replyer.js"]},"question:p8":{"url":"https:\/\/gss0.bdstatic.com\/7051cy792sgCpNKfpU_Y_D3\/static\/question\/pkg\/mavin_3a61af0.js","has":["question:widget\/js\/mavin-msg\/mavin-msg.js","question:widget\/user\/mavin\/mavin.js"]}}});</script><script type="text/javascript" src="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/common/pkg/framework_35930a1.js"></script><script type="text/javascript" src="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/common/pkg/more_fc10a72.js"></script><script type="text/javascript" src="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/common/widget/js/logic/qianbao-iframe/qianbao-dialog_a3c13c6.js"></script><script type="text/javascript" src="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/common/pkg/validate_d964132.js"></script><script type="text/javascript" src="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/common/pkg/module_fd8b64e.js"></script><script type="text/javascript" src="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/common/widget/userbar-renew/userbar-renew_5f2e977.js"></script><script type="text/javascript" src="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/question/widget/top-nav-bar/top-nav-bar_2a4fc18.js"></script><script type="text/javascript" src="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/question/widget/js/business/business_546d2ae.js"></script><script type="text/javascript" src="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/question/widget/ask/share/share_e1dc32b.js"></script><script type="text/javascript" src="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/question/widget/js/ck/ck_8e1d0e9.js"></script><script type="text/javascript" src="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/question/pkg/module_82dcebb.js"></script><script type="text/javascript" src="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/question/widget/newbest/newbest_9b3edc3.js"></script><script type="text/javascript" src="https://gss0.bdstatic.com/7051cy792sgCpNKfpU_Y_D3/static/question/pkg/login_921e1c2.js"></script><script type="text/javascript">
+!function(){    require.async('common:widget/userbar-renew/userbar-renew.js');
+}();
+!function(){    require.async('common:widget/js/logic/search-box-new/search-box-new.js');
+}();
+!function(){    require.async('common:widget/menu/menu.js', function(menu){
+    	menu.init();
+    });
+    // 导航menu可用时间打点
+    alog && alog('speed.set', 'c_menu', +new Date); alog.fire && alog.fire("mark");
+}();
+!function(){	require.async('question:widget/top-nav-bar/top-nav-bar.js');
+}();
+!function(){    require.async('question:widget/ask/ask.js');
+    require.async('question:widget/ask/pc-exp/ask-img.js');
+}();
+!function(){    require.async('question:widget/value-comment/value-comment.js',function(vc){
+        vc.init('2329697249');
+    });
+}();
+!function(){    require.async('common:widget/js/util/log/log.js', function(log){
+        log.send({
+            pid:102,
+            type:56333,
+            page:'qb',
+            hasgrhj: 0,
+            haskfpt: 0        });
+    });
+}();
+!function(){	require.async(['common:widget/lib/jquery/jquery.js', 'common:widget/js/util/log/log.js'], function($, log) {
+		if ($('.wgt-best .best-text .answer-expand').size() != 0) {
+			log.addKey({
+				answer_expand_show: 1
+			});
+		}
+        $(".wgt-best .best-text").on('click', ".answer-expand", function(e) {
+        	$(this).hide();
+        	$(".wgt-best .best-text .answer-expand-content").hide();
+        	$(".wgt-best .best-text .answer-collapse-content").show();
+        	$(".wgt-best .best-text .answer-collapse").css('display', 'block');
+        	log.send({page:'question',pos:'qb-detail-expand-btn-click'});
+        });
+        $(".wgt-best .best-text").on('click', ".answer-collapse", function(e) {
+        	$(this).hide();
+        	$(".wgt-best .best-text .answer-collapse-content").hide();
+        	$(".wgt-best .best-text .answer-expand-content").show();
+        	$(".wgt-best .best-text .answer-expand").show();
+        });
+    });
+}();
+!function(){    require.async('question:widget/value-comment/value-comment.js',function(vc){
+        vc.init('208297492');
+    });
+}();
+!function(){    require.async('question:widget/value-comment/value-comment.js',function(vc){
+        vc.init('208320635');
+    });
+}();
+!function(){    require.async('question:widget/value-comment/value-comment.js',function(vc){
+        vc.init('208243133');
+    });
+}();
+!function(){    require.async('question:widget/value-comment/value-comment.js',function(vc){
+        vc.init('208150170');
+    });
+}();
+!function(){    require.async('question:widget/value-comment/value-comment.js',function(vc){
+        vc.init('208064494');
+    });
+}();
+!function(){    require.async('question:widget/value-comment/value-comment.js',function(vc){
+        vc.init('2625408547');
+    });
+}();
+!function(){    require.async('question:widget/answers/answers.js', function(ans){
+                ans.insertBest();
+            });
+}();
+!function(){    require.async('common:widget/js/util/log/log.js', function(log) {
+        // 展现相关问题的PV，ps：不知道以前怎么这么写，related_search_show和网友都在找参数是一样的？
+        log.addKey({related_search_show: '1'});
+        // 为您推荐展现pv
+        log.addKey({bottom_union: '1'});
+    });
+}();
+!function(){    require.async('question:widget/related/related.js', function(rel){
+        rel({
+            cmsRelq: "",
+            cmsRelqrl: "",
+            isLog: false                    });
+    });
+}();
+!function(){    require.async(['common:widget/js/util/tangram/tangram.js', 'common:widget/js/util/log/log.js'], function($, log) {        
+        // 展现相关问题的PV
+        log.addKey({topic_show: '1'});
+
+        // 实验
+        
+        var relateTopicQids = [];
+        $('#wgt-topic a[data-qid]').each(function(){
+            relateTopicQids.push($(this).data('qid'));
+        });
+        F.context('page').relateTopicQids = relateTopicQids.join('_');
+    });
+}();
+!function(){    require.async('common:widget/js/util/log/log.js', function(log) {        
+        // 展现相关问题的PV，ps：不知道以前怎么这么写，related_search_show和网友都在找参数是一样的？
+        log.addKey({related_search_show: '1'});
+        // 网友都在找展现pv
+        log.addKey({newqb_search_show: '1'});
+    });
+}();
+!function(){        require.async('common:widget/js/util/log/log.js', function(log){
+            //展现推送问题的PV
+            log.addKey({push: '1'});
+            log.init({key:2016, query: '.wgt-push .ft a'});
+        });
+    }();
+!function(){    require.async('question:widget/user/info/basic/basic.js');
+
+            require.async(['common:widget/js/util/tangram/tangram.js', 'common:widget/js/logic/sign-in/sign-in.js', 'common:widget/js/util/log/log.js'], function($, SignIn, Log){
+            Log.send({
+                'type': 2014,
+                'action': 'pv',
+                'fr': 'qb',
+                'pos': 'signin-entrance'
+            });
+
+            $('.go-sign-in').click(function(e){
+                e.preventDefault();
+
+                Log.send({
+                    'type': 2014,
+                    'action': 'click',
+                    'fr': 'qb',
+                    'pos': 'signin-entrance'
+                });
+
+                new SignIn({
+                    year: '2017',
+                    month: '03',
+                    day: '06'
+                });
+            });        
+        });
+    }();
+!function(){require.async('question:widget/user/info/daily/daily.js', function(Daily){
+	Daily.init({"date":"2017.03.06","term":"1285","list":[{"id":"24345","title":"\u4e3a\u4ec0\u4e48\u67d0\u4e9b\u65cb\u5f8b\u4f1a\u4e00\u76f4\u5728\u8111\u6d77\u91cc\u5faa\u73af\u64ad\u653e\uff1f","mt_img_src":"https:\/\/gss0.baidu.com\/8_BXsjip0QIZ8tyhnq\/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=fc52a8b5a24516d69722beaf3834e06a&src=http%3A%2F%2Fiknow02.bosstatic.bdimg.com%2Fzhidaoribao%2F2017%2F0306%2Fyinyue.jpg"},{"id":"44282","title":"\u4e3a\u4ec0\u4e48\u4eba\u4eec\u4f1a\u91cd\u590d\u72af\u4ee5\u524d\u72af\u8fc7\u7684\u9519\u8bef\uff1f","mt_img_src":"https:\/\/gss0.baidu.com\/8_BXsjip0QIZ8tyhnq\/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=ae155be84fff7ed93922c02a375ed8bc&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fzhidao%2Fwh%253D800%252C450%2Fsign%3Da22cd5e89122720e7b9beaf24bfb2672%2F79f0f736afc37931a18ef6a3e2c4b74542a91151.jpg"},{"id":"43616","title":"\u201c\u4e70\u4e70\u4e70\u201d\u662f\u4e0d\u662f\u4e00\u79cd\u75c5\uff1f","mt_img_src":"https:\/\/gss0.baidu.com\/8_BXsjip0QIZ8tyhnq\/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=aca4c8f29a40d6b9031092c1ebbf4fb6&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fzhidao%2Fwh%253D800%252C450%2Fsign%3D728990154f2309f7e73aa51a423e20c7%2Ffaedab64034f78f0caf51f7270310a55b2191cb0.jpg"},{"id":"44225","title":"\u716e\u996d\u6c34\u63ba\u5c11\u4e86\uff0c\u53ef\u80fd\u6709\u7837\u4e2d\u6bd2\u7684\u98ce\u9669\uff01","mt_img_src":"https:\/\/gss0.baidu.com\/8_BXsjip0QIZ8tyhnq\/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=5d9545516e95637b924cbc328e9d2e64&src=http%3A%2F%2Fd.hiphotos.baidu.com%2Fzhidao%2Fwh%253D800%252C450%2Fsign%3Df981a8a8b012c8fcb4a6fec5cc33be71%2F55e736d12f2eb938105aa07adc628535e5dd6f07.jpg"},{"id":"44223","title":"\u957f\u671f\u9ad8\u9891\u7387\u4f7f\u7528\u8033\u673a\u4f1a\u4e0d\u4f1a\u5bfc\u81f4\u8033\u804b\uff1f","mt_img_src":"https:\/\/gss0.baidu.com\/8_BXsjip0QIZ8tyhnq\/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=8aa00f2b9dca6703f3b1a94dfdf3115f&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fzhidao%2Fwh%253D800%252C450%2Fsign%3D03a5f6af8382b9013df8cb3b43bd8543%2Fa686c9177f3e67090564987732c79f3df9dc55d6.jpg"},{"id":"44260","title":"\u88ab\u5199\u5165\u653f\u5e9c\u5de5\u4f5c\u62a5\u544a\uff0c\u4eba\u5de5\u667a\u80fd\u6210\u65b0\u4e00\u4ee3\u6253\u62d0\u5229\u5668\uff1f","mt_img_src":"https:\/\/gss0.baidu.com\/8_BXsjip0QIZ8tyhnq\/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=c0b491e7e94f594591b6c9881210281a&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fzhidao%2Fwh%253D800%252C450%2Fsign%3D45fcf6d45cfbb2fb347e501a7f7a0c90%2Fd01373f082025aafb81d8042f2edab64034f1a0f.jpg"},{"id":"44274","title":"\u624b\u6495\u9b3c\u5b50\uff1f\u6709\u4e2a\u4eba\u7528\u53cc\u624b\u6495\u5f00\u4e86\u539f\u5b50\u5f39\uff01","mt_img_src":"https:\/\/gss0.baidu.com\/8_BXsjip0QIZ8tyhnq\/timg?wh_rate=0&wapiknow&quality=100&size=w250&sec=0&di=1c6c9a6ab794f4ed853d50f930d6e2ed&src=http%3A%2F%2Ff.hiphotos.baidu.com%2Fzhidao%2Fwh%253D800%252C450%2Fsign%3Dbd560297dd2a283443f33e036b85e5de%2Fb151f8198618367a07bb6d5727738bd4b31ce50e.jpg"}]}, '0');
+});
+}();
+!function(){			require.async('common:widget/js/logic/union/union.js', function(union){
+				// args[2, 3]自定义定向使用, common:union中有限制只能调用一次;
+				union('968278', 'union-asplu', {
+					'zdquery'       : '',
+					'zdclassid' : '866',
+					'zhidaoqid'         : '61066086'
+				});
+			});
+		}();
+!function(){    require.async('question:widget/ad-right/ad-right.js');
+}();
+!function(){    require('common:widget/js/logic/ie-prompt/ie-prompt.js');
+}();
+!function(){    
+require.async(['common:widget/js/util/tangram/tangram.js', 'common:widget/js/util/log/log.js', 'common:widget/js/util/event/event.js', 'common:widget/js/logic/submit/submit.js', 'common:widget/js/ui/dialog/dialog.js', 'question:widget/js/file/file.js', 'question:widget/js/left-promotion/left-promotion.js', 'question:widget/js/video/video.js', 'common:widget/js/ui/tip/tip.js', 'question:widget/ask/share/share.js', 'common:widget/js/util/https/https.js'], function($, log, ec, Submit, Dialog, File, LeftPromotion, Video, Tip, share, https){
+
+    // 打点QB页用户可操作时间
+    alog('speed.set', 'drt', +new Date);
+    // F.context('new_qb_fr', 'new_qb_' + 0);
+
+    $(function(){ 
+                    require.async('question:widget/js/submitjump/submitjump.js',function(submitjump){
+                submitjump.init();
+            });
+    		                            require.async('question:widget/js/accuse/accuse.js', function(accuse){
+                    accuse.init({ response: 'wgt-ask', target: '#wgt-ask .accuse-area' });
+                    if (!$.isEmptyObject(F.context('answers'))){
+
+                        accuse.init({ target: '.wgt-best .accuse-area',	response: 'wgt-best' });
+
+                        // accuse.init({ target: '.wgt-recommend .accuse-area', response: 'wgt-recommend' });
+
+                        // accuse.init({ target: '.wgt-special .accuse-area', response: 'wgt-special' });
+
+                        accuse.init({ response: 'answer', target: '#wgt-answers .accuse-area' });
+                    }
+                });
+                if (F.context('user')['internalAdmin']) {
+                    require.async('question:widget/js/admin/officialAdmin/officialAdmin.js', function(A){
+                        A.init();
+                   }); 
+                }
+                if (F.context('user')['isUserAdmin']=='1') {
+                    require.async('question:widget/js/admin/userAdmin/userAdmin.js', function(A){
+                        A.init();
+                   }); 
+                } 
+                require.async('common:widget/js/logic/complain/complain.js', function(complain){
+                    $('.complain-deleted').click(function(ev){
+                        ev.preventDefault();
+                        complain(F.context('page')['qid'], $(this).attr('data'));
+                    });
+                });
+
+            
+                
+            log.addKey({
+                qbleftdown: $('.qbleftdown').find('li').size(),
+                qbrightdown:$('.qbrightdown').find('.r').size()
+            });
+            if ( $( '.qbleftdown a' ).size() ) {
+                log.addKey({
+                    ec_ads: '2',
+                    ec_ads_count: $('.qbleftdown').find('a.ec_ad_title, span.ec_qad_title, a.EC_ad_title').size()
+                }); 
+                $('.qbleftdown a').click(function(){
+                    var $parent = $( this ).parent();
+                    if ( this.id || this.className == 'EC_ad_title'
+                        || $(this).hasClass('ec_ik220_adtitle')
+                        || $(this).hasClass('ec_ik220_desc')
+                        || $parent.hasClass( 'EC_ads_answer' )
+                        || this.className == 'EC_ads_listurl'
+                        || this.className == 'ec_ad_title'
+                        || $parent.hasClass('ec_qad_title')
+                        || $parent.hasClass('ec_qad_answerer') ) {
+                        log.send({
+                            type: 2014,
+                            evtType: 'click',
+                            pos: 'ec_ads'
+                        });
+                    }
+                });
+            }
+            require.async('question:widget/js/card/card.js', function(card){
+                $('.user-name').each(function(index, item){
+                    new card({ target: item, type: 'normal' });
+                });
+                $('.mavin-name').each(function(index, item){
+                    new card({target: item, type: 'mavin' });
+                });
+                $('.opendev-name').each(function(index, item){
+                    new card({target: item, type: 'opendev'});
+                });
+                $('.uadmin-a').each(function(index, item) {
+                    new card({target: item, type: 'uadminIcon'});
+                });
+                $('.business-name').each(function(index, item){
+                    new card({target: item, type: 'business' });
+                });
+                $('.quality-business-name').each(function (index, item) {
+                    new card({target: item, type: 'qbusiness'});
+                });
+            });
+            $('.fixed-ask-e').click(function(e){
+                e.preventDefault();
+                var username = $(this).attr('username');
+                require.async('common:widget/js/logic/iask/iask.js', function(fixedAsk){
+                    fixedAsk(username);
+                });
+            });
+            $('.replyask-shrink a').click(function(e){
+                e.preventDefault();
+                var flag = this.innerHTML.indexOf('更多追问') != -1;
+
+                var dl = $(this).html( flag ? '<i class="i-incline-up"></i>收起追问' : '<i class="i-incline-down"></i>更多追问' ).parent().prevAll('.replyask');
+                $($.makeArray(dl).reverse().slice(flag ? 0 : 3, dl.length)).css('display', flag ? 'block' : 'none');
+            });
+            $('.replyask-box').each(function (index, item) {
+                if ($(item).find('.replyask-shrink').size() == 0) {
+                    if ($(item).find('.ask-supply').size() == 2) {
+                        // $(item).find('.replyask').last().find('.ask-supply-line').hide();
+                    }
+                    if ($(item).find('.ask-supply').size() == 1) {
+                        // $(item).find('.ask-supply-line').hide();
+                    }
+                    // $(item).find('.ask-supply-line').last().hide();
+                }
+            });
+            if($('.thunder-wrap').size()){
+                require.async('question:widget/js/thunder/thunder.js', function(thunder){
+                    $(function(){
+                        thunder.init();
+                    });
+                });
+            }
+            $.each(F.context('answers'), function(index, item){
+                if(item.user){
+                    if (item.user.isFromBusiness > 0) {
+                        $.ajax({
+                            url: '/business/submit/onbusinessbrowse',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                businessId: item.user.business.businessId,
+                                page: '1',
+                                token: F.context('businessToken')
+                            }
+                        })
+                        .done(function () {
+                        })
+                        .fail(function () {
+                        });
+                    }   
+                }
+            });
+            $(document).on('click', '.ikqb_img', function(){
+                log.send({
+                    type: 2014,
+                    bigimg: 'click'
+                });
+            });
+            $('a.optimus').on('click', function() {
+                log.send({
+                    type: 2014,
+                    area: 'ad-right-optimus',
+                    action: 'click',
+                    cid: F.context('page')['cid'],
+                    cidTop: F.context('page')['cidTop'],
+                    cidMid: F.context('page')['cidMid']
+                });
+            });
+
+            $('#wgt-nologin-daily').click(function(e){
+                e.stopPropagation();
+
+                if($(e.target).closest('#daily-carousel').size() && !$(e.target).closest('.carousel-control').size()){
+                    log.send({
+                        type: 2014,
+                        page: 'question',
+                        pos: 'no-login-daily',
+                        action: 'click'
+                    });
+                }
+            });
+
+            $('.wgt-daily').on('click', 'a', function(){
+                log.send({
+                    type: 2014,
+                    page: 'question',
+                    pos: 'login-daily',
+                    action: 'click'
+                });
+            });
+            $('.qbrightdown a').click(function(){
+                log.send({
+                    type: 2014,
+                    qid: F.context('page')['qid'],
+                    area: 'medical-right-txt-ads',
+                    action: 'click'
+                });
+            });
+            if($('ikaudio').size()){
+                log.addKey({
+                    'audio' : 1
+                });
+
+                require.async('question:widget/js/audio/audio.js', function(audio){
+                    audio.init();
+                });
+            }
+            require.async('question:widget/js/comment/comment.js', function(comm){
+                comm.getCount();
+            });
+            $('.recommend-text, .best-text, .answer-text, .replyask-content').each(function(i, answerText){
+                $(answerText).find('pre[t="code"]').each(function(i, pre){
+                    var loadSyntax = function(){
+                        SyntaxHighlighter(pre);
+                    };
+                    
+                    $(pre).text($(pre).html($(pre).html().replace(/<br\s*\/?>/ig, '##IK_LINEBREAK##')).text().split('##IK_LINEBREAK##').join('\n'));
+
+                    $(pre).addClass('brush:'+$(pre).attr('l')+';toolbar:false;');
+                    if (window.SyntaxHighlighter) {
+                        SyntaxHighlighter.highlight(pre);
+                        $(answerText).find('.syntaxhighlighter .code .line').each(function(index, line){
+                            $(answerText).find('.syntaxhighlighter .gutter .line').eq(index).height($(line).height());
+                        });
+                    } else {
+                        var sioUrl = https.autoTrans('http://img.iknow.bdimg.com/libs/SyntaxHighlighter/shCore.min.js');
+                        $.sio(sioUrl).callByBrowser(function(){
+                            SyntaxHighlighter.defaults['quick-code'] = false;
+                            SyntaxHighlighter.config.stripBrs = true;
+                            SyntaxHighlighter.highlight(pre);
+                            $(answerText).find('.syntaxhighlighter .code .line').each(function(index, line){
+                                $(answerText).find('.syntaxhighlighter .gutter .line').eq(index).height($(line).height());
+                            });
+                        });
+                    }
+                });
+
+                $(answerText).find('ikvideo').each(function(i, video){
+                    var id = 'VIDEO_' + $.id(),
+                        src = $(video).attr('src'),
+                        sid;
+
+                    var container = $('<div/>').attr('id', id).insertBefore($(video));
+                    if (src.indexOf('youku') > -1 && (sid = src.match(/sid\/(.*?)[\?\/]/))) {
+                        if (sid[1]) {
+                            src = 'http://player.youku.com/player.php/sid/'+sid[1]+'/v.swf';
+                        }
+                    }
+
+                    container.html('<embed src="'+src+'" allowFullScreen="true" quality="high" width="'+$(video).attr('width')+'" height="'+$(video).attr('height')+'" align="'+$(video).attr('align')+'" allowScriptAccess="never" type="application/x-shockwave-flash"></embed>');
+                });
+            });
+
+                        require.async('common:widget/js/ui/lazyload/lazyload.js', function(lazyload){
+            $('.wgt-replyer-best .avatar-48 a, .wgt-replyer-best .avatar-66 a, .wgt-replyer-special .avatar-66 a,.wgt-replyer-best .avatar-69 a, .wgt-replyer-best .avatar-70 a, .wgt-replyer-best .avatar-66 a, #cms-company a').lazyload();
+        });
+        $('.ikqb-map').each(function(index, item) {
+            var ifreamObj = $("<iframe/>").attr({
+                frameborder: '0'
+                ,width:"430" 
+                ,height:"310"
+                ,style: 'display:none;'
+                ,className: 'answer-map'
+            }),
+            tmpsrc = $(item).attr("map") || $(item).attr("src");
+            ifreamObj.attr('src', "//zhidao.baidu.com/html/map" + tmpsrc.replace(/^iknow/i, ''));
+
+            $(item).before(ifreamObj).remove();
+            ifreamObj.after(
+                $("<p/>").addClass('f-aid').html("本数据来源于百度地图，最终结果以百度地图最新数据为准。")
+            ).show();
+        });
+                var mavinUidAry = [];
+        $.object.each(F.context('answers'), function(item, key){
+            if(item.user && item.user.mavinName){
+                mavinUidAry.push(item.uid);
+            }
+        });
+
+        if(mavinUidAry.length){
+            var options = {
+                uids: mavinUidAry.join(',')
+            };
+
+            $.post('/mavin/api/getmavinpv', options);
+        }
+        
+            
+
+                                                    log.addKey({
+                nsma: "2"
+            });
+                
+                        
+                                        if ($('video.edui-faked-video').size() > 0) {
+            Video.init();
+        }
+                   
+                require.async('common:widget/js/logic/ut/ut.js', function(UT){
+            UT.start(['userbar','header','wgt-ask','answer-editor','wgt-answers']);
+        });
+
+        if ( $('file').size() == 0 ) {
+            logPV();
+        } else {
+            File.init(logPV);
+        }
+        
+        if (F.context('user')['isUserAdmin'] != '1'){
+            require.async('question:widget/js/select-search/select-search.js', function(A){
+                A.init();
+            }); 
+        }
+                var adTopImg = $('.adTopImg');
+        if(adTopImg.length && adTopImg.css('display') != 'none') {
+            log.addKey({
+                adTopImg_new: 1
+            });
+            adTopImg.on('click', function() {
+                log.send({
+                    page: 'question',
+                    pos: 'adTopImg_new',
+                    action: 'click',
+                    type: 2014
+                });
+            });
+        }
+        
+        log.init({key:2014, query: 'body',action:'click'});
+        function logPV(){
+            var logOptions = {
+                type: 2014,
+                page: 'question', 
+                action: 'entrance',
+                screen: parseInt($('body').height()/$(window).height()),
+                qid: F.context('page')['qid'],
+                cid: F.context('page')['cid'],
+                view: F.context('page').isView,
+                cidTop: F.context('page')['cidTop'],
+                cidMid: F.context('page')['cidMid'],
+                refer: document.referrer
+            };
+            log.addKey({
+                 sample_new_qb: 0
+            });
+            log.addKey({
+                evaSampling: 604
+            });
+
+            
+            log.addKey({
+                 sample_qb_50per: "2"
+            });
+
+            log.addKey({
+                 qid: F.context('page')['qid']
+            });
+
+            if (F.context('page').relateQids) {
+                logOptions.relateQids = F.context('page').relateQids;
+            }
+
+            if (F.context('page').relateTopicQids) {
+                logOptions.relateTopicQids = F.context('page').relateTopicQids;
+            }
+            if ($('a.optimus').length) {
+                log.addKey({'optimus': 1});
+            }
+            if ($('.classinfo').length) {
+                log.addKey({'classinfo': 1});
+            }
+            var uadminIcon = $('.uadmin-a');
+            var uadminIconSize = uadminIcon.length;
+            if (uadminIconSize) {
+                logOptions.uadminIconNum = uadminIconSize;
+            }
+            
+            setTimeout(function(){
+                log.send(logOptions, true);
+            }, 100);
+        }
+                    log.addKey({'qb_test_case': '13'});
+                var loc_ans = $.url.getQueryValue(location.href, 'loc_ans');
+        if(!loc_ans) {
+            var myAnswerList = $('.wgt-best .answer-mine, .wgt-recommend .answer-mine, .wgt-special .answer-mine'),
+                myAnswer = null; 
+            if(myAnswerList.size()){        
+                myAnswer = myAnswerList.first();        
+                setTimeout(function(){
+                    $(document).scrollTop(myAnswer.offset().top - 10);
+                }, 200);       
+            }
+        }else {
+            var locAnswerList = $('.wgt-best .answer, .wgt-recommend .answer, .wgt-special .answer'),
+                locAnswer = null;
+            locAnswerList.each(function(index, item) {
+                if($(item).attr("id").indexOf(loc_ans) != -1) {
+                    locAnswer = $(item);
+                }
+            });
+            if(locAnswer) {
+                setTimeout(function(){
+                    $(document).scrollTop(locAnswer.parent().offset().top - 10);
+                }, 200);  
+            }
+        }
+        if (F.context('egg')) {
+            require.async('question:widget/js/egg/egg.js', function(egg){
+                $(function(){
+                    egg.init(F.context('egg'));
+                });
+            });
+        }
+        var grid68  = $('.qb-content'), 
+            qid = F.context('page')['qid'];
+        $.each({
+            'qb-content'            : '.q-content a@',                      
+            'qb-supply-content'     : '.q-supply-content a@',               
+            'qb-best-text'          : '.wgt-best .best-text a@',            
+            'qb-special-bast-text'  : '.wgt-special .best-text a@',         
+            'qb-recommend-text'     : '.wgt-recommend .recommend-text a@',  
+            'qb-answer-text'        : '.answer-text a@',                    
+            'qb-replyask-ask'       : '.ask+dd a',                          
+            'qb-replyask-reply'     : '.reply+dd a',                        
+            'qb-best-thank'         : '.thank pre a',                       
+            'qb-answer-refer'       : '.answer-refer a'                     
+        }, function(key, val){
+            var aLink = grid68.find( val.replace(/\@$/, '[title!="点击查看大图"]') )
+                        .not('.app-keyword,.inner-link')
+                        .filter(function(){ 
+                            return this.getAttribute('href').match(/^http/i) && this.innerHTML != '' && !$(this).closest('.ed2k-wrap').size() && !$(this).closest('.thunder-wrap').size() 
+                        });
+            if(aLink.length > 0){
+                $(aLink).each(function(i,item){
+                    log.send({
+                        'type'  : 2014,
+                        'page'  : 'question',
+                        'qid'   : qid,
+                        'area'  : key,
+                        'action': 'linkPv',
+                        'text'  : item.getAttribute('href'),
+                        'host'  : item.getAttribute('href').split('/')[2]
+                    });
+                });
+            }
+            aLink.click(function(){
+                log.send({
+                    'type'  : 2014,
+                    'page'  : 'question',
+                    'qid'   : qid,
+                    'area'  : key,
+                    'action': 'linkClick',
+                    'text'  : this.getAttribute('href'),
+                    'host'  : this.getAttribute('href').split('/')[2]
+                });
+            });
+            grid68.find( val.replace(/\@$/, '') ).attr('rel', 'nofollow');
+        });
+        $(document).keydown(function(e){
+            if(e.ctrlKey && e.keyCode == 67){
+                var isStandard = Boolean(window.getSelection),
+                    selection = isStandard ? window.getSelection() : document.selection.createRange(),
+                    text = (isStandard ? selection + '' : selection.text).replace(/\n+/g,''),
+                    textLen = text.length;
+                log.send({
+                    type: 2014,
+                    page: 'question',
+                    qid: F.context('page')['qid'],
+                    uid: F.context('user')['id'],
+                    action: 'ctrl+c',
+                    text: (textLen > 0 && textLen < 50) ? text : ''
+                });
+            }
+        });
+        var BAIDUID = $.cookie.get('BAIDUID') ? $.cookie.get('BAIDUID') : '0',
+            recordkey = 'IK_' + BAIDUID.split(':')[0],
+            recordCookie = $.cookie.get(recordkey) || 0,
+            recordCidKey = 'IK_CID_'+F.context('page').cidTop,
+            recordCidCookie = $.cookie.get(recordCidKey) || 0,
+            cookieOpt = {
+                expires : 1000*60*60*24*365,
+                path : '/'
+            };
+        $.cookie.set(recordkey, parseInt(recordCookie) + 1, cookieOpt);
+        $.cookie.set(recordCidKey, parseInt(recordCidCookie) + 1, cookieOpt);
+        $.cookie.remove(recordkey,{
+            path : '/question'
+        });
+        var cookieArr = document.cookie && document.cookie.split('; ');
+        if(cookieArr.length){
+            $.each(cookieArr, function(i, item){
+                var cookieKey = item.split('=')[0];
+                if(cookieKey != recordkey && cookieKey.match(/IK_[0-9A-Z]{32}/)){
+                    $.cookie.remove(cookieKey, {path: '/'});
+                }
+            });
+        }
+        if ($.cookie.get('IK_REFER_QID')) {
+            $.cookie.remove('IK_REFER_QID', {path: '/'});
+        }
+        $(document).on('click', 'a[href*="/question/"]', function(){
+            $.cookie.set('IK_REFER_QID', F.context('page').qid, {
+                expires: 20000,
+                path: '/'
+            });
+        });
+        
+                            $(document).on('click', '.ikqb_img_alink', function(evt){
+                if($.browser.msie&&$.browser.version==6){
+                    return false;
+                }
+                var imgTarget = $(this).find('img'),
+                    imgBigSrc = $(this).attr('href'),
+                    maxWidth = $(this).parent('p').outerWidth(),
+                    imgSmallSrc = imgTarget.attr('esrc'),
+                    sourceWidth = imgTarget.width(),
+                    sourceHeight = imgTarget.height();
+
+                if(imgTarget.hasClass('img_show')){
+                    imgTarget.attr('src',imgBigSrc);
+                    if(!imgTarget.hasClass('ikqb_img')){
+                        imgTarget.removeClass('ikqb_img');
+                        imgTarget.animate({
+                            'width':'100%'
+                        },500);
+                    }else{
+                        imgTarget.animate({
+                            'maxWidth':'500px',
+                            'maxHeight':'340px'
+                        },500);
+                    }
+                    imgTarget.removeClass('img_show');
+                }else{
+                    $(this).append('<i class="ikqb_img_loading"></i>');
+                    var bigImg = new Image();
+                    bigImg.onload = function(){
+                        imgTarget.attr('src',imgBigSrc);
+                        if(sourceWidth == bigImg.width){
+                            imgTarget.removeClass('ikqb_img');
+                            imgTarget.animate({
+                                'width':'120%'
+                            },500);
+                        }else{
+                            imgTarget.animate({
+                                'maxWidth':bigImg.width>maxWidth?maxWidth:bigImg.width,
+                                'maxHeight':bigImg.height
+                            },500);
+                        }
+                        imgTarget.addClass('img_show');
+                        $('.ikqb_img_loading').remove();
+                    }
+                    bigImg.src = imgBigSrc;
+                }
+                evt.preventDefault();
+            });
+                $('#search-form').submit(function(e) {
+            log.send({
+                type: 2014, 
+                page: 'question', 
+                position: 'searchbtn',
+                action: 'click'
+            });
+            e.preventDefault();
+        });
+    });
+    
+    //统计QB页用户名片的展现量、查看QB页用户名片的用户数
+    $('.user-name').on('mouseenter', function (e) {
+        log.send({
+            'page': 'qb',
+            'type': 2060,
+            'action': 'hover',
+            'area': 'user-name'
+        });
+    }).on('click', function (e) {
+        log.send({
+            'page': 'qb',
+            'type': 2060,
+            'action': 'click',
+            'area': 'user-name'
+        });
+    });
+    //“向TA求助”的点击量、点击用户数
+    $('body').on('click', '.fixed-ask, .fixed-ask-e', function (e) {
+        log.send({
+            'page': 'qb',
+            'type': 2060,
+            'action': 'click',
+            'area': 'fixed-ask'
+        });
+    });
+    // “举报“下“描述不清”等三项的展现量（PV）、  “描述不清”等三项的点击总量、 “描述不清”等三项的点击用户数
+    $('body').on('mouseenter', '.wgt-accuse .accuse-enter', function (e) {
+        log.send({
+            'page': 'qb',
+            'type': 2060,
+            'action': 'hover',
+            'area': 'accuse-enter'
+        });
+    }).on('click', '.wgt-accuse a', function (e) {
+        log.send({
+            'page': 'qb',
+            'type': 2060,
+            'action': 'click',
+            'area': 'wgt-accuse-a'
+        });
+    });
+
+    // 新增分享打点统计
+    if ($.url.getQueryValue(location.href, 'sharesource')) {
+        log.send({
+            module: 'question',
+            page: 'qb',
+            project: 'new-qb-share',
+            postion: 'new-share',
+            action: 'view-by-share-' + $.url.getQueryValue(location.href, 'sharesource')
+        });
+    }
+
+    // 个人行家回答特型tooltip
+    var mavinTips = [];
+    var mavinTimeout = [];
+    $('.mavin-reply-icon').each(function (index) {
+        var me = this;
+        var mavinLevelTitle = $(this).attr('data-title');
+        var mavinMajor = $(this).attr('data-major');
+        var content = '<p class="mavin-reply-tip"><span class="mr-5">[' + mavinLevelTitle + ']</span>已完成<span class="enhance">实名认证</span>+<span class="enhance">行业认证</span>';
+        if (mavinMajor == 1) {
+            content += '+<span class="enhance">专业认证</span>';
+        }
+        content += '</p>';
+
+        $(this).mouseenter(function (e) {
+            $('div[role="tooltip"]').hide();
+            clearTimeout(mavinTimeout[index]);
+            mavinTimeout[index] = setTimeout(function () {
+
+                if (!mavinTips[index]) {
+                    mavinTips[index] = new Tip({
+                        'target': me,
+                        'tooltipClass' : 'tip-white',
+                        'autoDispose': false,
+                        'direction': 'top',
+                        'content': content,
+                        'position': {
+                            my: 'left-20 top'
+                        }
+                    });
+                }
+                mavinTips[index].show();
+            }, 70);
+
+        }).mouseleave(function (e) {
+            mavinTimeout[index] = setTimeout(function () {
+                mavinTips[index] && mavinTips[ index ].hide();
+            }, 70);
+        });
+    });
+    window.onload = function () {
+
+        var sendLog = function() {
+            var is_topads_truely_show = null;           // 顶部网盟
+            var is_bottomwangmeng_truely_show = null;   // 底部网盟为你推荐
+            var is_leftads_truely_show = null;          // 实际展示左下广告
+            var is_rightads_truely_show = null;         // 实际展示左下广告
+            
+            // 顶部网盟广告 -- 从元素高度判断
+            if (F.context('ads_log_toprequest')) {
+                if ($('.left-top-ads').height() == 0
+                    || $('.left-top-ads').width() == 0) {
+                    is_topads_truely_show = 0;
+                } else {
+                    is_topads_truely_show = 1;
+                }
+            } else {
+                is_topads_truely_show = 0;
+            }
+
+            // 底部为你推荐网盟广告 -- 从iframe判断
+            if (F.context('ads_log_bottomrequest')) {
+                if ($('.wgt-bottom-union').find('iframe').size() == 0) {
+                    is_bottomwangmeng_truely_show = 0;
+                } else {
+                    is_bottomwangmeng_truely_show = 1;
+                }
+            } else {
+                is_bottomwangmeng_truely_show = 0;
+            }
+
+            // 同步凤巢广告 -- 从元素高度判断
+            if (F.context('ads_log_leftdown')) {
+                if ($('#qbleftdown-container').height() == 0
+                    || $('#qbleftdown-container').width() == 0) {
+                    is_leftads_truely_show = 0;
+                } else {
+                    is_leftads_truely_show = 1;
+                }
+            } else {
+                is_leftads_truely_show = 0;
+            }
+
+            // 同步右侧广告，看是否存在dom以及是否展示
+            if (F.context('ads_log_right')) {
+                if ($('.widget-sma').height() == 0
+                    || $('.widget-sma').width() == 0) {
+                    is_rightads_truely_show = 0;
+                } else {
+                    is_rightads_truely_show = 1;
+                }
+            } else {
+                is_rightads_truely_show = 0;
+            }
+
+            // 得到浏览器信息
+            function getBrowserType() {
+                if (navigator.userAgent.toLowerCase().indexOf('se 2.x')>-1) {
+                    return 'Sougo';
+                } else if (navigator.userAgent.toLowerCase().indexOf('maxthon')>-1) {
+                    return 'maxthon';
+                } else if (navigator.userAgent.toLowerCase().indexOf('qqbrowser')>-1) {
+                    return 'qqbrowser';
+                } else if (navigator.userAgent.toLowerCase().indexOf('msie')>-1) {
+                    return 'IE';
+                } else if (/chrome\/(\d+\.\d+)/i.test(navigator.userAgent)) {
+                    return 'Chrome';
+                } else if (/firefox\/(\d+\.\d+)/i.test(navigator.userAgent)) {
+                    return 'Firefox';
+                } else {
+                    return 'other';
+                }
+            }
+            var browsert_type = getBrowserType();
+
+            var adsLogParams = {
+                type: 2014,
+                page: 'question', 
+                action: 'ads_block_info_hour',
+                is_topwangmeng_should_show: F.context('ads_log_toprequest') || 0,
+                is_topwangmeng_truely_show: is_topads_truely_show,
+                is_bottomwangmeng_should_show: F.context('ads_log_bottomrequest') || 0,
+                is_bottomwangmeng_truely_show: is_bottomwangmeng_truely_show,
+                is_leftads_should_show: F.context('ads_log_leftdown') || 0,
+                is_leftads_truely_show: is_leftads_truely_show,
+                is_rightads_should_show: F.context('ads_log_right') || 0,
+                is_rightads_truely_show: is_rightads_truely_show,
+                browser_type: browsert_type
+            };
+
+            log.send(adsLogParams);
+        };
+
+        setTimeout(sendLog, 1000);
+    };
+    /*
+     * 设置hunter用户体验报告
+     * @FE-hanzonge @PM-liulin04
+     * @date 2016-01-05
+     *
+     * 模糊匹配：mid=73716，取一定量pv
+     * 非模糊匹配：mid-qid映射关系为，
+     *      73707->124553427
+     *      73708->258966527
+     *      73709->145354616
+     *      73710->1509811702495467100
+     *      73711->334249256
+     */
+    window.Hunter = window.Hunter || {};
+    Hunter.userConfig = Hunter.userConfig || [];
+    var tempHid = null;
+    var pageQid = F.context('page').qid;
+    
+    if (pageQid == 124553427) {
+        tempHid = 73707;
+    } else if (pageQid == 258966527) {
+        tempHid = 73708;
+    } else if (pageQid == 145354616) {
+        tempHid = 73709;
+    } else if (pageQid == 1509811702495467100) {
+        tempHid = 73710;
+    } else if (pageQid == 334249256) {
+        tempHid = 73711;
+    } else {
+        if (parseInt(Math.random()*100) < 5) {
+            tempHid = 73716;
+        }
+    }
+
+    if (tempHid) { 
+        Hunter.userConfig.push({
+            hid: tempHid
+        });
+    }
+    function jumpShare() {
+
+        if ($('.jump-top-box').size() != 0) {
+            // 调整返回顶部和任务列表的顺序
+            $('.jump-top-box').find('.jump-top').before($('.jump-top-box').find('.jump-task-list'));
+
+            // 加入分享功能
+            var jumpShare = [
+                '<div class="jump-share">',
+                    '<div class="jump-share-tit">分享</div>',
+                    '<div class="share-area"></div>',
+                '</div>'
+            ].join('');
+
+            $('.jump-top-box').find('.jump-task-list').before(jumpShare);
+
+            share.init({
+                target: $('.jump-share .share-area'),
+                pageUrl: 'http://zhidao.baidu.com/question/' + F.context('page').qid,
+                title: document.title,
+                pos: 'rightSilde',
+                logOpt: {
+                    module: 'question',
+                    page: 'qb',
+                    project: 'new-qb-share',
+                    postion: 'new-share-right'
+                }
+            });
+            // 如果有行家工作室，放在最顶部
+            if ($('.jump-top-box').find('.jump-goto-mavin').size()) {
+                $('.jump-top-box').find('.jump-share').before($('.jump-top-box').find('.jump-goto-mavin'));
+            }
+
+            jumpTimer && clearInterval(jumpTimer);
+        }
+    }
+
+    var jumpTimer = setInterval(function () {
+        jumpShare();
+    }, 1000)
+
+
+
+
+});
+
+}();
+!function(){								                				require.async('common:widget/js/logic/dom-ready/dom-ready.js', function(D){ D.init([]) });
+            }();
+</script>    
+<script type="text/javascript">
+    require.async('common:widget/lib/jquery/jquery.js', function ($) {
+        //  var ie = /msie (\d+\.\d+)/i.test(navigator.userAgent) ? (document.documentMode || +RegExp['$1']) : undefined;
+        if (!/chrome|firefox|safari|msie 10|rsv:11|msie [89]/i.test(navigator.userAgent)) {
+            return;
+        }
+
+        window.BaiduHttps = window.BaiduHttps || {};
+        window.BaiduHttps.callbacks = function (data) {
+            if (data && data.s === 0) {
+                window.supportHttps = 1;
+                setTimeout(function () {
+                    $('a[href^="http://www.baidu.com/s?"]').each(function (index, item) {
+                        var link = $(item).attr('href');
+                        if (~link.indexOf('?wd=') || ~link.indexOf('&wd=')) {
+                            link = link.replace(/^http/, 'https');
+                            $(item).attr('href', link);
+                        }
+                    });
+                }, 2000);
+            }
+        };
+
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'https://www.baidu.com/con?from=zhidao';
+        document.body.appendChild(script);
+    });
+</script>
+</html>

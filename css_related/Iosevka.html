@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Iosevka</title>
+	<style>
+		@import url(index.css);
+	</style>
+	<script src="https://cdn.bootcss.com/vue/1.0.7/vue.min.js"></script>
+	<script>if (!window.Vue) document.write('<script src="vue.min.js">\x3C/script>')</script>
+	<link href="https://cdn.bootcss.com/simple-line-icons/2.2.3/css/simple-line-icons.css" rel="stylesheet">
+</head>
+
+<body>
+	<section id="introduction">
+		<h1>Iosevka</h1>
+		<div id="downlinks">
+			<a href="https://github.com/be5invis/Iosevka/releases/latest">
+				<icon class="icon-cloud-download"></icon>Download Iosevka<span>Version {{version}} “{{codename}}”</span></a>
+			<a href="specimen.html">
+				<icon class="icon-book-open"></icon>View Specimen<span>All characters &amp; styles</span></a>
+		</div>
+	</section>
+
+	<section id="descriptions">
+		<ul class="col">
+			<li>
+				<h2>Concept</h2>
+				<p>Iosevka is a slender monospace sans-serif and <span class="slab">slab-serif</span> typeface inspired by <a href="http://www.fsd.it/fonts/pragmatapro.htm">Pragmata Pro</a>,
+					<a href="http://mplus-fonts.osdn.jp/">M+</a> and <a href="http://www.parachute.gr/typefaces/allfonts/din-mono-pro">PF DIN Mono</a>,
+					designed to be the ideal font for programming.</p>
+			</li>
+			<li>
+				<h2>Open Source</h2>
+				<p>Iosevka is completely generated from its <a href="https://github.com/be5invis/Iosevka">source code</a>. You can build
+					your own variant by adjusting its <a href="https://github.com/be5invis/Iosevka/blob/master/parameters.toml">parameters</a>.</p>
+			</li>
+		</ul>
+		<ul class="col">
+			<li>
+				<h2>Support</h2>
+				<p>Iosevka comes in regular, bold, italic and bold-italic with over 2000 latin, greek, cyrillic, phonetic and PowerLine
+					glyphs. A IosevkaCC variant is also provided, with several symbols enwiden, to be compatible with most CJK typefaces.</p>
+			</li>
+			<li>
+				<h2>Readme</h2>
+				<p>The instructions, building procedure, and other informations can be found in <a href="https://github.com/be5invis/Iosevka/blob/master/README.md">its readme</a>.</p>
+			</li>
+		</ul>
+	</section>
+
+	<section id="weights" class="color-light">
+		<template v-for="weight in (['thin', 'extralight', 'light', 'regular', 'medium', 'bold', 'heavy'])">
+			<div class="{{weight}}"><span class="weightname">{{weight}}</span><span><span class="hljs-keyword">float</span> Fox.quick(h){ is_brown <span class="hljs-operator">&amp;&amp;</span> it_jumps_over(doges.lazy) }</span></div>
+		</template>
+	</section>
+
+	<section id="opentype">
+		<h2>Opentype features</h2>
+		<template v-for="group in opentypeSamples">
+			<div class="hr">{{group.title}}</div>
+			<ol class="{{group.type}}">
+				<li v-for="term in group.terms">
+					<span class="tag">{{term.tag}}</span><span class="description">{{term.desc}}</span>
+					<span class="sample" style="font-feature-settings:'{{term.tag}}'">{{{(stressSample(term.sample || group.sampleText, term.stress || group.stress))}}}</span><span class="sample italic" style="font-feature-settings:'{{term.tag}}'">{{{(stressSample(term.sample || group.sampleText, term.stress || group.stress))}}}</span>
+				</li>
+			</ol>
+		</template>
+	</section>
+
+	<section id="ligations">
+		<h2>Ligation Sets</h2>
+		<table>
+		<tr class="first"><th>Feature Tag</th><th>Designed For</th></tr>
+        <template v-for="s in ligationSets">
+            <tr class="note"><td>{{s.tagName || s.tag}}</td><td>{{s.desc}}</td></tr>
+            <tr><td colspan="2" style="font-feature-settings:'{{s.tag}}' 1"><pre v-for="row in ligationSamples"><template v-for="sample in row">{{{(elabSample(s.group, sample))}}} </template></pre></td></tr>
+        </template>
+	</table>
+	</section>
+
+	<section id="preview" class="{{theme}} {{(isSlab ? 'slab' : '')}} {{(isBold ? 'bold' : '')}} {{(isItalic ? 'italic' : '')}}">
+		<div id="preview-toolbar">
+			<span class="options"><h2>Preview</h2></span>
+			<span id="styles-toggle" class="options"><h3>Styles</h3><compact-toggle v-bind:on.sync="isSlab" v-bind:cls="'slab'">slab-serif</compact-toggle> <compact-toggle v-bind:on.sync="isBold" v-bind:cls="'bold'">bold</compact-toggle> <compact-toggle v-bind:on.sync="isItalic" v-bind:cls="'italic'">italic</compact-toggle></span>
+			<span id="theme-picker" class="options"><h3>Color</h3><compact-picker v-bind:items="themes" v-bind:current.sync="theme"></compact-picker></span>
+			<span id="snippet-picker" class="options"><h3>Language</h3><compact-picker v-bind:items="snippets" v-bind:current.sync="snippet"></compact-picker></span>
+		</div>
+		<snippet v-bind:name="'javascript'" v-bind:current="snippet"><code class="javascript hljs"><span class=hljs-keyword>var</span> languages = [
+        {lang: <span class=hljs-string>'English'</span>,       sample: <span class=hljs-string>'Shaw, those twelve beige hooks are joined if I patch a young, gooey mouth.'</span>},
+        {lang: <span class=hljs-string>'IPA'</span>,           sample: <span class=hljs-string>'[ɢʷɯʔ.nas.doːŋ.kʰlja] [ŋan.ȵʑi̯wo.ɕi̯uĕn.ɣwa]'</span>},
+        {lang: <span class=hljs-string>'Bulgarian'</span>,     sample: <span class=hljs-string lang=bg>'Я, пазачът Вальо уж бди, а скришом хапва кюфтенца зад щайгите.'</span>},
+        {lang: <span class=hljs-string>'Czech'</span>,         sample: <span class=hljs-string>'Nechť již hříšné saxofony ďáblů rozezvučí síň úděsnými tóny waltzu, tanga a quickstepu.'</span>},
+        {lang: <span class=hljs-string>'Finnish'</span>,       sample: <span class=hljs-string>'Charles Darwin jammaili Åken hevixylofonilla Qatarin yöpub Zeligissä.'</span>},
+        {lang: <span class=hljs-string>'French'</span>,        sample: <span class=hljs-string>'Voix ambiguë d’un cœur qui au zéphyr préfère les jattes de kiwi.'</span>},
+        {lang: <span class=hljs-string>'German'</span>,        sample: <span class=hljs-string>'Victor jagt zwölf Boxkämpfer quer über den großen Sylter Deich.'</span>},
+        {lang: <span class=hljs-string>'Greek'</span>,         sample: <span class=hljs-string>'Ταχίστη αλώπηξ βαφής ψημένη γη, δρασκελίζει υπέρ νωθρού κυνός.'</span>},
+        {lang: <span class=hljs-string>'Ancient Greek'</span>, sample: <span class=hljs-string>'Ἄδμηθ’, ὁρᾷς γὰρ τἀμὰ πράγμαθ’ ὡς ἔχει, λέξαι θέλω σοι πρὶν θανεῖν ἃ βούλομαι. '</span>},
+        {lang: <span class=hljs-string>'Guarani'</span>,       sample: <span class=hljs-string>'Hĩlandiagua kuñanguéra oho peteĩ saʼyju ypaʼũme Gavõme omboʼe hag̃ua ingyleñeʼẽ mitãnguérare neʼẽndyʼỹ.'</span>},
+        {lang: <span class=hljs-string>'Hungarian'</span>,     sample: <span class=hljs-string>'Jó foxim és don Quijote húszwattos lámpánál ülve egy pár bűvös cipőt készít.'</span>},
+        {lang: <span class=hljs-string>'Icelandic'</span>,     sample: <span class=hljs-string>'Kæmi ný öxi hér, ykist þjófum nú bæði víl og ádrepa.'</span>},
+        {lang: <span class=hljs-string>'Irish'</span>,         sample: <span class=hljs-string>'Ċuaiġ bé ṁórṡáċ le dlúṫspád fíorḟinn trí hata mo ḋea-ṗorcáin ḃig.'</span>},
+        {lang: <span class=hljs-string>'Latvian'</span>,       sample: <span class=hljs-string>'Muļķa hipiji mēģina brīvi nogaršot celofāna žņaudzējčūsku.'</span>},
+        {lang: <span class=hljs-string>'Lithuanian'</span>,    sample: <span class=hljs-string>'Įlinkdama fechtuotojo špaga sublykčiojusi pragręžė apvalų arbūzą.'</span>},
+        {lang: <span class=hljs-string>'Macedonian'</span>,    sample: <span class=hljs-string lang=mk>'Ѕидарски пејзаж: шугав билмез со чудење џвака ќофте и кељ на туѓ цех.'</span>},
+        {lang: <span class=hljs-string>'Norwegian'</span>,     sample: <span class=hljs-string>'Jeg begynte å fortære en sandwich mens jeg kjørte taxi på vei til quiz'</span>},
+        {lang: <span class=hljs-string>'Polish'</span>,        sample: <span class=hljs-string>'Pchnąć w tę łódź jeża lub ośm skrzyń fig.'</span>},
+        {lang: <span class=hljs-string>'Portuguese'</span>,    sample: <span class=hljs-string>'Luís argüia à Júlia que «brações, fé, chá, óxido, pôr, zângão» eram palavras do português.'</span>},
+        {lang: <span class=hljs-string>'Romanian'</span>,      sample: <span class=hljs-string>'Înjurând pițigăiat, zoofobul comandă vexat whisky și tequila.'</span>},
+        {lang: <span class=hljs-string>'Russian'</span>,       sample: <span class=hljs-string>'Широкая электрификация южных губерний даст мощный толчок подъёму сельского хозяйства.'</span>},
+        {lang: <span class=hljs-string>'Serbian'</span>,       sample: <span class=hljs-string lang=sr>'Ајшо, лепото и чежњо, за љубав срца мога дођи у Хаџиће на кафу.'</span>},
+        {lang: <span class=hljs-string>'Spanish'</span>,       sample: <span class=hljs-string>'Benjamín pidió una bebida de kiwi y fresa; Noé, sin vergüenza, la más exquisita champaña del menú.'</span>},
+        {lang: <span class=hljs-string>'Turkish'</span>,       sample: <span class=hljs-string>'Pijamalı hasta yağız şoföre çabucak güvendi.'</span>},
+        {lang: <span class=hljs-string>'Ukrainian'</span>,     sample: <span class=hljs-string>'Чуєш їх, доцю, га? Кумедна ж ти, прощайся без ґольфів!'</span>}
+]
+</code></snippet>
+		<snippet v-bind:name="'cpp'" v-bind:current="snippet"><code class="cpp hljs"><span class="hljs-comment">// From Rosetta Code</span>
+<span class="hljs-preprocessor">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<span class="hljs-preprocessor">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iomanip&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-keyword">class</span> ormConverter {
+<span class="hljs-keyword">public</span>:
+    ormConverter() :  AR( <span class="hljs-number">0.7112f</span> ), CE( <span class="hljs-number">0.01f</span> ), DI( <span class="hljs-number">0.0254f</span> ), FU( <span class="hljs-number">0.3048f</span> ), KI( <span class="hljs-number">1000.0f</span> ), LI( <span class="hljs-number">0.00254f</span> ), ME( <span class="hljs-number">1.0f</span> ),
+                      MI( <span class="hljs-number">7467.6f</span> ), PI( <span class="hljs-number">0.1778f</span> ), SA( <span class="hljs-number">2.1336f</span> ), TO( <span class="hljs-number">0.000254f</span> ), VE( <span class="hljs-number">0.04445f</span> ), VR( <span class="hljs-number">1066.8f</span> ) {}
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">convert</span><span class="hljs-params">( <span class="hljs-keyword">char</span> c, <span class="hljs-keyword">float</span> l )</span> </span>{
+        system( <span class="hljs-string">"cls"</span> );
+        <span class="hljs-built_in">cout</span> &lt;&lt; endl &lt;&lt; l;
+        <span class="hljs-keyword">switch</span>( c ) {
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'A'</span>: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">" Arshin to:"</span>;     l *= AR; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'C'</span>: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">" Centimeter to:"</span>; l *= CE; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'D'</span>: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">" Diuym to:"</span>;      l *= DI; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'F'</span>: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">" Fut to:"</span>;        l *= FU; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'K'</span>: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">" Kilometer to:"</span>;  l *= KI; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'L'</span>: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">" Liniya to:"</span>;     l *= LI; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'M'</span>: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">" Meter to:"</span>;      l *= ME; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'I'</span>: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">" Milia to:"</span>;      l *= MI; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'P'</span>: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">" Piad to:"</span>;       l *= PI; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'S'</span>: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">" Sazhen to:"</span>;     l *= SA; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'T'</span>: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">" Tochka to:"</span>;     l *= TO; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'V'</span>: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">" Vershok to:"</span>;    l *= VE; <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'E'</span>: <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">" Versta to:"</span>;     l *= VR;
+        }
+ 
+        <span class="hljs-keyword">float</span> ar = l / AR, ce = l / CE, di = l / DI, fu = l / FU, ki = l / KI, li = l / LI, me = l / ME,
+              mi = l / MI, pi = l / PI, sa = l / SA, to = l / TO, ve = l / VE, vr = l / VR;
+        <span class="hljs-built_in">cout</span> &lt;&lt; left &lt;&lt; endl &lt;&lt; <span class="hljs-string">"================="</span> &lt;&lt; endl
+             &lt;&lt; setw( <span class="hljs-number">12</span> ) &lt;&lt; <span class="hljs-string">"Arshin:"</span> &lt;&lt; ar &lt;&lt; endl &lt;&lt; setw( <span class="hljs-number">12</span> ) &lt;&lt; <span class="hljs-string">"Centimeter:"</span> &lt;&lt; ce &lt;&lt; endl
+             &lt;&lt; setw( <span class="hljs-number">12</span> ) &lt;&lt; <span class="hljs-string">"Diuym:"</span> &lt;&lt; di &lt;&lt; endl &lt;&lt; setw( <span class="hljs-number">12</span> ) &lt;&lt; <span class="hljs-string">"Fut:"</span> &lt;&lt; fu &lt;&lt; endl
+             &lt;&lt; setw( <span class="hljs-number">12</span> ) &lt;&lt; <span class="hljs-string">"Kilometer:"</span> &lt;&lt; ki &lt;&lt; endl &lt;&lt; setw( <span class="hljs-number">12</span> ) &lt;&lt; <span class="hljs-string">"Liniya:"</span> &lt;&lt; li &lt;&lt; endl
+             &lt;&lt; setw( <span class="hljs-number">12</span> ) &lt;&lt; <span class="hljs-string">"Meter:"</span> &lt;&lt; me &lt;&lt; endl &lt;&lt; setw( <span class="hljs-number">12</span> ) &lt;&lt; <span class="hljs-string">"Milia:"</span> &lt;&lt; mi &lt;&lt; endl
+             &lt;&lt; setw( <span class="hljs-number">12</span> ) &lt;&lt; <span class="hljs-string">"Piad:"</span> &lt;&lt; pi &lt;&lt; endl &lt;&lt; setw( <span class="hljs-number">12</span> ) &lt;&lt; <span class="hljs-string">"Sazhen:"</span> &lt;&lt; sa &lt;&lt; endl
+             &lt;&lt; setw( <span class="hljs-number">12</span> ) &lt;&lt; <span class="hljs-string">"Tochka:"</span> &lt;&lt; to &lt;&lt; endl &lt;&lt; setw( <span class="hljs-number">12</span> ) &lt;&lt; <span class="hljs-string">"Vershok:"</span> &lt;&lt; ve &lt;&lt; endl
+             &lt;&lt; setw( <span class="hljs-number">12</span> ) &lt;&lt; <span class="hljs-string">"Versta:"</span> &lt;&lt; vr &lt;&lt; endl &lt;&lt; endl &lt;&lt; endl;
+    }
+<span class="hljs-keyword">private</span>:
+    <span class="hljs-keyword">const</span> <span class="hljs-keyword">float</span> AR, CE, DI, FU, KI, LI, ME, MI, PI, SA, TO, VE, VR;
+};
+<span class="hljs-keyword">int</span> _tmain(<span class="hljs-keyword">int</span> argc, _TCHAR* argv[]) {
+    ormConverter c;
+    <span class="hljs-keyword">char</span> s; <span class="hljs-keyword">float</span> l;
+    <span class="hljs-keyword">while</span>( <span class="hljs-literal">true</span> ) {
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"What unit:\n(A)rshin, (C)entimeter, (D)iuym, (F)ut\n(K)ilometer, (L)iniya, (M)eter, m(I)lia, (P)iad\n(S)azhen, "</span>
+                <span class="hljs-string">"(T)ochka, (V)ershok, v(E)rsta, (Q)uit\n"</span>;
+        <span class="hljs-built_in">cin</span> &gt;&gt; s; <span class="hljs-keyword">if</span>( s &amp; <span class="hljs-number">32</span> ) s ^= <span class="hljs-number">32</span>; <span class="hljs-keyword">if</span>( s == <span class="hljs-string">'Q'</span> ) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Length (0 to Quit): "</span>; <span class="hljs-built_in">cin</span> &gt;&gt; l; <span class="hljs-keyword">if</span>( l == <span class="hljs-number">0</span> ) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        c.convert( s, l ); system( <span class="hljs-string">"pause"</span> ); system( <span class="hljs-string">"cls"</span> );
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></snippet>
+		<snippet v-bind:name="'julia'" v-bind:current="snippet"><code class="julia hljs"><span class="hljs-comment"># From Rosetta Code</span>
+<span class="hljs-keyword">function</span> walk(maze, cell, visited = <span class="hljs-built_in">Any</span>[])
+  push!(visited, cell)
+  <span class="hljs-keyword">for</span> neigh <span class="hljs-keyword">in</span> shuffle(neighbors(cell, size(maze)))
+    <span class="hljs-keyword">if</span> !(neigh <span class="hljs-keyword">in</span> visited)
+       maze[round(<span class="hljs-built_in">Int</span>,(cell + neigh)/<span class="hljs-number">2</span>)...] = <span class="hljs-number">0</span>     <span class="hljs-comment"># ifloor(n/2) ==  n &gt;&gt; 1 </span>
+       walk(maze, neigh, visited)
+    <span class="hljs-keyword">end</span>
+  <span class="hljs-keyword">end</span>
+  maze
+<span class="hljs-keyword">end</span>
+ 
+neighbors(c, b, d = <span class="hljs-number">2</span>) = filter(check(b), map(m -&gt; c + d * m, <span class="hljs-built_in">Any</span>[[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>], [-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>]]))
+ 
+check(bound) = cell -&gt; all([<span class="hljs-number">1</span>, <span class="hljs-number">1</span>] .&lt;= cell .&lt;= [bound...])
+ 
+maze(w, h) = walk([i % <span class="hljs-number">2</span> | j % <span class="hljs-number">2</span> <span class="hljs-keyword">for</span> i = <span class="hljs-number">1</span>:<span class="hljs-number">2</span>w + <span class="hljs-number">1</span>, j = <span class="hljs-number">1</span>:<span class="hljs-number">2</span>h + <span class="hljs-number">1</span>], <span class="hljs-number">2</span> * [rand(<span class="hljs-number">1</span>:w), rand(<span class="hljs-number">1</span>:h)])
+ 
+pprint(matrix) = <span class="hljs-keyword">for</span> i = <span class="hljs-number">1</span>:size(matrix, <span class="hljs-number">1</span>) println(join(matrix[i, :])) <span class="hljs-keyword">end</span>
+ 
+<span class="hljs-keyword">function</span> printmaze(maze, wall = convert(<span class="hljs-built_in">UTF32String</span>, <span class="hljs-string">"╹╸┛╺┗━┻╻┃┓┫┏┣┳╋"</span>))
+  h,w = size(maze)
+  pprint([ maze[i,j] == <span class="hljs-number">0</span> ? <span class="hljs-char">' '</span> :
+           wall[<span class="hljs-built_in">Int</span>(sum(c-&gt; <span class="hljs-number">2.0</span>^<span class="hljs-number">.5</span>(<span class="hljs-number">3</span>c[<span class="hljs-number">1</span>] + c[<span class="hljs-number">2</span>] + <span class="hljs-number">3</span>),
+                    filter(x -&gt; maze[x...] != <span class="hljs-number">0</span>,
+                           neighbors([i, j], [h, w], <span class="hljs-number">1</span>)) .- <span class="hljs-built_in">Any</span>[[i, j]]))]
+           <span class="hljs-keyword">for</span> i = <span class="hljs-number">1</span>:<span class="hljs-number">2</span>:h, j = <span class="hljs-number">1</span>:w])
+<span class="hljs-keyword">end</span>
+mprint(maze(<span class="hljs-number">15</span>,<span class="hljs-number">30</span>))</code></snippet>
+		<snippet v-bind:name="'python'" v-bind:current="snippet"><code class="python hljs"><span class="hljs-comment"># From Rosetta Code</span>
+<span class="hljs-keyword">from</span> pprint <span class="hljs-keyword">import</span> pprint
+ 
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">matrixMul</span><span class="hljs-params">(A, B)</span>:</span>
+    TB = zip(*B)
+    <span class="hljs-keyword">return</span> [[sum(ea*eb <span class="hljs-keyword">for</span> ea,eb <span class="hljs-keyword">in</span> zip(a,b)) <span class="hljs-keyword">for</span> b <span class="hljs-keyword">in</span> TB] <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> A]
+ 
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pivotize</span><span class="hljs-params">(m)</span>:</span>
+    <span class="hljs-string">"""Creates the pivoting matrix for m."""</span>
+    n = len(m)
+    ID = [[float(i == j) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> xrange(n)] <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> xrange(n)]
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> xrange(n):
+        row = max(xrange(j, n), key=<span class="hljs-keyword">lambda</span> i: abs(m[i][j]))
+        <span class="hljs-keyword">if</span> j != row:
+            ID[j], ID[row] = ID[row], ID[j]
+    <span class="hljs-keyword">return</span> ID
+ 
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">lu</span><span class="hljs-params">(A)</span>:</span>
+    <span class="hljs-string">"""Decomposes a nxn matrix A by PA=LU and returns L, U and P."""</span>
+    n = len(A)
+    L = [[<span class="hljs-number">0.0</span>] * n <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> xrange(n)]
+    U = [[<span class="hljs-number">0.0</span>] * n <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> xrange(n)]
+    P = pivotize(A)
+    A2 = matrixMul(P, A)
+    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> xrange(n):
+        L[j][j] = <span class="hljs-number">1.0</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> xrange(j+<span class="hljs-number">1</span>):
+            s1 = sum(U[k][j] * L[i][k] <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> xrange(i))
+            U[i][j] = A2[i][j] - s1
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> xrange(j, n):
+            s2 = sum(U[k][j] * L[i][k] <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> xrange(j))
+            L[i][j] = (A2[i][j] - s2) / U[j][j]
+    <span class="hljs-keyword">return</span> (L, U, P)
+ 
+a = [[<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">7</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>]]
+<span class="hljs-keyword">for</span> part <span class="hljs-keyword">in</span> lu(a):
+    pprint(part, width=<span class="hljs-number">19</span>)
+    <span class="hljs-keyword">print</span>
+<span class="hljs-keyword">print</span>
+b = [[<span class="hljs-number">11</span>,<span class="hljs-number">9</span>,<span class="hljs-number">24</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">1</span>,<span class="hljs-number">5</span>,<span class="hljs-number">2</span>,<span class="hljs-number">6</span>],[<span class="hljs-number">3</span>,<span class="hljs-number">17</span>,<span class="hljs-number">18</span>,<span class="hljs-number">1</span>],[<span class="hljs-number">2</span>,<span class="hljs-number">5</span>,<span class="hljs-number">7</span>,<span class="hljs-number">1</span>]]
+<span class="hljs-keyword">for</span> part <span class="hljs-keyword">in</span> lu(b):
+    pprint(part)
+    <span class="hljs-keyword">print</span></code></snippet>
+		<snippet v-bind:name="'elixir'" v-bind:current="snippet"><code class="elixir hljs"><span class="hljs-comment"># From Rosetta Code</span>
+<span class="hljs-class"><span class="hljs-keyword">defmodule</span> <span class="hljs-title">Hailstone</span></span> <span class="hljs-keyword">do</span>
+  require <span class="hljs-constant">Integer</span>
+ 
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">step</span></span>(<span class="hljs-number">1</span>)                        , <span class="hljs-symbol">do:</span> <span class="hljs-number">0</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">step</span></span>(n) <span class="hljs-keyword">when</span> <span class="hljs-constant">Integer.</span>is_even(n), <span class="hljs-symbol">do:</span> div(n,<span class="hljs-number">2</span>)
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">step</span></span>(n)                        , <span class="hljs-symbol">do:</span> n*<span class="hljs-number">3</span> + <span class="hljs-number">1</span>
+ 
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">sequence</span></span>(n) <span class="hljs-keyword">do</span>
+    <span class="hljs-constant">Stream.</span>iterate(n, &amp;step/<span class="hljs-number">1</span>) |&gt; <span class="hljs-constant">Stream.</span>take_while(&amp;(&amp;<span class="hljs-number">1</span> &gt; <span class="hljs-number">0</span>)) |&gt; <span class="hljs-constant">Enum.</span>to_list
+  <span class="hljs-keyword">end</span>
+ 
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span></span> <span class="hljs-keyword">do</span>
+    seq27 = sequence(<span class="hljs-number">27</span>)
+    len27 = length(seq27)
+    repr = <span class="hljs-constant">String.</span>replace(inspect(seq27, <span class="hljs-symbol">limit:</span> <span class="hljs-number">4</span>) &lt;&gt; inspect(<span class="hljs-constant">Enum.</span>drop(seq27,len27-<span class="hljs-number">4</span>)), <span class="hljs-string">"]["</span>, <span class="hljs-string">", "</span>)
+    <span class="hljs-constant">IO.</span>puts <span class="hljs-string">"Hailstone(27) has <span class="hljs-subst">#{len27}</span> elements: <span class="hljs-subst">#{repr}</span>"</span>
+ 
+    {len, start} = <span class="hljs-constant">Enum.</span>map(<span class="hljs-number">1</span>..<span class="hljs-number">100_000</span>, <span class="hljs-keyword">fn</span>(n) -&gt; {length(sequence(n)), n} <span class="hljs-keyword">end</span>) |&gt; <span class="hljs-constant">Enum.</span>max
+    <span class="hljs-constant">IO.</span>puts <span class="hljs-string">"Longest sequence starting under 100000 begins with <span class="hljs-subst">#{start}</span> and has <span class="hljs-subst">#{len}</span> elements."</span>
+  <span class="hljs-keyword">end</span>
+<span class="hljs-keyword">end</span>
+ 
+<span class="hljs-constant">Hailstone.</span>run</code></snippet>
+		<div id="copyright-line">Copyright (c) 2015-2016 Belleve Invis.</div>
+	</section>
+	<script type="text/x-template" id="compact-picker-template">
+<template v-for="item in items">
+<a href="javascript:;" v-bind:class="{active:(item === current)}" v-on:click.prevent="setItem(item)">{{item}}</a>
+</template>
+</script>
+	<script type="text/x-template" id="compact-toggle-template">
+<a href="javascript:;" v-bind:class="{active:on}" v-on:click.prevent="toggle()" class="{{cls}}"><slot></slot></a>
+</script>
+	<script type="text/x-template" id="code-snippet-template">
+<pre v-bind:id="name" v-show="(name === current)">
+<slot></slot>
+</pre>
+</script>
+	<script src="index.js"></script>
+</body>
+
+</html>
