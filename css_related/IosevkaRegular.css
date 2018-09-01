@@ -1,0 +1,13 @@
+@font-face {
+	font-family: IosevkaRegular;
+	src: url('IosevkaRegular/iosevka-regular.woff2') format('woff2'), url('IosevkaRegular/iosevka-regular.woff') format('woff'), url('IosevkaRegular/iosevka-regular.ttf') format('truetype');
+}
+.font_thin       { font-weight: 100 }
+.font_extralight { font-weight: 200 }
+.font_light      { font-weight: 300 }
+.font_medium     { font-weight: 500 }
+.font_bold       { font-weight: 700 }
+.font_extrabold  { font-weight: 800 }
+.font_heavy      { font-weight: 900 }
+.font_italic     { font-style: italic }
+.font_oblique    { font-style: oblique }
