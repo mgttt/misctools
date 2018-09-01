@@ -1,0 +1,45 @@
+/* 
+Theme Name: Responsive Child Theme
+Theme URI: http://cyberchimps.com/guide/child-theme-example/
+Description: Responsive Child Theme
+Template: responsive
+Version: 1.0.0
+Author: Vonnie Hudson
+Author URI: http://www.fixedbyvonnie.com/about
+License: GNU General Public License
+License URI: license.txt
+*/
+
+/* Structure */
+#container {
+	max-width:1140px;
+}
+
+.top-widget{
+	width:65%;
+}
+
+.col-300{
+	width:35%;
+}
+
+.col-620{
+	width:62.5%;
+}
+
+.menu{
+	box-shadow: 1px 7px 10px rgba(0,0,0,.5);
+}
+
+/** Post **/
+
+
+
+
+
+
+
+
+
+
+/*The last 29 days of the month are the hardest."- Nikola Tesla*/
