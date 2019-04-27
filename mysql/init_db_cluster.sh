@@ -451,7 +451,9 @@ export VER_MYSQL=5.7
 export KEY_APT=5072E1F5
 export SVRT_PORT=\$*
 if [ "" = "\$SVRT_PORT" ]
+then
 	echo need SVRT_PORT
+	exit
 fi
 export SVRT=\$HOME/server\$SVRT_PORT
 export SVRT_SOFT=\$SVRT/soft
@@ -476,9 +478,32 @@ echo VER_PHPFPM=$VER_PHPFPM
 echo VER_MYSQLD=$VER_MYSQLD
 echo LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
+if [ "" = "$SVRT_SOFT" ]
+then
+        echo maybe need using bash to start me
+        exit
+fi
+
+# apt-mysql.list
+
+#sudo( NOTES: not yet hacked... ):
+#gpg --import mysql_pubkey.asc
+#gpg --recv-keys ${KEY_APT}
+#[not yet hacked] sudo apt-key add mysql_pubkey.asc
+#[alter:] sudo apt-key adv --keyserver pgp.mit.edu --recv-keys ${KEY_APT}
+#apt-get update
+
+cat > apt-mysql.list << MM
+deb http://repo.mysql.com/apt/ubuntu/ ${VER_LSB_REL} mysql-apt-config
+deb http://repo.mysql.com/apt/ubuntu/ ${VER_LSB_REL} mysql-cluster-${VER_MYSQL_CLUSTER}
+deb http://repo.mysql.com/apt/ubuntu/ ${VER_LSB_REL} mysql-tools  
+deb-src http://repo.mysql.com/apt/ubuntu/ ${VER_LSB_REL} mysql-cluster-${VER_MYSQL_CLUSTER}
+MM
+
 # download software
 cat > download_pkg.sh <<TTT
-apt-get download -o Dir::Etc::SourceList=$PWD/apt-mysql.list \$*
+apt-get download -o Dir::Etc::SourceList=$PWD/apt-mysql.list -o APT::Get::AllowUnauthenticated=true \$*
+#apt-get download -o Dir::Etc::SourceList=$PWD/apt-mysql.list \$*
 TTT
 cat download_pkg.sh
 sh download_pkg.sh mysql-client
