@@ -5,6 +5,9 @@ then
 	exit
 fi
 
+# README:
+# init mysql cluster w- sudo
+
 # build asc for mysql
 cat > mysql_pubkey.asc <<KK
 -----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -441,6 +444,12 @@ roUTAKClYAhZuX2nUNwH4vlEJQHDqYa5yQ==
 -----END PGP PUBLIC KEY BLOCK-----
 KK
 gpg --import mysql_pubkey.asc
+#gpg --recv-keys ${KEY_APT}
+#[alter:] sudo apt-key adv --keyserver pgp.mit.edu --recv-keys ${KEY_APT}
+
+#sudo( NOTES: not yet hacked... ):
+#[not yet hacked] sudo apt-key add mysql_pubkey.asc
+#apt-get update
 
 # prepare env
 cat > env.sh <<TT1
@@ -469,6 +478,8 @@ export LD_LIBRARY_PATH="\$SVRT_SOFT/usr/lib/x86_64-linux-gnu:\$SVRT_SOFT/lib/x86
 export VER_PHPFPM=7.2
 export VER_MYSQLD=5.7
 #export VER_NGINX=
+
+echo env.sh:SVRT_SOFT=\$SVRT_SOFT
 TT1
 echo SVRT_SOFT=$SVRT_SOFT
 source env.sh $SVRT_PORT
@@ -480,18 +491,11 @@ echo LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 
 if [ "" = "$SVRT_SOFT" ]
 then
-        echo maybe need using bash to start me
-        exit
+	echo missing SVRT_SOFT, maybe need using bash to start me
+	exit
 fi
 
 # apt-mysql.list
-
-#sudo( NOTES: not yet hacked... ):
-#gpg --import mysql_pubkey.asc
-#gpg --recv-keys ${KEY_APT}
-#[not yet hacked] sudo apt-key add mysql_pubkey.asc
-#[alter:] sudo apt-key adv --keyserver pgp.mit.edu --recv-keys ${KEY_APT}
-#apt-get update
 
 cat > apt-mysql.list << MM
 deb http://repo.mysql.com/apt/ubuntu/ ${VER_LSB_REL} mysql-apt-config
@@ -500,12 +504,17 @@ deb http://repo.mysql.com/apt/ubuntu/ ${VER_LSB_REL} mysql-tools
 deb-src http://repo.mysql.com/apt/ubuntu/ ${VER_LSB_REL} mysql-cluster-${VER_MYSQL_CLUSTER}
 MM
 
+# !!! not yet hacked, need to cp /etc/apt/source.list.d/ and sudo apt update
+
 # download software
 cat > download_pkg.sh <<TTT
-apt-get download -o Dir::Etc::SourceList=$PWD/apt-mysql.list -o APT::Get::AllowUnauthenticated=true \$*
-#apt-get download -o Dir::Etc::SourceList=$PWD/apt-mysql.list \$*
+PACKAGE=\$*
+apt-get download -o Dir::Etc::SourceList=$PWD/apt-mysql.list -o APT::Get::AllowUnauthenticated=true \$PACKAGE
+apt-cache depends -i \$PACKAGE | awk '/Depends:\s\w/ {print \$2}' | xargs  apt-get download
 TTT
 cat download_pkg.sh
+
+rm -f *.deb
 sh download_pkg.sh mysql-client
 sh download_pkg.sh mysql-server
 sh download_pkg.sh mysql-cluster-community-server
@@ -517,20 +526,25 @@ ls -al *.deb
 for f in *.deb ; do
 dpkg -x $f $SVRT_SOFT
 done
-echo SVRT_SOFT=$SVRT_SOFT
+
 #ls $SVRT_SOFT
 sed "s#^lc-messages-dir\s*=.*#lc-messages-dir=$SVRT_SOFT/usr/share/mysql#g" -i  $SVRT_SOFT/etc/mysql/mysql.conf.d/mysqld.cnf
 ls -al $SVRT_SOFT/usr/bin/mysqld_safe
-$SVRT_SOFT/usr/bin/mysqld_safe --help
 
+# quick test 1
+#$SVRT_SOFT/usr/bin/mysqld_safe --version
+
+# quick test 2
 $SVRT_SOFT/usr/sbin/mysqld --no-defaults \
 --lc-messages-dir=$SVRT_SOFT/usr/share/mysql \
 --socket=$SVRT_RUN/mysql$SVRT_PORT.sock \
 --datadir=/data/data$SVRT_PORT/datadir/ \
 --secure-file-priv=$SVRT_RUN \
 --user=$USER --explicit_defaults_for_timestamp \
---verbose --help
+--verbose --version
 
+echo init db...
+# source env.sh 9394
 mkdir -p /data/data$SVRT_PORT
 #rm -rf /data/data$SVRT_PORT/datadir/
 $SVRT_SOFT/usr/sbin/mysqld --no-defaults \
