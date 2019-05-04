@@ -506,10 +506,16 @@ MM
 
 # !!! not yet hacked, need to cp /etc/apt/source.list.d/ and sudo apt update
 
+# non-sudo apt udpate (trying)
+mkdir -p "$PWD/apt_state_lists/"
+mkdir -p "$PWD/api_source_lists/"
+cp apt-mysql.list "$PWD/api_source_lists/"
+apt update -o Dir::Etc::SourceParts="$PWD/api_source_lists/" -o Dir::Etc::SourceList="apt-mysql.list" -o Dir::State::Lists="$PWD/apt_state_lists/"
+
 # download software
 cat > download_pkg.sh <<TTT
 PACKAGE=\$*
-apt-get download -o Dir::Etc::SourceList=$PWD/apt-mysql.list -o APT::Get::AllowUnauthenticated=true \$PACKAGE
+apt-get download -o Dir::Etc::SourceList=$PWD/apt-mysql.list -o APT::Get::AllowUnauthenticated=true -o Dir::State::Lists="$PWD/apt_state_lists/" \$PACKAGE
 apt-cache depends -i \$PACKAGE | awk '/Depends:\s\w/ {print \$2}' | xargs  apt-get download
 TTT
 cat download_pkg.sh
