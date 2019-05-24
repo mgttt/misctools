@@ -1,0 +1,7 @@
+CREATE FUNCTION `ifHasTable`(`tName` varchar(50))
+  RETURNS tinyint(4)
+BEGIN
+	DECLARE tableExists TINYINT DEFAULT 0;
+	SELECT 1 INTO tableExists FROM information_schema.`TABLES` WHERE TABLE_NAME=tName;
+	RETURN tableExists;
+END;
