@@ -26,12 +26,14 @@ DELIMITER ;
 --drop FUNCTION IF EXISTS getDUID;
 DELIMITER $$
 CREATE FUNCTION getDUID()
-RETURNS bigint
+RETURNS bigint(20)
 DETERMINISTIC
-BEGIN
-RETURN concat(unix_timestamp(),(10+@@server_id)*10000+(g_seq()%10000));
-END$$
+RETURN concat(0+now(),(@@server_id)*10000+(g_seq()%10000));
+$$
 DELIMITER ;
+select getDUID();
+
+
 select getDUID();
 ```
 
@@ -98,6 +100,17 @@ INSERT INTO t_dseq (seq_name,value)
 SELECT sequence_name, @current_val:=IFNULL((SELECT value FROM t_dseq WHERE seq_name=sequence_name),0)+1 value
 ON DUPLICATE KEY UPDATE value=VALUES(value);
 RETURN @current_val;
+END$$
+DELIMITER ;
+```
+
+```
+DELIMITER $$
+CREATE FUNCTION getDUID()
+RETURNS bigint
+DETERMINISTIC
+BEGIN
+RETURN concat(unix_timestamp(),(10+@@server_id)*10000+(g_seq()%10000));
 END$$
 DELIMITER ;
 ```
