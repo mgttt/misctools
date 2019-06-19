@@ -1,8 +1,24 @@
+# 分布式数据库
+
+最重要两点：
+
+* 数据唯一性。目前用 duid 算法解决（见下方章节）
+* 数据同步策略
+
+# 数据同步策略
+
+* 简单操作是使用 mysqldump 管道 mysql 结合 lmt 来对数据进行 UPSERT操作 （基于 duid然后 lmt大者胜）
+在弱一致性需求下，非常可靠，而且并不需要依赖于 binlog来执行。（binlog式的同步，其实在出事之后的恢复真是天价成本，何苦）
+* 高端操作是数据库内置scheduler触发驱动，把远端表映射为 Federated引擎并进行增量同步【还没试验成功】，好出是不需要外部脚本触发。
+* 【强一致性】的思路，考虑配合ndb引擎表进行强一致性思考，不过ndb引擎走一圈速度确实慢，目前可能只能用于“对表”；
+
+# duid algo
+
 innodb table for uniq-seq on one server
 
 * BIGINT is an eight-byte signed integer. 2^64 能覆盖 10^20；
 * timestamp (10倍，稍后换 14位YYYYMMDDHHMMSS） + server_id(2位） + 秒内4位时序
-* 分库或许会有时针回拔问题，应予观察；
+* 分库或许会有时针回拔问题，应予观察；（可用ndb表进行对表）
 
 ```
 --drop table g_tick;
@@ -63,7 +79,7 @@ END$$
 DELIMITER ;
 ```
 
-## old colds for DUID()
+## old codes for DUID()
 
 
 
@@ -113,4 +129,15 @@ BEGIN
 RETURN concat(unix_timestamp(),(10+@@server_id)*10000+(g_seq()%10000));
 END$$
 DELIMITER ;
+```
+
+# mysqldump 管道 mysql的例子
+
+```
+while true; do
+
+$SVRT_SOFT/usr/bin/mysqldump -u $USERNAME --password=$PASSWORD -h $HOSTNAME -P 9395 --skip-add-locks --no-create-info --replace --skip-triggers --compact --replace --databases $DBNAME --tables $TABLENAME --where=" lmt>='`$SVRT_SOFT/usr/bin/mysql -u USERNAME --password=PASSWORD -h $TGTHOSTNAME -P 9395 $DBNAME -e "SELECT (max(lmt)) mx FROM $TABLENAME" --column-names=0 -B`'" | $SVRT_SOFT/usr/bin/mysql -u altersuper --password=PASSWORD -h $TGTHOSTNAME -P 9395 $DBNAME -vvv
+
+sleep 1
+done
 ```
