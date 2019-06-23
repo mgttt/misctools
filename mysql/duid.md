@@ -17,8 +17,63 @@
 innodb table for uniq-seq on one server
 
 * BIGINT is an eight-byte signed integer. 2^64 能覆盖 10^20；
-* timestamp (10倍，稍后换 14位YYYYMMDDHHMMSS） + server_id(2位） + 秒内4位时序
-* 分库或许会有时针回拔问题，应予观察；（可用ndb表进行对表）
+* 长度 = datetime数字 (12位YYMMDDHHMMSS） + server_id(2位） + 秒内时序（5位）= 19 位；
+* 分库或许会有时针回拔问题，观察；（后续可用ndb表进行【对表】）
+
+```
+DROP TABLE IF EXISTS g_tick2;
+CREATE TABLE `g_tick2` (
+  `id` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'stub',
+	`ts` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT 'yymmddhhiiss time',
+	`seq` int unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
+
+drop FUNCTION IF EXISTS getDUID;
+DELIMITER $$
+CREATE FUNCTION getDUID()
+RETURNS bigint(20)
+DETERMINISTIC
+BEGIN
+DECLARE rt_ts bigint;
+DECLARE rt_seq int;
+SET @rt_ts := 0+date_format(now(),'%y%m%d%H%i%s');
+INSERT INTO g_tick2(id,ts,seq) VALUES(1,@rt_ts,1) ON DUPLICATE KEY UPDATE seq = @rt_seq := IF(ts<>@rt_ts,1,seq+1), ts = @rt_ts;
+RETURN concat(@rt_ts,LPAD(@@server_id,2,'0'),LPAD(@rt_seq,5,'0'));
+END$$
+DELIMITER ;
+select getDUID();select getDUID();select getDUID();select getDUID();select getDUID();select getDUID();select getDUID();
+
+```
+
+## 例子
+
+```
+CREATE TABLE `uch_user` (
+  `duid` bigint(20) NOT NULL DEFAULT '0',
+  `user_login` varchar(40) NOT NULL,
+  `user_pin` varchar(40) DEFAULT NULL,
+  `user_pass` varchar(40) DEFAULT NULL,
+  `lmt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`duid`),
+  KEY `idx_lmt` (`lmt`),
+  KEY `idx_login` (`user_login`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+DELIMITER $$
+CREATE TRIGGER before_user_insert
+BEFORE INSERT ON uch_user
+FOR EACH ROW 
+BEGIN
+IF NEW.duid IS NULL OR NEW.duid=0 THEN
+SET NEW.duid=getDUID();
+END IF;
+END$$
+DELIMITER ;
+```
+
+## old codes for DUID()
+
 
 ```
 --drop table g_tick;
@@ -52,36 +107,6 @@ select getDUID();
 
 select getDUID();
 ```
-
-## 例子表
-
-```
-CREATE TABLE `uch_user` (
-  `duid` bigint(20) NOT NULL DEFAULT '0',
-  `user_login` varchar(40) NOT NULL,
-  `user_pin` varchar(40) DEFAULT NULL,
-  `user_pass` varchar(40) DEFAULT NULL,
-  `lmt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`duid`),
-  KEY `idx_lmt` (`lmt`),
-  KEY `idx_login` (`user_login`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
-
-DELIMITER $$
-CREATE TRIGGER before_user_insert
-BEFORE INSERT ON uch_user
-FOR EACH ROW 
-BEGIN
-IF NEW.duid IS NULL OR NEW.duid=0 THEN
-SET NEW.duid=getDUID();
-END IF;
-END$$
-DELIMITER ;
-```
-
-## old codes for DUID()
-
-
 
 ```
 DELIMITER $$
