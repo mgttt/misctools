@@ -1,13 +1,12 @@
-```
-set f="%random%.js" && echo with(WScript){if(CreateObject("Scripting.FileSystemObject").FileExists(arguments(1))){Quit();}with(CreateObject("MSXML2.ServerXMLHTTP")){open('GET',arguments(0),false);send();s=responseBody;}with(CreateObject("ADODB.Stream")){Open();Type=1;Write(s);Position=0;SaveToFile(arguments(1),2);Close();}} >%f% && cscript /nologo %f% https://partnernetsoftware.com/wget64.1.20.3.exe w.exe && del %f% /f /q && dir w.exe
-```
+
+> set f="%random%.js" && echo with(WScript){if(CreateObject("Scripting.FileSystemObject").FileExists(arguments(1))){Quit();}with(CreateObject("MSXML2.ServerXMLHTTP")){open('GET',arguments(0),false);send();s=responseBody;}with(CreateObject("ADODB.Stream")){Open();Type=1;Write(s);Position=0;SaveToFile(arguments(1),2);Close();}} >%f% && cscript /nologo %f% https://partnernetsoftware.com/wget64.1.20.3.exe w.exe && del %f% /f /q && dir w.exe
 
 Yup, u now can do anything start from w.exe
 
 for example 
 > w -qO - https://www.google.com/
-> w -n 5 https://github.com/shadowsocks/go-shadowsocks2/releases/download/v0.0.11/shadowsocks2-win64.zip
-> w -n 5 https://download.zerotier.com/dist/ZeroTier%20One.msi
+> w https://github.com/shadowsocks/go-shadowsocks2/releases/download/v0.0.11/shadowsocks2-win64.zip
+> w https://download.zerotier.com/dist/ZeroTier%20One.msi
 
 or
 
