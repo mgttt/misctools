@@ -1,6 +1,14 @@
 #sync from .(vim) to remote ...
 #https://www.petefreitag.com/item/549.cfm
+
 rsync -e "ssh" -rca --delete-after . root@172.31.238.175:src/vim
+rsync -rcavz --progress -e ssh who@remote:remotepath localpath
 
+#echo recursive, checksum, archive, compress, verbose, progress
 
+while true; do (
+rsync -rtv --progress -e "sshpass -f pass ssh" $who@$remotehost:$remotepath $localpath
+ls -al $localpath
+sleep 1
+); done
 
